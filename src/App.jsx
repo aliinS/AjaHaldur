@@ -23,8 +23,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import axios from 'axios'
 
 function App() {
+
+  // axios.get('test').then((response) => {
+  //   console.log(response);
+  // })
 
   return (
     <>
@@ -87,8 +92,8 @@ function App() {
           <Button className='bg-[#040404] w-fit h-fit px-12 mt-4 lg:text-xl lg:py-2'>Try it out</Button>
         </div>
 
-        <div className="flex w-full h-full justify-center mt-24">
-          <img className="lg:abolute lg:-bottom-4" src="/src/assets/preview.jpg" alt="" />
+        <div className="flex w-full h-full justify-center mt-24 p-4">
+          <img className=" lg:absolute lg:-bottom-20 -z-10 lg:w-[1000px] h-fit rounded-lg" src="/src/assets/preview.jpg" alt="" />
         </div>
       </div>
 
