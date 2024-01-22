@@ -5,8 +5,6 @@ import "./App.css";
 import { Menu } from 'lucide-react'
 import logo from './assets/Ajahaldur_Logo_1.svg'
 import preview from './assets/preview.jpg'
-import logo from '../dist/assets/Ajahaldur_Logo_1.svg'
-import preview from '../dist/assets/preview.jpg'
 
 import {
   Sheet,
