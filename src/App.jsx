@@ -3,6 +3,8 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { Menu } from 'lucide-react'
+import logo from './assets/Ajahaldur_Logo_1.svg'
+import preview from './assets/preview.jpg'
 
 import {
   Sheet,
@@ -36,7 +38,7 @@ function App() {
       <div className="flex flex-col relative h-[100vh] p-[2rem] max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center">
           <div>
-            <img src="src/assets/Ajahaldur_Logo_1.svg" alt="" />
+            <img src={logo} alt="" />
           </div>
 
           <div>
@@ -93,7 +95,7 @@ function App() {
         </div>
 
         <div className="flex w-full h-full justify-center mt-24 p-4">
-          <img className=" lg:absolute lg:-bottom-20 -z-10 lg:w-[1000px] h-fit rounded-lg" src="/src/assets/preview.jpg" alt="" />
+          <img className=" lg:absolute lg:-bottom-20 -z-10 lg:w-[1000px] h-fit rounded-lg" src={preview} alt="" />
         </div>
       </div>
 
