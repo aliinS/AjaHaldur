@@ -59,10 +59,11 @@ function App() {
                         <Input placeholder="Email" />
                         <Input placeholder="Password" />
                       </CardContent>
-                      <CardFooter>
+                      <CardFooter className='flex flex-col'>
                         <Button variant="secondary" className="w-full">
                           Log in
                         </Button>
+                        <Button variant="link" className='text-white mt-2'>Forgot Password?</Button>
                       </CardFooter>
                     </Card>
                   </TabsContent>
