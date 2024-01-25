@@ -4,7 +4,7 @@ import App from "@/App";
 import axios from "axios";
 import "@/index.css";
 import { Toaster } from "@/components/ui/sonner";
-import { setAuthToken } from "@/auth/auth.js";
+import { setAuthToken } from "@/api/auth";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;

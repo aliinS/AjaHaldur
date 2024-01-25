@@ -5,7 +5,6 @@ import preview from "@/assets/preview.jpg";
 import { Navigation } from "@/components/elements/navigation";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-
 function Welcome() {
   // axios.get('test').then((response) => {
   //   console.log(response);

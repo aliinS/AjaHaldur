@@ -3,11 +3,13 @@ import Dashboard from "@/pages/Dashboard";
 import Welcome from "@/pages/Welcome";
 import SingleTable from "@/pages/SingleTable";
 import Settings from "@/pages/Settings";
-import SingleGroup from "@/pages/SingleGroup"
-import NotFound from "@/pages/NotFound"
+import SingleGroup from "@/pages/SingleGroup";
+import NotFound from "@/pages/NotFound";
 
 export default function App() {
-  if (localStorage.getItem('user')) {
+
+
+  if (localStorage.getItem("user")) {
     return (
       <>
         <BrowserRouter>

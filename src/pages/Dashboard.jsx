@@ -1,48 +1,134 @@
-import { BarChart3, Boxes, Package, Settings} from "lucide-react";
-import Sidebar, { SidebarItem } from "@/components/Sidebar";
-import DashboardBox from "@/components/ui/DashboardBox";
-import { Link } from "react-router-dom";
-
-
+import { BarChart3, Boxes, Package, RefreshCw, Settings } from "lucide-react";
+import Sidebar, { SidebarItem } from "@/components/elements/Sidebar";
+import DashboardBox from "@/components/elements/DashboardBox";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { fetchPersonalTables } from "@/api/tables";
+import { useState } from "react";
+import axios from "axios";
+import { toast } from "sonner";
 
 export default function Dashboard() {
+  const [personalTables, setPersonalTables] = useState([]);
+  const [page, setPage] = useState(2);
+  const [canLoadMore, setCanLoadMore] = useState(true);
 
-    return(
-        <div className="flex mt-2">
-            <div className="flex">
-                <Sidebar>
-                    <Link to="/dashboard"><SidebarItem icon={<Package size={20} color="#c2c2c2"/>} text="Avaleht" active /> </Link>
-                    <SidebarItem icon={<Boxes size={20} color="#c2c2c2"/>} text="Grupid"  />
-                    <SidebarItem icon={<BarChart3 size={20} color="#c2c2c2"/>} text="Tabelid"  />
-                    <Link to="/settingsTable"><SidebarItem icon={<Settings size={20} color="#c2c2c2"/>} text="Seaded"  /></Link>
-                </Sidebar>
-            </div>
+  const navigate = useNavigate();
 
-            <div className="text-[#c2c2c2] font-thin pt-6">
+  function loadPersonalTables() {
+    axios.get("/sanctum/csrf-cookie").then(() => {
+      axios
+        .post(`api/tables/personal?page=1&amount=4`)
+        .then((response) => {
+          setPersonalTables(response.data.data);
+          toast.success("Data loaded successfully");
+        })
+        .catch((error) => {
+          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          toast.error("Data cannot be retrieved");
+        });
+    });
+  }
 
-                <h1 className="ml-9 text-xl">Minu personaaltabelid:</h1>
-                <div className="flex">
-                   <Link to="/singletable"> <DashboardBox text="Minu tabel 1"/></Link>
-                    <DashboardBox text="Minu tabel"/>
-                    <DashboardBox text="Minu tabel"/>
-                    <DashboardBox text="Minu tabel"/>
-                    <DashboardBox text="Minu tabel"/>
-                    <DashboardBox text="Vaata veel +"/>
-                </div>
+  function loadMorePersonalTables(amount = 4) {
+    axios.get("/sanctum/csrf-cookie").then(() => {
+      axios
+        .post(`api/tables/personal?page=${page}&amount=${amount}`)
+        .then((response) => {
+          setPersonalTables(personalTables.concat(response.data.data));
+          toast.success("Data loaded successfully");
+          if (response.data.last_page == page) {
+            setCanLoadMore(false);
+          }
+        })
+        .catch((error) => {
+          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          toast.error("Data cannot be retrieved");
+        });
+    });
+  }
 
-                <h1 className="ml-9 text-xl pt-4">Minu grupid:</h1>
-                <div className="flex">
-                    <Link to="/grouptable"><DashboardBox text="Grupi nimetus"/> </Link>
-                    <DashboardBox text="Grupi nimetus"/>
-                    <DashboardBox text="Grupi nimetus"/>
-                    <DashboardBox text="Grupi nimetus"/>
-                    <DashboardBox text="Grupi nimetus"/>                    
-                    <DashboardBox text="Vaata veel +"/>
-                </div>
-                
-            </div>
+  return (
+    <div className="flex">
+      <div className="flex">
+        <Sidebar>
+          <button
+            className="w-8 h-8 flex justify-center items-center"
+            onClick={() => {
+              navigate("/dashboard");
+            }}
+          >
+            <SidebarItem
+              icon={<Package size={20} color="#c2c2c2" />}
+              text="Avaleht"
+              active
+            />
+          </button>
+          <button
+            className="w-8 h-8 flex justify-center items-center"
+            // onClick={() => {
+            //   navigate("/dashboard");
+            // }}
+          >
+            <SidebarItem
+              icon={<Boxes size={20} color="#c2c2c2" />}
+              text="Grupid"
+            />
+          </button>
+          <button
+            className="w-8 h-8 flex justify-center items-center"
+            // onClick={() => {
+            //   navigate("/dashboard");
+            // }}
+          >
+            <SidebarItem
+              icon={<BarChart3 size={20} color="#c2c2c2" />}
+              text="Tabelid"
+            />
+          </button>
+          <button
+            className="w-8 h-8 flex justify-center items-center"
+            onClick={() => {
+              navigate("/settingsTable");
+            }}
+          >
+            <SidebarItem
+              icon={<Settings size={20} color="#c2c2c2" />}
+              text="Seaded"
+            />
+          </button>
+        </Sidebar>
+      </div>
 
+      <div className="text-[#c2c2c2] font-thin p-4 w-full ml-14">
+        <div className="w-full h-fit p-4 flex flex-col gap-4">
+          <h1 className="text-2xl font-bold">Personal tables:</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+            {personalTables?.map((data) => (
+              <DashboardBox key={data.id} text={data.title} />
+            ))}
+          </div>
+          <Button
+            className={personalTables.length > 0 ? "hidden" : "flex gap-2"}
+            onClick={() => {
+              loadPersonalTables();
+            }}
+          >
+            Init load
+          </Button>
+          <Button
+            variant="secondary"
+            disabled={!canLoadMore}
+            className={personalTables.length === 0 ? "hidden" : "flex gap-2"}
+            onClick={() => {
+              loadMorePersonalTables();
+              setPage(page + 1);
+            }}
+          >
+            Load more <RefreshCw />
+          </Button>
         </div>
-    );
-
+      </div>
+    </div>
+  );
 }

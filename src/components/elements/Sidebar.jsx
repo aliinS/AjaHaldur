@@ -1,5 +1,6 @@
 import { useContext, createContext, useState } from "react";
 import { Link } from "react-router-dom";
+import logo from '@/assets/Ajahaldur_Logo_1.svg'
 
 
 const SidebarContext = createContext()
@@ -8,14 +9,14 @@ export default function Sidebar({ children }) {
     const expanded = useState(true)
   
     return (
-        <aside className="h-screen w-16 flex">
+        <aside className="h-screen w-16 flex border-r fixed">
             <nav className="h-full flex flex-col shadow-sm ">
                 <div className="pb-2 flex justify-between items-center mb-14">
-                    <Link to="/dashboard"><img src="/src/assets/Ajahaldur_Logo_1.svg"alt="" /> </Link>
+                    <Link to="/"><img src={logo} alt="" /> </Link>
                 </div>
 
                 <SidebarContext.Provider value={{ expanded }}>
-                    <ul className="flex-1 px-3">{children}</ul>
+                    <ul className="grid grid-cols-1 gap-4 px-4">{children}</ul>
                 </SidebarContext.Provider>
             </nav>
         </aside>
@@ -28,13 +29,13 @@ export function SidebarItem({ icon, text, active }) {
   return (
     <li
       className={`
-        relative flex items-center py-2 pl-2 my-1
+        relative flex items-center p-2
         font-medium rounded-md cursor-pointer
         transition-colors group
         ${
           active
-            ? "bg-gradient-to-tr from-zinc-900 to-gray-950"
-            : ""
+            ? "bg-gray-700"
+            : "bg-gray-800/50"
         }
     `}
     >
