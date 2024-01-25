@@ -7,6 +7,7 @@ import { fetchPersonalTables } from "@/api/tables";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
+import { useEffect } from "react";
 
 export default function Dashboard() {
   const [personalTables, setPersonalTables] = useState([]);
@@ -14,39 +15,58 @@ export default function Dashboard() {
   const [canLoadMore, setCanLoadMore] = useState(true);
 
   const navigate = useNavigate();
+  let promise = null;
 
   function loadPersonalTables() {
     axios.get("/sanctum/csrf-cookie").then(() => {
-      axios
+      promise = axios
         .post(`api/tables/personal?page=1&amount=4`)
         .then((response) => {
           setPersonalTables(response.data.data);
-          toast.success("Data loaded successfully");
+          promise = null;
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-          toast.error("Data cannot be retrieved");
         });
+
+      toast.promise(promise, {
+        loading: "Loading...",
+        success: (data) => {
+          return `Data loaded successfully`;
+        },
+        error: "Data cannot be retrieved",
+      });
     });
   }
 
   function loadMorePersonalTables(amount = 4) {
     axios.get("/sanctum/csrf-cookie").then(() => {
-      axios
+      promise = axios
         .post(`api/tables/personal?page=${page}&amount=${amount}`)
         .then((response) => {
           setPersonalTables(personalTables.concat(response.data.data));
-          toast.success("Data loaded successfully");
+          promise = null;
           if (response.data.last_page == page) {
             setCanLoadMore(false);
           }
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-          toast.error("Data cannot be retrieved");
         });
+
+      toast.promise(promise, {
+        loading: "Loading...",
+        success: (data) => {
+          return `Data loaded successfully`;
+        },
+        error: "Data cannot be retrieved",
+      });
     });
   }
+
+  useEffect(() => {
+    loadPersonalTables();
+  }, []);
 
   return (
     <div className="flex">
@@ -103,9 +123,9 @@ export default function Dashboard() {
       <div className="text-[#c2c2c2] font-thin p-4 w-full ml-14">
         <div className="w-full h-fit p-4 flex flex-col gap-4">
           <h1 className="text-2xl font-bold">Personal tables:</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full">
             {personalTables?.map((data) => (
-              <DashboardBox key={data.id} text={data.title} />
+              <DashboardBox key={data.id} text={data.title} createdAt={data.created_at} updatedAt={data.updated_at} />
             ))}
           </div>
           <Button
