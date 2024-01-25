@@ -17,6 +17,7 @@ export default function App() {
             <Route path="singletable" element={<SingleTable />} />
             <Route path="settingsTable" element={<Settings />} />
             <Route path="grouptable" element={<SingleGroup />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </>
