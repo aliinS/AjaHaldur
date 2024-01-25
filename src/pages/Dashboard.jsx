@@ -8,6 +8,20 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { useEffect } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Input } from "@/components/ui/input"
+
+
 
 export default function Dashboard() {
   const [personalTables, setPersonalTables] = useState([]);
@@ -184,6 +198,20 @@ export default function Dashboard() {
       <div className="text-[#c2c2c2] font-thin p-4 w-full ml-14">
         <div id="PersonalTables" className="w-full h-fit p-4 flex flex-col gap-4">
           <h1 className="text-2xl font-bold">Personal tables:</h1>
+          <AlertDialog>
+            <Button variant="secondary" className='w-fit px-6'><AlertDialogTrigger>Lisa uus!</AlertDialogTrigger></Button>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle className='flex w-full justify-center'>Loo uus tabel</AlertDialogTitle>
+                <Input type="email" className='text-white' placeholder="Tabeli nimi" />
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>Continue</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+
           <div className={personalTables.length === 0 ? "hidden" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"}>
             {personalTables?.map((data) => (
               <DashboardBox key={data.id} text={data.title} createdAt={data.created_at} updatedAt={data.updated_at} />
