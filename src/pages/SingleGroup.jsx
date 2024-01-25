@@ -1,5 +1,5 @@
 import { BarChart3, Boxes, Package, Settings} from "lucide-react";
-import Sidebar, { SidebarItem } from "../components/Sidebar";
+import Sidebar, { SidebarItem } from "@/components/Sidebar";
 import { Link } from "react-router-dom";
 
 export default function SingleGroup() {

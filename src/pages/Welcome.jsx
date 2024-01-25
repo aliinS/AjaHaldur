@@ -1,4 +1,4 @@
-import "../App.css";
+import "@/App.css";
 import { AlertTriangle } from "lucide-react";
 import logo from "@/assets/Ajahaldur_Logo_1.svg";
 import preview from "@/assets/preview.jpg";

@@ -1,6 +1,6 @@
 import { BarChart3, Boxes, Package, Settings} from "lucide-react";
-import Sidebar, { SidebarItem } from "../components/Sidebar";
-import DashboardBox from "../components/ui/DashboardBox";
+import Sidebar, { SidebarItem } from "@/components/Sidebar";
+import DashboardBox from "@/components/ui/DashboardBox";
 import { Link } from "react-router-dom";
 
 
