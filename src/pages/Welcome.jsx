@@ -1,28 +1,4 @@
-import { useState } from "react";
-import { Menu } from "lucide-react";
 import "../App.css";
-import { Outlet, Link } from "react-router-dom";
-
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import axios from "axios";
-
 import { AlertTriangle } from "lucide-react";
 import logo from "@/assets/Ajahaldur_Logo_1.svg";
 import preview from "@/assets/preview.jpg";
