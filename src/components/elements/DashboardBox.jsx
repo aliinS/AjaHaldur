@@ -1,5 +1,5 @@
 
-const DashboardBox = ({text, createdAt, updatedAt}) => {
+const DashboardBox = ({text, createdAt, updatedAt, id}) => {
   const squareStyle = {
     width: '100%',
     height: '200px',
