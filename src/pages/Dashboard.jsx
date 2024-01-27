@@ -200,7 +200,7 @@ export default function Dashboard() {
           <h1 className="text-2xl font-bold">Personal tables:</h1>
           <AlertDialog>
             <Button variant="secondary" className='w-fit px-6'><AlertDialogTrigger>Lisa uus!</AlertDialogTrigger></Button>
-            <AlertDialogContent>
+            <AlertDialogContent className='bg-[#2C2C2C]'>
               <AlertDialogHeader>
                 <AlertDialogTitle className='flex w-full justify-center'>Loo uus tabel</AlertDialogTitle>
                 <Input type="email" className='text-white' placeholder="Tabeli nimi" />
