@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "@/pages/Dashboard";
 import Welcome from "@/pages/Welcome";
-import SingleTable from "@/pages/SingleTable";
+import Table from "@/pages/Table";
 import Settings from "@/pages/Settings";
 import SingleGroup from "@/pages/SingleGroup";
 import NotFound from "@/pages/NotFound";
@@ -14,9 +14,9 @@ export default function App() {
       <>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Welcome />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="singletable" element={<SingleTable />} />
+            <Route path="table/:id" element={<Table />} />
             <Route path="settingsTable" element={<Settings />} />
             <Route path="grouptable" element={<SingleGroup />} />
             <Route path="*" element={<NotFound />} />

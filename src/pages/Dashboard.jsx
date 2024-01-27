@@ -1,4 +1,4 @@
-import { BarChart3, Boxes, Package, RefreshCw, Settings } from "lucide-react";
+import { BarChart3, Boxes, LogOut, Package, RefreshCw, Settings } from "lucide-react";
 import Sidebar, { SidebarItem } from "@/components/elements/Sidebar";
 import DashboardBox from "@/components/elements/DashboardBox";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,6 +20,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
+import { logout } from "@/api/auth";
 
 export default function Dashboard() {
   const [personalTables, setPersonalTables] = useState([]);
@@ -41,8 +42,10 @@ export default function Dashboard() {
         .then((response) => {
           setPersonalTables(response.data.data);
           promise = null;
-          if (response.data.last_page == groupsPage) {
-            setCanLoadMoreGroups(false);
+          if (response.data.last_page == page) {
+            setCanLoadMore(false);
+          } else {
+            setCanLoadMore(true);
           }
           setPage(2);
         })
@@ -69,6 +72,8 @@ export default function Dashboard() {
           promise = null;
           if (response.data.last_page == page) {
             setCanLoadMore(false);
+          } else {
+            setCanLoadMore(true);
           }
         })
         .catch((error) => {
@@ -94,6 +99,8 @@ export default function Dashboard() {
           promise = null;
           if (response.data.last_page == groupsPage) {
             setCanLoadMoreGroups(false);
+          } else {
+            setCanLoadMoreGroups(true);
           }
           setGroupsPage(2);
         })
@@ -121,6 +128,8 @@ export default function Dashboard() {
           setGroupsPage(groupsPage + 1);
           if (response.data.last_page == groupsPage) {
             setCanLoadMoreGroups(false);
+          } else {
+            setCanLoadMoreGroups(true);
           }
         })
         .catch((error) => {
@@ -179,7 +188,7 @@ export default function Dashboard() {
           >
             <SidebarItem
               icon={<Package size={20} color="#c2c2c2" />}
-              text="Avaleht"
+              text="Dashboard"
               active
             />
           </button>
@@ -191,7 +200,7 @@ export default function Dashboard() {
           >
             <SidebarItem
               icon={<Boxes size={20} color="#c2c2c2" />}
-              text="Grupid"
+              text="Groups"
             />
           </button>
           <button
@@ -202,7 +211,7 @@ export default function Dashboard() {
           >
             <SidebarItem
               icon={<BarChart3 size={20} color="#c2c2c2" />}
-              text="Tabelid"
+              text="Tables"
             />
           </button>
           <button
@@ -213,7 +222,18 @@ export default function Dashboard() {
           >
             <SidebarItem
               icon={<Settings size={20} color="#c2c2c2" />}
-              text="Seaded"
+              text="Settings"
+            />
+          </button>
+          <button
+            className="w-8 h-8 flex justify-center items-center"
+            onClick={() => {
+              logout()
+            }}
+          >
+            <SidebarItem
+              icon={<LogOut size={20} color="#c2c2c2" />}
+              text="Loguout"
             />
           </button>
         </Sidebar>
@@ -270,6 +290,7 @@ export default function Dashboard() {
                 text={data.title}
                 createdAt={data.created_at}
                 updatedAt={data.updated_at}
+                id={data.id}
               />
             ))}
           </div>

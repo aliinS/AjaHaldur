@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const DashboardBox = ({text, createdAt, updatedAt, id}) => {
   const squareStyle = {
@@ -10,6 +12,8 @@ const DashboardBox = ({text, createdAt, updatedAt, id}) => {
     border: '1px solid #c2c2c2',
   };
 
+  const navigate = useNavigate();
+
   const created_at = new Date(createdAt);
   const updated_at = new Date(updatedAt);
 
@@ -18,10 +22,15 @@ const DashboardBox = ({text, createdAt, updatedAt, id}) => {
   const formattedUpdated_at = `${updated_at.getDate()} ${updated_at.toLocaleString('En-US', { month: 'short' })}, ${updated_at.getFullYear()}`;
 
   return (
-    <div className="flex flex-col w-full h-[200px] rounded-md border border-[#c2c2c2] p-4">
+    <div className="flex flex-col gap-2 w-full h-[200px] rounded-md border border-[#c2c2c2] p-4">
       <h1 className="text-xl font-bold h-full">{text}</h1>
       <p className={createdAt == updatedAt ? "hidden" : "block"}>Updated: {formattedUpdated_at}</p>
       <p>Created: {formattedCreated_at}</p>
+      <Button variant="secondary" onClick={
+        () => {
+          navigate(`/table/${id}`);
+        }
+      }>Open</Button>
     </div>
   );
 };

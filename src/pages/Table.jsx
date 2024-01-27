@@ -1,14 +1,43 @@
-import { BarChart3, Boxes, Package, Settings } from "lucide-react";
+import { BarChart3, Boxes, LogOut, Package, Settings } from "lucide-react";
 import Sidebar, { SidebarItem } from "@/components/elements/Sidebar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "sonner";
+import { logout } from "@/api/auth";
 
 export default function SingleTable() {
+  const { id } = useParams();
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
+
+  let promise = null;
+
+  useEffect(() => {
+    axios.get("/sanctum/csrf-cookie").then(() => {
+      promise = axios
+        .post(`api/tables/show/${id}`)
+        .then((response) => {
+          setData(response.data.table);
+        })
+        .catch((error) => {
+          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+        });
+
+      toast.promise(promise, {
+        loading: "Loading...",
+        success: (data) => {
+          return `Table created successfully`;
+        },
+        error: "Table cannot be created",
+      });
+    });
+  }, []);
 
   return (
     <div className="flex mt-2">
       <div className="flex">
-        <Sidebar>
+      <Sidebar>
           <button
             className="w-8 h-8 flex justify-center items-center"
             onClick={() => {
@@ -17,7 +46,7 @@ export default function SingleTable() {
           >
             <SidebarItem
               icon={<Package size={20} color="#c2c2c2" />}
-              text="Avaleht"
+              text="Dashboard"
               active
             />
           </button>
@@ -29,7 +58,7 @@ export default function SingleTable() {
           >
             <SidebarItem
               icon={<Boxes size={20} color="#c2c2c2" />}
-              text="Grupid"
+              text="Groups"
             />
           </button>
           <button
@@ -40,7 +69,7 @@ export default function SingleTable() {
           >
             <SidebarItem
               icon={<BarChart3 size={20} color="#c2c2c2" />}
-              text="Tabelid"
+              text="Tables"
             />
           </button>
           <button
@@ -51,14 +80,25 @@ export default function SingleTable() {
           >
             <SidebarItem
               icon={<Settings size={20} color="#c2c2c2" />}
-              text="Seaded"
+              text="Settings"
+            />
+          </button>
+          <button
+            className="w-8 h-8 flex justify-center items-center"
+            onClick={() => {
+              logout()
+            }}
+          >
+            <SidebarItem
+              icon={<LogOut size={20} color="#c2c2c2" />}
+              text="Loguout"
             />
           </button>
         </Sidebar>
       </div>
 
       <div className="text-[#c2c2c2] font-thin pt-6 ml-14">
-        <h1 className="ml-9 text-xl">Just see konkreetne tabel andmebaasist</h1>
+        <h1 className="ml-9 text-xl">{data?.title}</h1>
       </div>
     </div>
   );

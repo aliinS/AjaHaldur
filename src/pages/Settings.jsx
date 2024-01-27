@@ -1,6 +1,7 @@
-import { BarChart3, Boxes, Package, Settings } from "lucide-react";
+import { BarChart3, Boxes, LogOut, Package, Settings } from "lucide-react";
 import Sidebar, { SidebarItem } from "@/components/elements/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
+import { logout } from "@/api/auth";
 
 export default function SettingsTable() {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ export default function SettingsTable() {
   return (
     <div className="flex mt-2">
       <div className="flex">
-        <Sidebar>
+      <Sidebar>
           <button
             className="w-8 h-8 flex justify-center items-center"
             onClick={() => {
@@ -17,7 +18,8 @@ export default function SettingsTable() {
           >
             <SidebarItem
               icon={<Package size={20} color="#c2c2c2" />}
-              text="Avaleht"
+              text="Dashboard"
+              
             />
           </button>
           <button
@@ -28,7 +30,7 @@ export default function SettingsTable() {
           >
             <SidebarItem
               icon={<Boxes size={20} color="#c2c2c2" />}
-              text="Grupid"
+              text="Groups"
             />
           </button>
           <button
@@ -39,7 +41,7 @@ export default function SettingsTable() {
           >
             <SidebarItem
               icon={<BarChart3 size={20} color="#c2c2c2" />}
-              text="Tabelid"
+              text="Tables"
             />
           </button>
           <button
@@ -50,8 +52,19 @@ export default function SettingsTable() {
           >
             <SidebarItem
               icon={<Settings size={20} color="#c2c2c2" />}
-              text="Seaded"
+              text="Settings"
               active
+            />
+          </button>
+          <button
+            className="w-8 h-8 flex justify-center items-center"
+            onClick={() => {
+              logout()
+            }}
+          >
+            <SidebarItem
+              icon={<LogOut size={20} color="#c2c2c2" />}
+              text="Loguout"
             />
           </button>
         </Sidebar>
