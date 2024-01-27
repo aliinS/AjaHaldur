@@ -71,7 +71,6 @@ export default function Dashboard() {
     });
   }
 
-
   function loadGroups() {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
@@ -87,7 +86,7 @@ export default function Dashboard() {
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
         });
-        
+
       toast.promise(promise, {
         loading: "Loading...",
         success: (data) => {
@@ -127,6 +126,8 @@ export default function Dashboard() {
   useEffect(() => {
     loadPersonalTables();
     loadGroups();
+
+    console.log(axios.defaults.headers.common['Authorization']);
   }, []);
 
   return (
@@ -182,16 +183,38 @@ export default function Dashboard() {
       </div>
 
       <div className="text-[#c2c2c2] font-thin p-4 w-full ml-14">
-        <div id="PersonalTables" className="w-full h-fit p-4 flex flex-col gap-4">
+        <div
+          id="PersonalTables"
+          className="w-full h-fit p-4 flex flex-col gap-4"
+        >
           <h1 className="text-2xl font-bold">Personal tables:</h1>
-          <div className={personalTables.length === 0 ? "hidden" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"}>
+          <div
+            className={
+              personalTables.length === 0
+                ? "hidden"
+                : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"
+            }
+          >
             {personalTables?.map((data) => (
-              <DashboardBox key={data.id} text={data.title} createdAt={data.created_at} updatedAt={data.updated_at} />
+              <DashboardBox
+                key={data.id}
+                text={data.title}
+                createdAt={data.created_at}
+                updatedAt={data.updated_at}
+              />
             ))}
           </div>
-          <div className={personalTables.length === 0 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full" : "hidden"}>
+          <div
+            className={
+              personalTables.length === 0
+                ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"
+                : "hidden"
+            }
+          >
             <div className="flex flex-col w-full h-[200px] rounded-md border border-[#c2c2c2] p-4">
-              <h1 className="text-xl font-bold h-full">You don't have any tables right now</h1>
+              <h1 className="text-xl font-bold h-full">
+                You don't have any tables right now
+              </h1>
             </div>
           </div>
           <Button
@@ -206,18 +229,36 @@ export default function Dashboard() {
             Load more <RefreshCw />
           </Button>
         </div>
-        
-        
+
         <div id="Groups" className="w-full h-fit p-4 flex flex-col gap-4">
           <h1 className="text-2xl font-bold">Your groups:</h1>
-          <div className={groups.length === 0 ? "hidden" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"}>
+          <div
+            className={
+              groups.length === 0
+                ? "hidden"
+                : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"
+            }
+          >
             {groups?.map((data) => (
-              <DashboardBox key={data.id} text={data.name} createdAt={data.created_at} updatedAt={data.updated_at} />
+              <DashboardBox
+                key={data.id}
+                text={data.name}
+                createdAt={data.created_at}
+                updatedAt={data.updated_at}
+              />
             ))}
           </div>
-          <div className={groups.length === 0 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full" : "hidden"}>
+          <div
+            className={
+              groups.length === 0
+                ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"
+                : "hidden"
+            }
+          >
             <div className="flex flex-col w-full h-[200px] rounded-md border border-[#c2c2c2] p-4">
-              <h1 className="text-xl font-bold h-full">You don't have any groups right now</h1>
+              <h1 className="text-xl font-bold h-full">
+                You don't have any groups right now
+              </h1>
             </div>
           </div>
           <Button
