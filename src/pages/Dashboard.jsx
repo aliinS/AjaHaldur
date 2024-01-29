@@ -151,7 +151,7 @@ export default function Dashboard() {
       promise = axios
         .post(`api/tables/store`, {
           title: tableName,
-          type: "peronal",
+          type: "personal",
         })
         .then((response) => {
           console.log(response.data);
