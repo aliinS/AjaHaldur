@@ -93,7 +93,7 @@ export default function Dashboard() {
   function loadGroups() {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/groups?page=1&amount=4`)
+        .post(`api/groups?page=1&amount=4`)
         .then((response) => {
           setGroups(response.data.data);
           promise = null;
@@ -121,7 +121,7 @@ export default function Dashboard() {
   function loadMoreGroups(amount = 4) {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/groups?page=${page}&amount=${amount}`)
+        .post(`api/groups?page=${page}&amount=${amount}`)
         .then((response) => {
           setGroups(groups.concat(response.data.data));
           promise = null;
