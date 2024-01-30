@@ -12,7 +12,44 @@ axios.defaults.withXSRFToken = true;
 
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token"));
+  axios.get("/sanctum/csrf-cookie").then(() => {
+    axios
+      .post(`api/me`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+        axios
+          .post(`api/refresh`, {
+            email: JSON.parse(localStorage.getItem("user")).email,
+          })
+          .then((response) => {
+            setAuthToken(response.data.access_token);
+            console.log(response.data);
+            localStorage.setItem("token", response.data.access_token);
+            window.location.reload();
+            // axios
+            //   .post(`api/me`)
+            //   .then((response) => {
+            //     console.log(response.data);
+            //   })
+            //   .catch((error) => {
+            //     console.log(
+            //       "%cERROR: ",
+            //       "color: tomato; font-weight: bold;",
+            //       error
+            //     );
+            //   });
+          })
+          .catch((error) => {
+            console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          });
+      });
+  });
 }
+
+
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>

@@ -103,6 +103,7 @@ export function logout() {
         })
             .then(() => {
                 localStorage.removeItem('user');
+                localStorage.removeItem('token');
 
                 axios.defaults.headers.common['Authorization'] = null
                 setAuthToken()
