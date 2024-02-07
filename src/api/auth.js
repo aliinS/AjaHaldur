@@ -77,6 +77,7 @@ export function register(name, email, password) {
                 setAuthToken(response.data.token)
                 // console.log(axios.defaults.headers.common['Authorization']);
                 fetch()
+                login(email, password)
             })
             .catch((error) => {
                 console.log(error);
@@ -109,7 +110,7 @@ export function logout() {
                 setAuthToken()
 
                 // TODO: If router exists, the replace it with route to homepage
-                location.reload();
+                window.location.replace('/');
             })
             .catch(error => {
                 // TODO: Error handling

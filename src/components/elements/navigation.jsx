@@ -54,7 +54,7 @@ const Navigation = () => {
             <AlertDialogTrigger>Log in</AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogTitle>Log in</AlertDialogTitle>
               </AlertDialogHeader>
               <form
                 onSubmit={(event) => {
@@ -93,15 +93,47 @@ const Navigation = () => {
             <AlertDialogTrigger>Sign up</AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogTitle>Sign up</AlertDialogTitle>
+                {/* If terms and conditions ever exist */}
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
+                  By signing up, you agree to our terms and conditions
                 </AlertDialogDescription>
               </AlertDialogHeader>
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  register(name, email, password);
+                }}
+                className="flex flex-col gap-4 text-white"
+              >
+                <Input
+                  placeholder="Name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                />
+                <Input
+                  placeholder="Email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+                <Input
+                  placeholder="Password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+                <Button className="w-full">Sign up</Button>
+              </form>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>Continue</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
