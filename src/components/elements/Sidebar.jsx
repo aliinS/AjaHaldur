@@ -1,50 +1,44 @@
 import { useContext, createContext, useState } from "react";
 import { Link } from "react-router-dom";
-import logo from '@/assets/Ajahaldur_Logo_1.svg'
+import logo from "@/assets/Ajahaldur_Logo_1.svg";
+import { Separator } from "@/components/ui/separator";
 
-
-const SidebarContext = createContext()
+const SidebarContext = createContext();
 
 export default function Sidebar({ children }) {
-    const expanded = useState(true)
-  
-    return (
-        <aside className="h-screen w-16 flex border-r fixed">
-            <nav className="h-full flex flex-col shadow-sm ">
-                <div className="pb-2 flex justify-between items-center mb-14">
-                    <Link to="/"><img src={logo} alt="" /> </Link>
-                </div>
+  const expanded = useState(true);
 
-                <SidebarContext.Provider value={{ expanded }}>
-                    <ul className="grid grid-cols-1 gap-4 px-4">{children}</ul>
-                </SidebarContext.Provider>
-            </nav>
-        </aside>
-    )
+  return (
+    <>
+      <nav className="h-screen border-r border-gray-600 flex flex-col shadow-sm bg-black w-16">
+        <div className="flex justify-between items-center">
+          <Link to="/">
+            <img src={logo} alt="" />{" "}
+          </Link>
+        </div>
+        <Separator />
+        <SidebarContext.Provider value={{ expanded }}>
+          <div className="grid grid-cols-1 gap-4 p-4 h-full">{children}</div>
+        </SidebarContext.Provider>
+      </nav>
+    </>
+  );
 }
 
 export function SidebarItem({ icon, text, active }) {
-  const { expanded } = useContext(SidebarContext)
-  
+  const { expanded } = useContext(SidebarContext);
+
   return (
-    <li
+    <div
       className={`
         relative flex items-center p-2
         font-medium rounded-md cursor-pointer
-        transition-colors group
-        ${
-          active
-            ? "bg-gray-700"
-            : "bg-gray-800/50"
-        }
+        transition-colors group border-2 border-gray-600/50
+        ${active ? "bg-gray-800" : "bg-gray-800/50"}
     `}
     >
       {icon}
-      <span
-        className={`overflow-hidden transition-all`}
-      >
-
-      </span>
+      <span className={`overflow-hidden transition-all`}></span>
 
       {expanded && (
         <div
@@ -58,7 +52,6 @@ export function SidebarItem({ icon, text, active }) {
           {text}
         </div>
       )}
-    </li>
-  )
+    </div>
+  );
 }
-

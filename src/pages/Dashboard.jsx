@@ -1,4 +1,11 @@
-import { BarChart3, Boxes, LogOut, Package, RefreshCw, Settings } from "lucide-react";
+import {
+  BarChart3,
+  Boxes,
+  LogOut,
+  Package,
+  RefreshCw,
+  Settings,
+} from "lucide-react";
 import Sidebar, { SidebarItem } from "@/components/elements/Sidebar";
 import DashboardBox from "@/components/elements/DashboardBox";
 import { Link, useNavigate } from "react-router-dom";
@@ -180,66 +187,73 @@ export default function Dashboard() {
     <div className="flex">
       <div className="flex">
         <Sidebar>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            onClick={() => {
-              navigate("/dashboard");
-            }}
-          >
-            <SidebarItem
-              icon={<Package size={20} color="#c2c2c2" />}
-              text="Dashboard"
-              active
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            // onClick={() => {
-            //   navigate("/dashboard");
-            // }}
-          >
-            <SidebarItem
-              icon={<Boxes size={20} color="#c2c2c2" />}
-              text="Groups"
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            // onClick={() => {
-            //   navigate("/dashboard");
-            // }}
-          >
-            <SidebarItem
-              icon={<BarChart3 size={20} color="#c2c2c2" />}
-              text="Tables"
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            onClick={() => {
-              navigate("/settingsTable");
-            }}
-          >
-            <SidebarItem
-              icon={<Settings size={20} color="#c2c2c2" />}
-              text="Settings"
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            onClick={() => {
-              logout()
-            }}
-          >
-            <SidebarItem
-              icon={<LogOut size={20} color="#c2c2c2" />}
-              text="Loguout"
-            />
-          </button>
+          <div className="flex flex-col justify-between h-full ">
+            <div className="flex flex-col gap-4">
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                onClick={() => {
+                  navigate("/dashboard");
+                }}
+              >
+                <SidebarItem
+                  icon={<Package size={20} color="#c2c2c2" />}
+                  text="Dashboard"
+                  active
+                />
+              </button>
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                // onClick={() => {
+                //   navigate("/dashboard");
+                // }}
+              >
+                <SidebarItem
+                  icon={<Boxes size={20} color="#c2c2c2" />}
+                  text="Groups"
+                />
+              </button>
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                // onClick={() => {
+                //   navigate("/dashboard");
+                // }}
+              >
+                <SidebarItem
+                  icon={<BarChart3 size={20} color="#c2c2c2" />}
+                  text="Tables"
+                />
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                onClick={() => {
+                  navigate("/settingsTable");
+                }}
+              >
+                <SidebarItem
+                  icon={<Settings size={20} color="#c2c2c2" />}
+                  text="Settings"
+                />
+              </button>
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                <SidebarItem
+                  icon={<LogOut size={20} color="#c2c2c2" />}
+                  text="Loguout"
+                />
+              </button>
+            </div>
+          </div>
         </Sidebar>
       </div>
 
-      <div className="text-[#c2c2c2] font-thin p-4 w-full ml-14">
+      <div className="text-[#c2c2c2] font-thin p-2 w-full">
         <div
           id="PersonalTables"
           className="w-full h-fit p-4 flex flex-col gap-4"
@@ -249,11 +263,9 @@ export default function Dashboard() {
             <Button variant="secondary" className="w-fit px-6">
               <AlertDialogTrigger>Lisa uus!</AlertDialogTrigger>
             </Button>
-            <AlertDialogContent className="bg-[#2C2C2C]">
+            <AlertDialogContent className="">
               <AlertDialogHeader>
-                <AlertDialogTitle className="flex w-full justify-center">
-                  Loo uus tabel
-                </AlertDialogTitle>
+                <AlertDialogTitle>Loo uus tabel</AlertDialogTitle>
                 <Input
                   type="email"
                   value={tableName}

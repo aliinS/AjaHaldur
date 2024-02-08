@@ -9,63 +9,70 @@ export default function SingleGroup() {
   return (
     <div className="flex mt-2">
       <div className="flex">
-      <Sidebar>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            onClick={() => {
-              navigate("/dashboard");
-            }}
-          >
-            <SidebarItem
-              icon={<Package size={20} color="#c2c2c2" />}
-              text="Dashboard"
-              active
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            // onClick={() => {
-            //   navigate("/dashboard");
-            // }}
-          >
-            <SidebarItem
-              icon={<Boxes size={20} color="#c2c2c2" />}
-              text="Groups"
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            // onClick={() => {
-            //   navigate("/dashboard");
-            // }}
-          >
-            <SidebarItem
-              icon={<BarChart3 size={20} color="#c2c2c2" />}
-              text="Tables"
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            onClick={() => {
-              navigate("/settingsTable");
-            }}
-          >
-            <SidebarItem
-              icon={<Settings size={20} color="#c2c2c2" />}
-              text="Settings"
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            onClick={() => {
-              logout()
-            }}
-          >
-            <SidebarItem
-              icon={<LogOut size={20} color="#c2c2c2" />}
-              text="Loguout"
-            />
-          </button>
+        <Sidebar>
+          <div className="flex flex-col justify-between h-full ">
+            <div className="flex flex-col gap-4">
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                onClick={() => {
+                  navigate("/dashboard");
+                }}
+              >
+                <SidebarItem
+                  icon={<Package size={20} color="#c2c2c2" />}
+                  text="Dashboard"
+                  active
+                />
+              </button>
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                // onClick={() => {
+                //   navigate("/dashboard");
+                // }}
+              >
+                <SidebarItem
+                  icon={<Boxes size={20} color="#c2c2c2" />}
+                  text="Groups"
+                />
+              </button>
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                // onClick={() => {
+                //   navigate("/dashboard");
+                // }}
+              >
+                <SidebarItem
+                  icon={<BarChart3 size={20} color="#c2c2c2" />}
+                  text="Tables"
+                />
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                onClick={() => {
+                  navigate("/settingsTable");
+                }}
+              >
+                <SidebarItem
+                  icon={<Settings size={20} color="#c2c2c2" />}
+                  text="Settings"
+                />
+              </button>
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                <SidebarItem
+                  icon={<LogOut size={20} color="#c2c2c2" />}
+                  text="Loguout"
+                />
+              </button>
+            </div>
+          </div>
         </Sidebar>
       </div>
 

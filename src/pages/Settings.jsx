@@ -7,71 +7,81 @@ export default function SettingsTable() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex mt-2">
+    <div className="flex">
       <div className="flex">
-      <Sidebar>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            onClick={() => {
-              navigate("/dashboard");
-            }}
-          >
-            <SidebarItem
-              icon={<Package size={20} color="#c2c2c2" />}
-              text="Dashboard"
-              
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            // onClick={() => {
-            //   navigate("/dashboard");
-            // }}
-          >
-            <SidebarItem
-              icon={<Boxes size={20} color="#c2c2c2" />}
-              text="Groups"
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            // onClick={() => {
-            //   navigate("/dashboard");
-            // }}
-          >
-            <SidebarItem
-              icon={<BarChart3 size={20} color="#c2c2c2" />}
-              text="Tables"
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            onClick={() => {
-              navigate("/settingsTable");
-            }}
-          >
-            <SidebarItem
-              icon={<Settings size={20} color="#c2c2c2" />}
-              text="Settings"
-              active
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            onClick={() => {
-              logout()
-            }}
-          >
-            <SidebarItem
-              icon={<LogOut size={20} color="#c2c2c2" />}
-              text="Loguout"
-            />
-          </button>
+        <Sidebar>
+          <div className="flex flex-col justify-between h-full ">
+            <div className="flex flex-col gap-4">
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                onClick={() => {
+                  navigate("/dashboard");
+                }}
+              >
+                <SidebarItem
+                  icon={<Package size={20} color="#c2c2c2" />}
+                  text="Dashboard"
+                />
+              </button>
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                // onClick={() => {
+                //   navigate("/dashboard");
+                // }}
+              >
+                <SidebarItem
+                  icon={<Boxes size={20} color="#c2c2c2" />}
+                  text="Groups"
+                />
+              </button>
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                // onClick={() => {
+                //   navigate("/dashboard");
+                // }}
+              >
+                <SidebarItem
+                  icon={<BarChart3 size={20} color="#c2c2c2" />}
+                  text="Tables"
+                />
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                onClick={() => {
+                  navigate("/settingsTable");
+                }}
+              >
+                <SidebarItem
+                  icon={<Settings size={20} color="#c2c2c2" />}
+                  text="Settings"
+                  active
+                />
+              </button>
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                <SidebarItem
+                  icon={<LogOut size={20} color="#c2c2c2" />}
+                  text="Loguout"
+                />
+              </button>
+            </div>
+          </div>
         </Sidebar>
       </div>
 
-      <div className="text-[#c2c2c2] font-thin pt-6  ml-14">
-        <h1 className="ml-9 text-xl">SEADED</h1>
+      <div className="text-[#c2c2c2] p-6">
+        <h1 className="font-bold text-2xl">SEADED</h1>
+        <p className="text-gray-300/50">
+          Change your settings here.
+        </p>
+        <p className="text-red-500">NB! This is a work in progress.</p>
       </div>
     </div>
   );
