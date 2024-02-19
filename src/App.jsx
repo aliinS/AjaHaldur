@@ -18,7 +18,7 @@ export default function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="table/:id" element={<Table />} />
             <Route path="settingsTable" element={<Settings />} />
-            <Route path="grouptable" element={<SingleGroup />} />
+            <Route path="group/:id" element={<SingleGroup />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

@@ -64,6 +64,7 @@ export default function SingleTable() {
   const [time, setTime] = useState();
   const [location, setLocation] = useState();
   const [title, setTitle] = useState();
+  const [hours, setHours] = useState();
 
   let promise = null;
 
@@ -87,6 +88,28 @@ export default function SingleTable() {
           setTime("");
           setLocation("");
           setDate(null);
+        })
+        .catch((error) => {
+          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+        });
+
+      toast.promise(promise, {
+        loading: "Loading...",
+        success: (data) => {
+          return `Table updated successfully`;
+        },
+        error: "can't retrieve data",
+      });
+    });
+  }
+
+  function showTableHours() {
+    axios.get("/sanctum/csrf-cookie").then(() => {
+      promise = axios
+        .post(`api/tables/hours/${id}`, {
+        })
+        .then((response) => {
+          setHours(response.data.hours);
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -523,6 +546,7 @@ export default function SingleTable() {
                   ))}
                 </TableBody>
               </Table>
+              <p>{showTableHours()}{hours}</p>
             </div>
           </div>
         </div>

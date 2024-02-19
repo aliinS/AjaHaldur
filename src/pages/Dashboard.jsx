@@ -7,7 +7,8 @@ import {
   Settings,
 } from "lucide-react";
 import Sidebar, { SidebarItem } from "@/components/elements/Sidebar";
-import DashboardBox from "@/components/elements/DashboardBox";
+import GroupBox from "@/components/elements/GroupBox";
+import TableBox from "@/components/elements/TableBox";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { fetchPersonalTables } from "@/api/tables";
@@ -38,6 +39,7 @@ export default function Dashboard() {
   const [canLoadMoreGroups, setCanLoadMoreGroups] = useState(true);
 
   const [tableName, setTableName] = useState("");
+  const [groupName, setGroupName] = useState("");
 
   const navigate = useNavigate();
   let promise = null;
@@ -161,7 +163,6 @@ export default function Dashboard() {
           type: "personal",
         })
         .then((response) => {
-          console.log(response.data);
           loadPersonalTables();
         })
         .catch((error) => {
@@ -174,6 +175,29 @@ export default function Dashboard() {
           return `Table created successfully`;
         },
         error: "Table cannot be created",
+      });
+    });
+  }
+
+  function storeGroup() {
+    axios.get("/sanctum/csrf-cookie").then(() => {
+      promise = axios
+        .post(`api/groups/store`, {
+          name: groupName,
+        })
+        .then((response) => {
+          loadGroups();
+        })
+        .catch((error) => {
+          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+        });
+
+      toast.promise(promise, {
+        loading: "Loading...",
+        success: (data) => {
+          return `Group created successfully`;
+        },
+        error: "Group cannot be created",
       });
     });
   }
@@ -297,7 +321,7 @@ export default function Dashboard() {
             }
           >
             {personalTables?.map((data) => (
-              <DashboardBox
+              <TableBox
                 key={data.id}
                 text={data.title}
                 createdAt={data.created_at}
@@ -334,6 +358,35 @@ export default function Dashboard() {
 
         <div id="Groups" className="w-full h-fit p-4 flex flex-col gap-4">
           <h1 className="text-2xl font-bold">Your groups:</h1>
+          <AlertDialog>
+            <Button variant="secondary" className="w-fit px-6">
+              <AlertDialogTrigger>Lisa uus!</AlertDialogTrigger>
+            </Button>
+            <AlertDialogContent className="">
+              <AlertDialogHeader>
+                <AlertDialogTitle>Loo uus grupp</AlertDialogTitle>
+                <Input
+                  type="email"
+                  value={groupName}
+                  onChange={(e) => {
+                    setGroupName(e.target.value);
+                  }}
+                  className="text-white"
+                  placeholder="Grupi nimi"
+                />
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() => {
+                    storeGroup();
+                  }}
+                >
+                  Continue
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
           <div
             className={
               groups.length === 0
@@ -342,7 +395,8 @@ export default function Dashboard() {
             }
           >
             {groups?.map((data) => (
-              <DashboardBox
+              <GroupBox
+                id={data.id}
                 key={data.id}
                 text={data.name}
                 createdAt={data.created_at}
