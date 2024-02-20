@@ -10,10 +10,10 @@ export default function Sidebar({ children }) {
 
   return (
     <>
-      <nav className="h-screen border-r border-gray-600 flex flex-col shadow-sm bg-black w-16">
+      <nav className="h-screen border-r border-gray-600 flex flex-col shadow-sm bg-black w-16 sticky top-0">
         <div className="flex justify-between items-center">
           <Link to="/">
-            <img src={logo} alt="" />{" "}
+            <img src={logo} alt="Logo" />{" "}
           </Link>
         </div>
         <Separator />
