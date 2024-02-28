@@ -2,6 +2,17 @@ import { BarChart3, Boxes, LogOut, Package, Settings } from "lucide-react";
 import Sidebar, { SidebarItem } from "@/components/elements/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "@/api/auth";
+import { Button } from "@/components/ui/button"
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 export default function SingleGroup() {
   const navigate = useNavigate();
@@ -76,9 +87,41 @@ export default function SingleGroup() {
         </Sidebar>
       </div>
 
-      <div className="text-[#c2c2c2] font-thin pt-6 ml-14">
-        <h1 className="ml-9 text-xl">Just see konkreetne grupp andmebaasist</h1>
-        <p>Ofc on siin grupi CRUD</p>
+      <div className="text-[#c2c2c2] w-screen flex flex-col p-6 gap-4">
+
+        <div className="flex flex-col gap-4">
+          <h1 className="text-2xl">Grupi nimi</h1>
+          <div className="flex gap-2">
+            <Button variant="secondary">Lisa kasutaja</Button>
+            <Button variant="secondary">Kasutajad</Button>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto">
+
+        <Table>
+          <TableBody>
+            <TableRow className="flex flex-col lg:flex-row items-center">
+              <TableCell className="font-bold text-xl w-full text-center lg:w-60 lg:text-left">Marten Saar</TableCell>
+              <TableCell><Button className="w-full">Töötunnid</Button></TableCell>
+              <TableCell><Button className="w-full">Õigused</Button></TableCell>
+              <TableCell className=""><Button className="w-full" variant="destructive">Eemalda</Button></TableCell>
+            </TableRow>
+
+            
+            <TableRow className="flex flex-col lg:flex-row items-center">
+              <TableCell className="font-bold text-xl w-full text-center lg:w-60 lg:text-left">Karl Andreas Mätlik</TableCell>
+              <TableCell><Button className="w-full">Töötunnid</Button></TableCell>
+              <TableCell><Button className="w-full">Õigused</Button></TableCell>
+              <TableCell className=""><Button className="w-full" variant="destructive">Eemalda</Button></TableCell>
+            </TableRow>
+
+          </TableBody>
+        </Table>
+
+
+        </div>
+        
       </div>
     </div>
   );
