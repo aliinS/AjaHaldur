@@ -2,7 +2,7 @@ import { BarChart3, Boxes, LogOut, Package, Settings } from "lucide-react";
 import Sidebar, { SidebarItem } from "@/components/elements/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "@/api/auth";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -12,7 +12,18 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function SingleGroup() {
   const navigate = useNavigate();
@@ -88,7 +99,6 @@ export default function SingleGroup() {
       </div>
 
       <div className="text-[#c2c2c2] w-screen flex flex-col p-6 gap-4">
-
         <div className="flex flex-col gap-4">
           <h1 className="text-2xl">Grupi nimi</h1>
           <div className="flex gap-2">
@@ -98,30 +108,46 @@ export default function SingleGroup() {
         </div>
 
         <div className="overflow-x-auto">
-
-        <Table>
-          <TableBody>
-            <TableRow className="flex flex-col lg:flex-row items-center">
-              <TableCell className="font-bold text-xl w-full text-center lg:w-60 lg:text-left">Marten Saar</TableCell>
-              <TableCell><Button className="w-full">Töötunnid</Button></TableCell>
-              <TableCell><Button className="w-full">Õigused</Button></TableCell>
-              <TableCell className=""><Button className="w-full" variant="destructive">Eemalda</Button></TableCell>
-            </TableRow>
-
-            
-            <TableRow className="flex flex-col lg:flex-row items-center">
-              <TableCell className="font-bold text-xl w-full text-center lg:w-60 lg:text-left">Karl Andreas Mätlik</TableCell>
-              <TableCell><Button className="w-full">Töötunnid</Button></TableCell>
-              <TableCell><Button className="w-full">Õigused</Button></TableCell>
-              <TableCell className=""><Button className="w-full" variant="destructive">Eemalda</Button></TableCell>
-            </TableRow>
-
-          </TableBody>
-        </Table>
-
-
+          <Table>
+            <TableBody>
+              <TableRow className="flex flex-col lg:flex-row items-center">
+                <TableCell className="font-bold text-xl w-full text-center lg:w-96 lg:text-left">
+                  Marten Saar
+                </TableCell>
+                <TableCell className="w-full lg:w-fit">
+                  <Button className="w-full">Töötunnid</Button>
+                </TableCell>
+                <TableCell className="w-full lg:w-fit">
+                  <Button className="w-full">Õigused</Button>
+                </TableCell>
+                <TableCell className="w-full lg:w-fit">
+                  {/* <Button className="w-full" variant="destructive">
+                    Eemalda
+                  </Button> */}
+                  <AlertDialog>
+                    <Button className="w-full" variant="destructive">
+                      <AlertDialogTrigger>Eemalda</AlertDialogTrigger>
+                    </Button>
+                    <AlertDialogContent className="">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Kas oled kindel, et soovid eemaldada kasutaja ([KASUTAJA]).</AlertDialogTitle>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Katkesta</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => {
+                          }}
+                        >
+                          Kinnita
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
-        
       </div>
     </div>
   );
