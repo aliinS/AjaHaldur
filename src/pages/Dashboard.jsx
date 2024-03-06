@@ -296,7 +296,7 @@ export default function Dashboard() {
                   onChange={(e) => {
                     setTableName(e.target.value);
                   }}
-                  className="text-white"
+                  className=""
                   placeholder="Tabeli nimi"
                 />
               </AlertDialogHeader>
@@ -371,7 +371,7 @@ export default function Dashboard() {
                   onChange={(e) => {
                     setGroupName(e.target.value);
                   }}
-                  className="text-white"
+                  className=""
                   placeholder="Grupi nimi"
                 />
               </AlertDialogHeader>

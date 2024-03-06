@@ -146,12 +146,12 @@ export default function SingleGroup() {
                         </PopoverContent>
                       </Popover>
                       <Input
-                        className="flex w-full text-white"
+                        className="flex w-full "
                         type="number"
                         placeholder="Hours"
                       />
                       <Input
-                        className="flex w-full text-white"
+                        className="flex w-full "
                         type="text"
                         placeholder="Object"
                       />
@@ -168,7 +168,7 @@ export default function SingleGroup() {
                       />
                       <Separator className="flex lg:hidden" />
                       <div className="max-h-96 h-fit overflow-y-auto">
-                        <Table className="text-white max-h-96 ">
+                        <Table className=" max-h-96 ">
                           <TableHeader>
                             <TableRow>
                               <TableHead>Date</TableHead>

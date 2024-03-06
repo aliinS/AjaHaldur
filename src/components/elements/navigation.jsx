@@ -49,7 +49,7 @@ const Navigation = () => {
   if (!userData) {
     return (
       <div>
-        <div className="hidden lg:flex text-white gap-4">
+        <div className="hidden lg:flex  gap-4">
           <AlertDialog>
             <AlertDialogTrigger>Log in</AlertDialogTrigger>
             <AlertDialogContent>
@@ -61,7 +61,7 @@ const Navigation = () => {
                   event.preventDefault();
                   login(email, password);
                 }}
-                className="flex flex-col gap-4 text-white"
+                className="flex flex-col gap-4 "
               >
                 <Input
                   placeholder="Email"
@@ -80,7 +80,7 @@ const Navigation = () => {
                   }}
                 />
                 <Button className="w-full">Log in</Button>
-                <Button disabled variant="link" className="text-white mt-2">
+                <Button disabled variant="link" className=" mt-2">
                   Forgot Password?
                 </Button>
               </form>
@@ -104,7 +104,7 @@ const Navigation = () => {
                   event.preventDefault();
                   register(name, email, password);
                 }}
-                className="flex flex-col gap-4 text-white"
+                className="flex flex-col gap-4 "
               >
                 <Input
                   placeholder="Name"
@@ -190,7 +190,7 @@ const Navigation = () => {
                         <Button
                           disabled
                           variant="link"
-                          className="text-white mt-2"
+                          className=" mt-2"
                         >
                           Forgot Password?
                         </Button>

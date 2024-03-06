@@ -31,7 +31,7 @@ function Welcome() {
 
         {/* Homepage content */}
         <div className="flex flex-col w-full">
-          <p className="text-white mt-12 w-full text-left lg:w-1/3">
+          <p className=" mt-12 w-full text-left lg:w-1/3">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam
             consectetur in facilis vitae natus totam laborum, quia
             reprehenderit! Dolore sit harum omnis a pariatur officia dolorem
@@ -39,7 +39,7 @@ function Welcome() {
             assumenda, perspiciatis optio quo deleniti quam perferendis
             veritatis. Harum soluta enim commodi nostrum, laudantium aliquid.
           </p>
-          <Button className="bg-[#040404] w-fit h-fit px-12 mt-4 lg:text-xl lg:py-2">
+          <Button variant="secondary" className="w-fit px-24">
             Try it out
           </Button>
         </div>

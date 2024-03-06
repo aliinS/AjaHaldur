@@ -325,7 +325,7 @@ export default function SingleTable() {
                 <AlertDialogContent>
                   <AlertDialogTitle>Change table's name</AlertDialogTitle>
                   <Input
-                    className="flex w-full text-white"
+                    className="flex w-full "
                     type="text"
                     placeholder="Title"
                     value={title}
@@ -355,7 +355,7 @@ export default function SingleTable() {
             </AlertDialog>
           </div>
           <div className="flex flex-col gap-4">
-            <Card className="flex w-full justify-center text-white">
+            <Card className="flex w-full justify-center ">
               <form
                 className="flex flex-col w-full"
                 onSubmit={(event) => {
@@ -391,7 +391,7 @@ export default function SingleTable() {
                     </PopoverContent>
                   </Popover>
                   <Input
-                    className="flex w-full text-white"
+                    className="flex w-full "
                     type="number"
                     placeholder="Hours"
                     value={time}
@@ -400,7 +400,7 @@ export default function SingleTable() {
                     }}
                   />
                   <Input
-                    className="flex w-full text-white"
+                    className="flex w-full "
                     type="text"
                     placeholder="Object"
                     value={location}
