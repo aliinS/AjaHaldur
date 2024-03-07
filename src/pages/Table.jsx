@@ -103,28 +103,6 @@ export default function SingleTable() {
     });
   }
 
-  function showTableHours() {
-    axios.get("/sanctum/csrf-cookie").then(() => {
-      promise = axios
-        .get(`api/tables/hours/${id}`, {
-        })
-        .then((response) => {
-          setHours(response.data.hours);
-        })
-        .catch((error) => {
-          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-        });
-
-      toast.promise(promise, {
-        loading: "Loading...",
-        success: (data) => {
-          return `Table updated successfully`;
-        },
-        error: "can't retrieve data",
-      });
-    });
-  }
-
   function updateTableContent(id) {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
@@ -204,6 +182,8 @@ export default function SingleTable() {
         .get(`api/tables/show/${id}`)
         .then((response) => {
           setData(response.data.table);
+          setHours(response.data.hours);
+
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -546,7 +526,7 @@ export default function SingleTable() {
                   ))}
                 </TableBody>
               </Table>
-              <p>{showTableHours()}{hours}</p>
+              <p>{hours}</p>
             </div>
           </div>
         </div>

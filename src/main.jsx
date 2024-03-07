@@ -14,7 +14,7 @@ if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token"));
   axios.get("/sanctum/csrf-cookie").then(() => {
     axios
-      .post(`api/me`)
+      .get(`api/me`)
       .then((response) => {
         console.log(response.data);
       })
