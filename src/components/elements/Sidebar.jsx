@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import logo from "@/assets/Ajahaldur_Logo_1.svg";
 import { Separator } from "@/components/ui/separator";
+import logo from "@/assets/ajahaldur_logo_white.svg"
 
 export default function Sidebar({ children }) {
   return (
