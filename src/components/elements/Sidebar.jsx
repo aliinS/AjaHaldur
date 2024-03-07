@@ -1,33 +1,25 @@
-import { useContext, createContext, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "@/assets/Ajahaldur_Logo_1.svg";
 import { Separator } from "@/components/ui/separator";
 
-const SidebarContext = createContext();
-
 export default function Sidebar({ children }) {
-  const expanded = useState(true);
-
   return (
     <>
-      <nav className="h-screen border-r border-gray-600 flex flex-col shadow-sm bg-black w-16 sticky top-0">
-        <div className="flex justify-between items-center">
+      {/* Desktop Sidebar */}
+      <nav className="hidden md:flex md:flex-col md:h-screen md:border-r md:border-gray-600 md:shadow-sm md:bg-black md:w-20 md:sticky md:top-0">
+        <div className="md:flex md:justify-between md:items-center">
           <Link to="/">
-            <img src={logo} alt="Logo" />{" "}
+            <img src={logo} alt="Logo" />
           </Link>
         </div>
         <Separator />
-        <SidebarContext.Provider value={{ expanded }}>
-          <div className="grid grid-cols-1 gap-4 p-4 h-full">{children}</div>
-        </SidebarContext.Provider>
+        <div className="md:grid md:grid-cols-1 md:gap-4 md:p-4 md:h-full">{children}</div>
       </nav>
     </>
   );
 }
 
 export function SidebarItem({ icon, text, active }) {
-  const { expanded } = useContext(SidebarContext);
-
   return (
     <div
       className={`
@@ -39,19 +31,44 @@ export function SidebarItem({ icon, text, active }) {
     >
       {icon}
       <span className={`overflow-hidden transition-all`}></span>
-
-      {expanded && (
-        <div
-          className={`
-          absolute left-full rounded-md px-2 py-1 ml-6
+      <div
+        className={`
+          absolute rounded-md px-2 py-1 ml-6
           bg-zinc-500 text-[#c2c2c2] text-sm
-          invisible opacity-20 -translate-x-3 transition-all
-          group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
+          invisible opacity-0 transition-all
+          group-hover:visible group-hover:opacity-100
       `}
-        >
-          {text}
-        </div>
-      )}
+      >
+        {text}
+      </div>
+    </div>
+  );
+}
+
+export function SidenavMobile({ children }) {
+  return (
+    <nav className="md:hidden fixed bottom-1 h-10 flex items-center  px-2 w-full">
+      <Separator orientation="vertical" />
+      <div className="flex flex-grow flex-row w-full justify-center">
+        {children}
+      </div>
+    </nav>
+  );
+}
+
+export function SidenavMobileItem({ icon, text, active }) {
+  return (
+    <div
+      className={`relative flex flex-col items-center p-3
+        font-medium rounded-md cursor-pointer
+        transition-colors group
+        border-2 ${active ? 'border-white' : 'border-gray-600/50'}
+        ${active ? 'bg-gray-800' : 'bg-gray-800/50'}
+        my-1 mx-1
+      `}
+    >
+      {icon}
+      <span className={`mt-1 text-xs ${active ? 'text-white' : 'text-gray-500'}`}>{text}</span>
     </div>
   );
 }
