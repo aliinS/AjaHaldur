@@ -106,7 +106,7 @@ export default function SingleTable() {
   function showTableHours() {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/hours/${id}`, {
+        .get(`api/tables/hours/${id}`, {
         })
         .then((response) => {
           setHours(response.data.hours);
@@ -201,7 +201,7 @@ export default function SingleTable() {
   function fetchData() {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/show/${id}`)
+        .get(`api/tables/show/${id}`)
         .then((response) => {
           setData(response.data.table);
         })

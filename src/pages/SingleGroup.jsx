@@ -57,9 +57,9 @@ export default function SingleGroup() {
               </button>
               <button
                 className="w-8 h-8 flex justify-center items-center"
-                // onClick={() => {
-                //   navigate("/dashboard");
-                // }}
+              // onClick={() => {
+              //   navigate("/dashboard");
+              // }}
               >
                 <SidebarItem
                   icon={<Boxes size={20} color="#c2c2c2" />}
@@ -68,9 +68,9 @@ export default function SingleGroup() {
               </button>
               <button
                 className="w-8 h-8 flex justify-center items-center"
-                // onClick={() => {
-                //   navigate("/dashboard");
-                // }}
+              // onClick={() => {
+              //   navigate("/dashboard");
+              // }}
               >
                 <SidebarItem
                   icon={<BarChart3 size={20} color="#c2c2c2" />}
@@ -238,13 +238,8 @@ export default function SingleGroup() {
                   <Button className="w-full">Õigused</Button>
                 </TableCell>
                 <TableCell className="w-full lg:w-fit">
-                  {/* <Button className="w-full" variant="destructive">
-                    Eemalda
-                  </Button> */}
                   <AlertDialog>
-                    <Button className="w-full" variant="destructive">
-                      <AlertDialogTrigger>Eemalda</AlertDialogTrigger>
-                    </Button>
+                    <AlertDialogTrigger className="w-full"><Button className="w-full" variant="destructive">Eemalda</Button></AlertDialogTrigger>
                     <AlertDialogContent className="">
                       <AlertDialogHeader>
                         <AlertDialogTitle>
@@ -254,7 +249,7 @@ export default function SingleGroup() {
                       </AlertDialogHeader>
                       <AlertDialogFooter>
                         <AlertDialogCancel>Katkesta</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => {}}>
+                        <AlertDialogAction onClick={() => { }}>
                           Kinnita
                         </AlertDialogAction>
                       </AlertDialogFooter>
