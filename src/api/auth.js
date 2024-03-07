@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "sonner";
 
 export function fetch() {
-    axios.post('api/me')
+    axios.get('api/me')
         .then(response => {
             localStorage.setItem('user', JSON.stringify(response.data))
             // TODO: Possibly need to rework it at some point

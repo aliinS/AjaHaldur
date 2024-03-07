@@ -1,19 +1,7 @@
-import {
-  BarChart3,
-  Binary,
-  Boxes,
-  LogOut,
-  Package,
-  Pencil,
-  Settings,
-  Trash,
-} from "lucide-react";
-import Sidebar, { SidebarItem } from "@/components/elements/Sidebar";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
-import { logout } from "@/api/auth";
 import {
   Card,
   CardContent,
@@ -89,28 +77,6 @@ export default function SingleTable() {
           setTime("");
           setLocation("");
           setDate(null);
-        })
-        .catch((error) => {
-          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-        });
-
-      toast.promise(promise, {
-        loading: "Loading...",
-        success: (data) => {
-          return `Table updated successfully`;
-        },
-        error: "can't retrieve data",
-      });
-    });
-  }
-
-  function showTableHours() {
-    axios.get("/sanctum/csrf-cookie").then(() => {
-      promise = axios
-        .post(`api/tables/hours/${id}`, {
-        })
-        .then((response) => {
-          setHours(response.data.hours);
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -202,9 +168,11 @@ export default function SingleTable() {
   function fetchData() {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/show/${id}`)
+        .get(`api/tables/show/${id}`)
         .then((response) => {
           setData(response.data.table);
+          setHours(response.data.hours);
+
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -440,47 +408,29 @@ export default function SingleTable() {
                                   onChange={(e) => {
                                     setLocation(e.target.value);
                                   }}
-                                />
-                                <AlertDialogFooter>
-                                  <AlertDialogCancel
-                                    onClick={() => {
-                                      setDate(null);
-                                      setTime("");
-                                      setLocation("");
-                                    }}
-                                  >
-                                    Cancel
-                                  </AlertDialogCancel>
-                                  <AlertDialogAction
-                                    type="submit"
-                                    onClick={() => {
-                                      updateTableContent(data.id);
-                                    }}
-                                  >
-                                    Update
-                                  </AlertDialogAction>
-                                </AlertDialogFooter>
-                              </AlertDialogContent>
-                            </form>
-                          </AlertDialog>
-                        </TableCell>
-                        <TableCell className="w-4">
-                          <Button
-                            className="w-fit"
-                            variant="destructive"
-                            onClick={() => {
-                              deleteTableContent(data.id);
-                            }}
-                          >
-                            <Trash className="size-4"/>
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-                <p>{showTableHours()}{hours}</p>
-              </div>
+                                  Update
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </form>
+                        </AlertDialog>
+                      </TableCell>
+                      <TableCell className="w-4">
+                        <Button
+                          className="w-fit"
+                          variant="destructive"
+                          onClick={() => {
+                            deleteTableContent(data.id);
+                          }}
+                        >
+                          <Trash className="size-4"/>
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <p>{hours}</p>
             </div>
           </div>
         </div>

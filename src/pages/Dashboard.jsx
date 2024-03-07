@@ -40,7 +40,7 @@ export default function Dashboard() {
   function loadPersonalTables() {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/personal?page=1&amount=4`)
+        .get(`api/tables/personal?page=1&amount=4`)
         .then((response) => {
           setPersonalTables(response.data.data);
           promise = null;
@@ -68,7 +68,7 @@ export default function Dashboard() {
   function loadMorePersonalTables(amount = 4) {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/personal?page=${page}&amount=${amount}`)
+        .get(`api/tables/personal?page=${page}&amount=${amount}`)
         .then((response) => {
           setPersonalTables(personalTables.concat(response.data.data));
           promise = null;
@@ -95,7 +95,7 @@ export default function Dashboard() {
   function loadGroups() {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/groups?page=1&amount=4`)
+        .get(`api/groups?page=1&amount=4`)
         .then((response) => {
           setGroups(response.data.data);
           promise = null;
@@ -123,7 +123,7 @@ export default function Dashboard() {
   function loadMoreGroups(amount = 4) {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/groups?page=${page}&amount=${amount}`)
+        .get(`api/groups?page=${page}&amount=${amount}`)
         .then((response) => {
           setGroups(groups.concat(response.data.data));
           promise = null;
@@ -199,7 +199,7 @@ export default function Dashboard() {
     loadPersonalTables();
     loadGroups();
   }, []);
-
+  
   return (
     <AppLayout>
       <div className="flex">

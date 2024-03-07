@@ -45,7 +45,6 @@ export default function SingleGroup() {
               <Button variant="secondary">Kasutajad</Button>
             </div>
           </div>
-
           <div className="overflow-x-auto">
             <Table>
               <TableBody>
