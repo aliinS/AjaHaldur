@@ -194,222 +194,213 @@ export default function SingleTable() {
 
   return (
     <AppLayout>
-      <>
-        <div className="flex">
-          {/* CONTENT */}
-          <div className="text-[#c2c2c2] w-screen flex flex-col p-6 gap-4">
-            <div className="flex gap-2 ">
-              <h1 className="text-2xl">{data?.title}</h1>
-              <AlertDialog>
-                <AlertDialogTrigger
-                  onClick={() => {
-                    setTitle(data?.title);
-                  }}
-                >
-                  {/* <Button
-                    className="w-fit self-start"
-                    variant="destructive"
-                    onClick={() => {
-                      setTitle(data.title);
+      <div className="flex">
+        {/* CONTENT */}
+        <div className="text-[#c2c2c2] w-screen flex flex-col p-6 gap-4">
+          <div className="flex gap-2 ">
+            <h1 className="text-2xl">{data?.title}</h1>
+            <AlertDialog>
+              <AlertDialogTrigger
+                onClick={() => {
+                  setTitle(data?.title);
+                }}
+              >
+                <Pencil className="size-5" />
+              </AlertDialogTrigger>
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  updateTable(data.id);
+                }}
+              >
+                <AlertDialogContent>
+                  <AlertDialogTitle>Change table's name</AlertDialogTitle>
+                  <Input
+                    className="flex w-full text-white"
+                    type="text"
+                    placeholder="Title"
+                    value={title}
+                    onChange={(e) => {
+                      setTitle(e.target.value);
                     }}
-                  >
-                    Edit
-                  </Button> */}
-                  <Pencil className="size-5" />
-                </AlertDialogTrigger>
-                <form
-                  onSubmit={(event) => {
-                    event.preventDefault();
-                    updateTable(data.id);
-                  }}
-                >
-                  <AlertDialogContent>
-                    <AlertDialogTitle>Change table's name</AlertDialogTitle>
-                    <Input
-                      className="flex w-full text-white"
-                      type="text"
-                      placeholder="Title"
-                      value={title}
-                      onChange={(e) => {
-                        setTitle(e.target.value);
+                  />
+                  <AlertDialogFooter>
+                    <AlertDialogCancel
+                      onClick={() => {
+                        setTitle("");
                       }}
-                    />
-                    <AlertDialogFooter>
-                      <AlertDialogCancel
-                        onClick={() => {
-                          setTitle("");
-                        }}
-                      >
-                        Cancel
-                      </AlertDialogCancel>
-                      <AlertDialogAction
-                        type="submit"
-                        onClick={() => {
-                          updateTable(data.id);
-                        }}
-                      >
-                        Update
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </form>
-              </AlertDialog>
-            </div>
-            <div className="flex flex-col gap-4">
-              <Card className="flex w-full justify-center text-white">
-                <form
-                  className="flex flex-col w-full"
-                  onSubmit={(event) => {
-                    event.preventDefault();
-                    storeTableContent();
-                  }}
-                >
-                  <CardHeader>
-                    <CardTitle>Create new entry</CardTitle>
-                  </CardHeader>
-                  <Separator />
-                  <CardContent className="flex flex-col w-full lg:h-16 items-center p-4 gap-4 lg:flex-row">
-                    <Popover className="flex w-full">
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full px-1 justify-start text-left font-normal",
-                            !date && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {date ? format(date, "PPP") : <span>Pick a date</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={date}
-                          onSelect={handleSelectedDateChange}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <Input
-                      className="flex w-full text-white"
-                      type="number"
-                      placeholder="Hours"
-                      value={time}
-                      onChange={(e) => {
-                        setTime(e.target.value);
-                      }}
-                    />
-                    <Input
-                      className="flex w-full text-white"
-                      type="text"
-                      placeholder="Object"
-                      value={location}
-                      onChange={(e) => {
-                        setLocation(e.target.value);
-                      }}
-                    />
-                    <Separator orientation="vertical" className="hidden lg:flex" />
-                    <Separator className="flex lg:hidden" />
-                    <Button
-                      className="flex w-full"
-                      type="submit"
-                      variant="secondary"
                     >
-                      Submit
-                    </Button>
-                  </CardContent>
-                </form>
-              </Card>
-              <div className="overflow-x-auto">
-                <Table className="">
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-48">Date</TableHead>
-                      <TableHead className="w-48">Hours</TableHead>
-                      <TableHead className="w-auto">Object</TableHead>
-                      <TableHead className="w-4"></TableHead>
-                      <TableHead className="w-4"></TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {data.content?.map((data) => (
-                      <TableRow key={data.id}>
-                        <TableCell className="font-medium w-48">
-                          {format(data?.date, "PPP")}
-                        </TableCell>
-                        <TableCell className="w-48">{data?.time}</TableCell>
-                        <TableCell className="w-auto">{data?.location}</TableCell>
-                        <TableCell className="w-4">
-                          <AlertDialog>
-                            <AlertDialogTrigger>
-                              <Button
-                                className="w-fit"
-                                variant="secondary"
-                                onClick={() => {
-                                  setDate(data.date);
-                                  setTime(data.time);
-                                  setLocation(data.location);
-                                }}
-                              >
-                                <Pencil className="size-4"/>
-                              </Button>
-                            </AlertDialogTrigger>
-                            <form
-                              onSubmit={(event) => {
-                                event.preventDefault();
-                                updateTableContent(data.id);
+                      Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                      type="submit"
+                      onClick={() => {
+                        updateTable(data.id);
+                      }}
+                    >
+                      Update
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </form>
+            </AlertDialog>
+          </div>
+          <div className="flex flex-col gap-4">
+            <Card className="flex w-full justify-center text-white">
+              <form
+                className="flex flex-col w-full"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  storeTableContent();
+                }}
+              >
+                <CardHeader>
+                  <CardTitle>Create new entry</CardTitle>
+                </CardHeader>
+                <Separator />
+                <CardContent className="flex flex-col w-full lg:h-16 items-center p-4 gap-4 lg:flex-row">
+                  <Popover className="flex w-full">
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-full px-1 justify-start text-left font-normal",
+                          !date && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {date ? format(date, "PPP") : <span>Pick a date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar
+                        mode="single"
+                        selected={date}
+                        onSelect={handleSelectedDateChange}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <Input
+                    className="flex w-full text-white"
+                    type="number"
+                    placeholder="Hours"
+                    value={time}
+                    onChange={(e) => {
+                      setTime(e.target.value);
+                    }}
+                  />
+                  <Input
+                    className="flex w-full text-white"
+                    type="text"
+                    placeholder="Object"
+                    value={location}
+                    onChange={(e) => {
+                      setLocation(e.target.value);
+                    }}
+                  />
+                  <Separator orientation="vertical" className="hidden lg:flex" />
+                  <Separator className="flex lg:hidden" />
+                  <Button
+                    className="flex w-full"
+                    type="submit"
+                    variant="secondary"
+                  >
+                    Submit
+                  </Button>
+                </CardContent>
+              </form>
+            </Card>
+            <div className="overflow-x-auto">
+              <Table className="">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-48">Date</TableHead>
+                    <TableHead className="w-48">Hours</TableHead>
+                    <TableHead className="w-auto">Object</TableHead>
+                    <TableHead className="w-4"></TableHead>
+                    <TableHead className="w-4"></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {data.content?.map((data) => (
+                    <TableRow key={data.id}>
+                      <TableCell className="font-medium w-48">
+                        {format(data?.date, "PPP")}
+                      </TableCell>
+                      <TableCell className="w-48">{data?.time}</TableCell>
+                      <TableCell className="w-auto">{data?.location}</TableCell>
+                      <TableCell className="w-4">
+                        <AlertDialog>
+                          <AlertDialogTrigger>
+                            <Button
+                              className="w-fit"
+                              variant="secondary"
+                              onClick={() => {
+                                setDate(data.date);
+                                setTime(data.time);
+                                setLocation(data.location);
                               }}
                             >
-                              <AlertDialogContent>
-                                <AlertDialogTitle>
-                                  Change entry's data
-                                </AlertDialogTitle>
-                                <Popover className="flex w-fit">
-                                  <PopoverTrigger asChild>
-                                    <Button
-                                      variant={"secondary"}
-                                      className={cn(
-                                        "w-full px-1 justify-start text-left font-normal",
-                                        !date && "text-muted-foreground"
-                                      )}
-                                    >
-                                      <CalendarIcon className="mr-2 h-4 w-4" />
-                                      {date ? (
-                                        format(date, "PPP")
-                                      ) : (
-                                        <span>Pick a date</span>
-                                      )}
-                                    </Button>
-                                  </PopoverTrigger>
-                                  <PopoverContent className="w-auto p-0">
-                                    <Calendar
-                                      mode="single"
-                                      selected={date}
-                                      onSelect={handleSelectedDateChange}
-                                      initialFocus
-                                    />
-                                  </PopoverContent>
-                                </Popover>
-                                <Input
-                                  className="flex w-full"
-                                  type="number"
-                                  placeholder="Hours"
-                                  value={time}
-                                  onChange={(e) => {
-                                    setTime(e.target.value);
-                                  }}
-                                />
-                                <Input
-                                  className="flex w-full"
-                                  type="text"
-                                  placeholder="Object"
-                                  value={location}
-                                  onChange={(e) => {
-                                    setLocation(e.target.value);
-                                  }}
-                                  Update
-                                </AlertDialogAction>
+                              <Pencil className="size-4" />
+                            </Button>
+                          </AlertDialogTrigger>
+                          <form
+                            onSubmit={(event) => {
+                              event.preventDefault();
+                              updateTableContent(data.id);
+                            }}
+                          >
+                            <AlertDialogContent>
+                              <AlertDialogTitle>
+                                Change entry's data
+                              </AlertDialogTitle>
+                              <Popover className="flex w-fit">
+                                <PopoverTrigger asChild>
+                                  <Button
+                                    variant={"secondary"}
+                                    className={cn(
+                                      "w-full px-1 justify-start text-left font-normal",
+                                      !date && "text-muted-foreground"
+                                    )}
+                                  >
+                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                    {date ? (
+                                      format(date, "PPP")
+                                    ) : (
+                                      <span>Pick a date</span>
+                                    )}
+                                  </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0">
+                                  <Calendar
+                                    mode="single"
+                                    selected={date}
+                                    onSelect={handleSelectedDateChange}
+                                    initialFocus
+                                  />
+                                </PopoverContent>
+                              </Popover>
+                              <Input
+                                className="flex w-full"
+                                type="number"
+                                placeholder="Hours"
+                                value={time}
+                                onChange={(e) => {
+                                  setTime(e.target.value);
+                                }}
+                              />
+                              <Input
+                                className="flex w-full"
+                                type="text"
+                                placeholder="Object"
+                                value={location}
+                                onChange={(e) => {
+                                  setLocation(e.target.value);
+                                }}
+                              />
+                              <AlertDialogFooter>
+                                {/* ... (other JSX) */}
                               </AlertDialogFooter>
                             </AlertDialogContent>
                           </form>
@@ -423,18 +414,19 @@ export default function SingleTable() {
                             deleteTableContent(data.id);
                           }}
                         >
-                          <Trash className="size-4"/>
+                          <Trash className="size-4" />
                         </Button>
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
-              <p>{hours}</p>
             </div>
+            <p>{hours}</p>
           </div>
         </div>
-      </>
+      </div>
     </AppLayout>
   );
+  
 }
