@@ -196,7 +196,7 @@ export default function SingleTable() {
     <AppLayout>
       <div className="flex">
         {/* CONTENT */}
-        <div className="text-[#c2c2c2] w-screen flex flex-col p-6 gap-4">
+        <div className="text-[#c2c2c2] w-full flex flex-col p-6 gap-4">
           <div className="flex gap-2 ">
             <h1 className="text-2xl">{data?.title}</h1>
             <AlertDialog>
@@ -428,5 +428,5 @@ export default function SingleTable() {
       </div>
     </AppLayout>
   );
-  
+
 }
