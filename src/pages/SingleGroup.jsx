@@ -74,7 +74,6 @@ export default function SingleGroup() {
         .get(`api/groups/show/${id}`)
         .then((response) => {
           setData(response.data.group);
-          console.log(response.data.group);
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -219,176 +218,223 @@ export default function SingleGroup() {
                 </AlertDialogContent>
               </AlertDialog>
 
-              <Button variant="secondary">Kasutajad</Button>
+              <AlertDialog>
+                <AlertDialogTrigger>
+                  <Button variant="secondary">Kasutajad</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Kasutajad</AlertDialogTitle>
+                  </AlertDialogHeader>
+                  <div className="max-h-80 h-fit overflow-y-auto min-w-64 w-full overflow-x-auto lg:w-full lg:max-w-full">
+                    <Table className="text-white max-h-80 min-w-64 lg:w-full lg:max-w-full">
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Nimi</TableHead>
+                          <TableHead>Email</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {data?.users.map((user) => {
+                          return (
+                            <TableRow key={user.id}>
+                              <TableCell>{user.name}</TableCell>
+                              <TableCell>{user.email}</TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
+                  </div>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Sulge</AlertDialogCancel>
+                    {/* <AlertDialogAction
+                      onClick={() => {
+                        inviteMember();
+                      }}
+                    >
+                      Continue
+                    </AlertDialogAction> */}
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           </div>
 
           <div className="overflow-x-auto">
             <Table>
               <TableBody>
-                <TableRow className="flex flex-col lg:flex-row items-center">
-                  <TableCell className="font-bold text-xl w-full text-center lg:w-96 lg:text-left">
-                    Marten Saar
-                  </TableCell>
-                  <TableCell className="w-full lg:w-fit">
-                    <AlertDialogDesc>
-                      <AlertDialogTriggerDesc className="w-full">
-                        <Button className="w-full">Töötunnid</Button>
-                      </AlertDialogTriggerDesc>
-                      <AlertDialogContentDesc className="items-center flex flex-col w-full">
-                        <AlertDialogHeaderDesc>
-                          <AlertDialogTitleDesc>Töötunnid</AlertDialogTitleDesc>
-                        </AlertDialogHeaderDesc>
-                        <Popover className="flex w-full">
-                          <PopoverTrigger asChild>
+                {data?.users.map((user) => {
+                  return (
+                    <TableRow key={user.id} className='flex flex-col lg:flex-row items-center'>
+                      <TableCell className="font-bold text-xl w-full text-center lg:w-96 lg:text-left">
+                        {user.name}
+                      </TableCell>
+                      <TableCell className="w-full lg:w-fit">
+                        <AlertDialogDesc>
+                          <AlertDialogTriggerDesc className="w-full">
+                            <Button className="w-full">Töötunnid</Button>
+                          </AlertDialogTriggerDesc>
+                          <AlertDialogContentDesc className="items-center flex flex-col w-full">
+                            <AlertDialogHeaderDesc>
+                              <AlertDialogTitleDesc>
+                                Töötunnid
+                              </AlertDialogTitleDesc>
+                            </AlertDialogHeaderDesc>
+                            <Popover className="flex w-full">
+                              <PopoverTrigger asChild>
+                                <Button
+                                  variant={"outline"}
+                                  className="w-full px-1 justify-start text-left font-normal"
+                                >
+                                  <CalendarIcon className="mr-2 h-4 w-4" />
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-auto p-0">
+                                <Calendar mode="single" initialFocus />
+                              </PopoverContent>
+                            </Popover>
+                            <Input
+                              className="flex w-full text-white"
+                              type="number"
+                              placeholder="Hours"
+                            />
+                            <Input
+                              className="flex w-full text-white"
+                              type="text"
+                              placeholder="Object"
+                            />
                             <Button
-                              variant={"outline"}
-                              className="w-full px-1 justify-start text-left font-normal"
+                              className="flex w-full"
+                              type="submit"
+                              variant="secondary"
                             >
-                              <CalendarIcon className="mr-2 h-4 w-4" />
+                              Submit
                             </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0">
-                            <Calendar mode="single" initialFocus />
-                          </PopoverContent>
-                        </Popover>
-                        <Input
-                          className="flex w-full text-white"
-                          type="number"
-                          placeholder="Hours"
-                        />
-                        <Input
-                          className="flex w-full text-white"
-                          type="text"
-                          placeholder="Object"
-                        />
-                        <Button
-                          className="flex w-full"
-                          type="submit"
-                          variant="secondary"
-                        >
-                          Submit
-                        </Button>
-                        <Separator
-                          orientation="vertical"
-                          className="hidden lg:flex"
-                        />
-                        <Separator className="flex lg:hidden" />
+                            <Separator
+                              orientation="vertical"
+                              className="hidden lg:flex"
+                            />
+                            <Separator className="flex lg:hidden" />
 
-                        <div className="max-h-80 h-fit overflow-y-auto min-w-64 w-full overflow-x-auto lg:w-full lg:max-w-full">
-                          <Table className="text-white max-h-80 min-w-64 lg:w-full lg:max-w-full">
-                            <TableHeader>
-                              <TableRow>
-                                <TableHead>Date</TableHead>
-                                <TableHead>Hours</TableHead>
-                                <TableHead>Object</TableHead>
-                                <TableHead></TableHead>
-                                <TableHead></TableHead>
-                              </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                              <TableRow>
-                                <TableCell className="min-w-40">
-                                  March 30th, 2024
-                                </TableCell>
-                                <TableCell className="min-w-20">12</TableCell>
-                                <TableCell className="min-w-60">
-                                  Kuressaare mingi tänav mingi koreteriga
-                                </TableCell>
-                                <TableCell>
-                                  <AlertDialog>
-                                    <AlertDialogTrigger>
+                            <div className="max-h-80 h-fit overflow-y-auto min-w-64 w-full overflow-x-auto lg:w-full lg:max-w-full">
+                              <Table className="text-white max-h-80 min-w-64 lg:w-full lg:max-w-full">
+                                <TableHeader>
+                                  <TableRow>
+                                    <TableHead>Date</TableHead>
+                                    <TableHead>Hours</TableHead>
+                                    <TableHead>Object</TableHead>
+                                    <TableHead></TableHead>
+                                    <TableHead></TableHead>
+                                  </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                  <TableRow>
+                                    <TableCell className="min-w-40">
+                                      March 30th, 2024
+                                    </TableCell>
+                                    <TableCell className="min-w-20">
+                                      12
+                                    </TableCell>
+                                    <TableCell className="min-w-60">
+                                      Kuressaare mingi tänav mingi koreteriga
+                                    </TableCell>
+                                    <TableCell>
+                                      <AlertDialog>
+                                        <AlertDialogTrigger>
+                                          <Button
+                                            className="w-fit"
+                                            variant="secondary"
+                                          >
+                                            <Pencil className="size-4" />
+                                          </Button>
+                                        </AlertDialogTrigger>
+
+                                        <AlertDialogContent>
+                                          <AlertDialogTitle>
+                                            Change entry's data
+                                          </AlertDialogTitle>
+                                          <Popover className="flex w-fit">
+                                            <PopoverTrigger asChild>
+                                              <Button variant={"secondary"}>
+                                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                              </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-auto p-0">
+                                              <Calendar
+                                                mode="single"
+                                                initialFocus
+                                              />
+                                            </PopoverContent>
+                                          </Popover>
+                                          <Input
+                                            className="flex w-full"
+                                            type="number"
+                                            placeholder="Hours"
+                                          />
+                                          <Input
+                                            className="flex w-full"
+                                            type="text"
+                                            placeholder="Object"
+                                          />
+                                          <AlertDialogFooter>
+                                            <AlertDialogCancel>
+                                              Cancel
+                                            </AlertDialogCancel>
+                                            <AlertDialogAction type="submit">
+                                              Update
+                                            </AlertDialogAction>
+                                          </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                      </AlertDialog>
+                                    </TableCell>
+                                    <TableCell className="w-1/3">
                                       <Button
                                         className="w-fit"
-                                        variant="secondary"
+                                        variant="destructive"
                                       >
-                                        <Pencil className="size-4" />
+                                        <Trash className="size-4" />
                                       </Button>
-                                    </AlertDialogTrigger>
-
-                                    <AlertDialogContent>
-                                      <AlertDialogTitle>
-                                        Change entry's data
-                                      </AlertDialogTitle>
-                                      <Popover className="flex w-fit">
-                                        <PopoverTrigger asChild>
-                                          <Button variant={"secondary"}>
-                                            <CalendarIcon className="mr-2 h-4 w-4" />
-                                          </Button>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="w-auto p-0">
-                                          <Calendar
-                                            mode="single"
-                                            initialFocus
-                                          />
-                                        </PopoverContent>
-                                      </Popover>
-                                      <Input
-                                        className="flex w-full"
-                                        type="number"
-                                        placeholder="Hours"
-                                      />
-                                      <Input
-                                        className="flex w-full"
-                                        type="text"
-                                        placeholder="Object"
-                                      />
-                                      <AlertDialogFooter>
-                                        <AlertDialogCancel>
-                                          Cancel
-                                        </AlertDialogCancel>
-                                        <AlertDialogAction type="submit">
-                                          Update
-                                        </AlertDialogAction>
-                                      </AlertDialogFooter>
-                                    </AlertDialogContent>
-                                  </AlertDialog>
-                                </TableCell>
-                                <TableCell className="w-1/3">
-                                  <Button
-                                    className="w-fit"
-                                    variant="destructive"
-                                  >
-                                    <Trash className="size-4" />
-                                  </Button>
-                                </TableCell>
-                              </TableRow>
-                            </TableBody>
-                          </Table>
-                        </div>
-                        <AlertDialogCancelDesc className="w-full">
-                          Sulge
-                        </AlertDialogCancelDesc>
-                      </AlertDialogContentDesc>
-                    </AlertDialogDesc>
-                  </TableCell>
-                  <TableCell className="w-full lg:w-fit">
-                    <Button className="w-full">Õigused</Button>
-                  </TableCell>
-                  <TableCell className="w-full lg:w-fit">
-                    <AlertDialog>
-                      <AlertDialogTrigger className="w-full">
-                        <Button className="w-full" variant="destructive">
-                          Eemalda
-                        </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent className="">
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>
-                            Kas oled kindel, et soovid eemaldada kasutaja
-                            ([KASUTAJA]).
-                          </AlertDialogTitle>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Katkesta</AlertDialogCancel>
-                          <AlertDialogAction onClick={() => {}}>
-                            Kinnita
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  </TableCell>
-                </TableRow>
+                                    </TableCell>
+                                  </TableRow>
+                                </TableBody>
+                              </Table>
+                            </div>
+                            <AlertDialogCancelDesc className="w-full">
+                              Sulge
+                            </AlertDialogCancelDesc>
+                          </AlertDialogContentDesc>
+                        </AlertDialogDesc>
+                      </TableCell>
+                      <TableCell className="w-full lg:w-fit">
+                        <Button className="w-full">Õigused</Button>
+                      </TableCell>
+                      <TableCell className="w-full lg:w-fit">
+                        <AlertDialog>
+                          <AlertDialogTrigger className="w-full">
+                            <Button className="w-full" variant="destructive">
+                              Eemalda
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent className="">
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>
+                                Kas oled kindel, et soovid eemaldada kasutaja
+                                ([KASUTAJA]).
+                              </AlertDialogTitle>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Katkesta</AlertDialogCancel>
+                              <AlertDialogAction onClick={() => {}}>
+                                Kinnita
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </div>
