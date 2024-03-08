@@ -7,12 +7,12 @@ export default function Sidebar({ children }) {
     <>
       {/* Desktop Sidebar */}
       <nav className="hidden md:flex md:flex-col md:h-screen md:border-r md:border-gray-600 md:shadow-sm md:bg-black md:w-20 md:sticky md:top-0">
-        <div className="md:flex md:justify-between md:items-center">
-          <Link to="/">
-            <img src={logo} alt="Logo" />
+        <div className="p-2">
+          <Link to="/" className="flex justify-center items-center">
+            <img src={logo} alt="Logo" className="w-16"/>
           </Link>
         </div>
-        <Separator />
+        <Separator className='hidden '/>
         <div className="md:grid md:grid-cols-1 md:gap-4 md:p-4 md:h-full">{children}</div>
       </nav>
     </>
@@ -47,9 +47,8 @@ export function SidebarItem({ icon, text, active }) {
 
 export function SidenavMobile({ children }) {
   return (
-    <nav className="md:hidden fixed bottom-1 h-10 flex items-center  px-2 w-full">
-      <Separator orientation="vertical" />
-      <div className="flex flex-grow flex-row w-full justify-center">
+    <nav className="md:hidden fixed bottom-0 h-16 flex items-center bg-black w-full z-[100]">
+      <div className="flex justify-around h-fit items-center px-4 py-2 w-full">
         {children}
       </div>
     </nav>
@@ -60,15 +59,14 @@ export function SidenavMobileItem({ icon, text, active }) {
   return (
     <div
       className={`relative flex flex-col items-center p-3
-        font-medium rounded-md cursor-pointer
+        font-medium rounded-md cursor-pointer w-full
         transition-colors group
         border-2 ${active ? 'border-white' : 'border-gray-600/50'}
         ${active ? 'bg-gray-800' : 'bg-gray-800/50'}
-        my-1 mx-1
       `}
     >
       {icon}
-      <span className={`mt-1 text-xs ${active ? 'text-white' : 'text-gray-500'}`}>{text}</span>
+      {/* <span className={`mt-1 text-xs ${active ? 'text-white' : 'text-gray-500'}`}>{text}</span> */}
     </div>
   );
 }

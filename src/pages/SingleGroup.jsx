@@ -74,6 +74,7 @@ export default function SingleGroup() {
         .get(`api/groups/show/${id}`)
         .then((response) => {
           setData(response.data.group);
+          console.log(response.data.group);
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
