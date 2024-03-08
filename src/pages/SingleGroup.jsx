@@ -94,6 +94,7 @@ export default function SingleGroup() {
   }, []);
 
   function inviteMember() {
+    let message = null;
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/groups/invite/${id}`, {
@@ -104,17 +105,19 @@ export default function SingleGroup() {
           // fetchData();
           console.log(response.data);
           fetchGroupInfo();
+          message = response.data.message;
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.response.data.message;
         });
 
       toast.promise(promise, {
         loading: "Loading...",
         success: (data) => {
-          return `Table updated successfully`;
+          return message;
         },
-        error: "can't retrieve data",
+        error:message,
       });
     });
   }
@@ -143,6 +146,7 @@ export default function SingleGroup() {
   }
   
   function removeMember(userID) {
+    let message = null;
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/groups/members/delete/${data.id}`, {
@@ -150,17 +154,19 @@ export default function SingleGroup() {
         })
         .then((response) => {
           fetchGroupInfo();
+          message = response.data.message;
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.response.data.message;
         });
 
       toast.promise(promise, {
         loading: "Loading...",
         success: (data) => {
-          return `User removed successfully`;
+          return message;
         },
-        error: "----",
+        error: message,
       });
     });
   }
