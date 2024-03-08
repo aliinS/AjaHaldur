@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "sonner";
 
 const TableBox = ({text, createdAt, updatedAt, id}) => {
   const squareStyle = {
@@ -22,10 +23,12 @@ const TableBox = ({text, createdAt, updatedAt, id}) => {
   const formattedCreated_at = `${created_at.getDate()} ${created_at.toLocaleString('En-US', { month: 'short' })}, ${created_at.getFullYear()}`;
   const formattedUpdated_at = `${updated_at.getDate()} ${updated_at.toLocaleString('En-US', { month: 'short' })}, ${updated_at.getFullYear()}`;
 
+  let promise = null;
+
   function deleteTable(id) {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/delete/${id}`)
+        .delete(`api/tables/delete/${id}`)
         .then((response) => {
           window.location.reload();
         })
