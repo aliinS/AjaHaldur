@@ -103,6 +103,7 @@ export default function SingleGroup() {
         .then((response) => {
           // fetchData();
           console.log(response.data);
+          fetchGroupInfo();
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -137,6 +138,29 @@ export default function SingleGroup() {
           return `Table updated successfully`;
         },
         error: "can't retrieve data",
+      });
+    });
+  }
+  
+  function removeMember(userID) {
+    axios.get("/sanctum/csrf-cookie").then(() => {
+      promise = axios
+        .post(`api/groups/members/delete/${data.id}`, {
+          user_id: userID,
+        })
+        .then((response) => {
+          fetchGroupInfo();
+        })
+        .catch((error) => {
+          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+        });
+
+      toast.promise(promise, {
+        loading: "Loading...",
+        success: (data) => {
+          return `User removed successfully`;
+        },
+        error: "----",
       });
     });
   }
@@ -420,12 +444,14 @@ export default function SingleGroup() {
                             <AlertDialogHeader>
                               <AlertDialogTitle>
                                 Kas oled kindel, et soovid eemaldada kasutaja
-                                ([KASUTAJA]).
+                                ({ user.name }).
                               </AlertDialogTitle>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
                               <AlertDialogCancel>Katkesta</AlertDialogCancel>
-                              <AlertDialogAction onClick={() => {}}>
+                              <AlertDialogAction onClick={() => {
+                                removeMember(user.id);
+                              }}>
                                 Kinnita
                               </AlertDialogAction>
                             </AlertDialogFooter>
