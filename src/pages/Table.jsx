@@ -64,6 +64,7 @@ export default function SingleTable() {
   }
 
   function storeTableContent() {
+    let message = "";
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/content/store`, {
@@ -93,6 +94,7 @@ export default function SingleTable() {
   }
 
   function updateTableContent(id) {
+    let message = "";
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/content/update/${id}`, {
@@ -106,43 +108,49 @@ export default function SingleTable() {
           setTime("");
           setLocation("");
           setDate(null);
+          message = response.data.message;
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
         });
 
       toast.promise(promise, {
         loading: "Loading...",
         success: (data) => {
-          return `Table updated successfully`;
+          return message;
         },
-        error: "can't retrieve data",
+        error: message,
       });
     });
   }
 
   function deleteTableContent(id) {
+    let message = "";
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/content/delete/${id}`)
+        .delete(`api/tables/content/delete/${id}`)
         .then((response) => {
           fetchData();
+          message = response.data.message;
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
         });
 
       toast.promise(promise, {
         loading: "Loading...",
         success: (data) => {
-          return `Table updated successfully`;
+          return message;
         },
-        error: "can't retrieve data",
+        error: message,
       });
     });
   }
 
   function updateTable(id) {
+    let message = "";
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/update/${id}`, {
@@ -150,40 +158,44 @@ export default function SingleTable() {
         })
         .then((response) => {
           fetchData();
+          message = response.data.message;
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
         });
 
       toast.promise(promise, {
         loading: "Loading...",
         success: (data) => {
-          return `Table updated successfully`;
+          return message;
         },
-        error: "can't retrieve data",
+        error: message,
       });
     });
   }
 
   function fetchData() {
+    let message = "";
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .get(`api/tables/show/${id}`)
         .then((response) => {
           setData(response.data.table);
           setHours(response.data.hours);
-
+          message = response.data.message;
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
         });
 
       toast.promise(promise, {
         loading: "Loading...",
         success: (data) => {
-          return `Table updated successfully`;
+          return message;
         },
-        error: "can't retrieve data",
+        error: message,
       });
     });
   }
@@ -299,7 +311,10 @@ export default function SingleTable() {
                       setLocation(e.target.value);
                     }}
                   />
-                  <Separator orientation="vertical" className="hidden lg:flex" />
+                  <Separator
+                    orientation="vertical"
+                    className="hidden lg:flex"
+                  />
                   <Separator className="flex lg:hidden" />
                   <Button
                     className="flex w-full"
@@ -329,7 +344,7 @@ export default function SingleTable() {
                         {format(data?.date, "PPP")}
                       </TableCell>
                       <TableCell className="w-48">{data?.time}</TableCell>
-                      <TableCell className="w-auto">{data?.location}</TableCell>
+                      <TableCell className="w-auto">{data?.location || '-'}</TableCell>
                       <TableCell className="w-4">
                         <AlertDialog>
                           <AlertDialogTrigger>
@@ -401,6 +416,23 @@ export default function SingleTable() {
                               />
                               <AlertDialogFooter>
                                 {/* ... (other JSX) */}
+                                <AlertDialogCancel
+                                  onClick={() => {
+                                    setTime("");
+                                    setLocation("");
+                                    setDate(null);
+                                  }}
+                                >
+                                  Cancel
+                                </AlertDialogCancel>
+                                <AlertDialogAction
+                                  type="submit"
+                                  onClick={() => {
+                                    updateTableContent(data.id);
+                                  }}
+                                >
+                                  Update
+                                </AlertDialogAction>
                               </AlertDialogFooter>
                             </AlertDialogContent>
                           </form>
@@ -428,5 +460,4 @@ export default function SingleTable() {
       </div>
     </AppLayout>
   );
-
 }
