@@ -49,11 +49,11 @@ export default function SingleTable() {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-  const [date, setDate] = useState();
-  const [time, setTime] = useState();
-  const [location, setLocation] = useState();
-  const [title, setTitle] = useState();
-  const [hours, setHours] = useState();
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [location, setLocation] = useState("");
+  const [title, setTitle] = useState("");
+  const [hours, setHours] = useState("");
 
   let promise = null;
 
@@ -68,7 +68,7 @@ export default function SingleTable() {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/content/store`, {
-          date: date,
+          date: format(date, "yyyy-MM-dd"),
           time: time,
           location: location,
           table_id: data.id,
@@ -77,18 +77,20 @@ export default function SingleTable() {
           fetchData();
           setTime("");
           setLocation("");
-          setDate(null);
+          setDate("");
+          message = response.data.message;
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
         });
 
       toast.promise(promise, {
         loading: "Loading...",
         success: (data) => {
-          return `Table updated successfully`;
+          return message;
         },
-        error: "can't retrieve data",
+        error: message,
       });
     });
   }
@@ -288,6 +290,9 @@ export default function SingleTable() {
                 className="flex w-full"
                 type="number"
                 placeholder="Tunnid"
+                min="0"
+                max="24"
+                step="0.5"
                 value={time}
                 onChange={(e) => {
                   setTime(e.target.value);
@@ -306,6 +311,9 @@ export default function SingleTable() {
                 className="flex w-full bg-[#EFEFEF]"
                 type="submit"
                 variant="secondary"
+                onClick={() => {
+                  storeTableContent();
+                }}
               >
                 Salvesta
               </Button>
@@ -362,7 +370,7 @@ export default function SingleTable() {
                       <TableCell className="w-auto">
                         {data?.location || "-"}
                       </TableCell>
-                      <TableCell className="w-fit flex gap-2">
+                      <TableCell className="w-fit flex gap-2 justify-end">
                         <AlertDialog>
                           <AlertDialogTrigger>
                             <Button
@@ -456,7 +464,7 @@ export default function SingleTable() {
                         </AlertDialog>
                         <Button
                           variant="destructive"
-                          className="bg-[#FF0000]/60 text-blac kw-fit"
+                          className="bg-[#FF0000]/60 text-blac w-fit"
                           onClick={() => {
                             deleteTableContent(data.id);
                           }}
