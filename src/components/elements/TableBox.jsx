@@ -47,23 +47,21 @@ const TableBox = ({text, createdAt, updatedAt, id}) => {
   }
 
   return (
-    <div className="flex flex-col gap-2 w-full h-[200px] rounded-md border border-[#c2c2c2] p-4">
+    <div className="flex flex-col gap-2 w-full h-[200px] rounded-md p-4 bg-white text-black">
       <h1 className="text-xl font-bold h-full">{text}</h1>
-      <p className={createdAt == updatedAt ? "hidden" : "block"}>Updated: {formattedUpdated_at}</p>
-      <p>Created: {formattedCreated_at}</p>
       <div className="flex w-full justify-between gap-4">
-        <Button className="w-full" variant="secondary" onClick={
+        <Button className="w-full border-2 border-black bg-white" variant="secondary" onClick={
           () => {
             navigate(`/table/${id}`);
           }
-        }>Open</Button>
+        }>Ava</Button>
         <Button 
-          className="bg-red-800 w-full" 
+          className="bg-[#FF0000]/60 w-full" 
           variant="destructive" 
           onClick={() => {
             deleteTable(id);
           }}>
-            Delete
+            Kustuta
           </Button>
       </div>
     </div>

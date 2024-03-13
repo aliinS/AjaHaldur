@@ -1,6 +1,4 @@
-import {
-  RefreshCw,
-} from "lucide-react";
+import { RefreshCw } from "lucide-react";
 import GroupBox from "@/components/elements/GroupBox";
 import TableBox from "@/components/elements/TableBox";
 import { Link, useNavigate } from "react-router-dom";
@@ -199,7 +197,7 @@ export default function Dashboard() {
     loadPersonalTables();
     loadGroups();
   }, []);
-  
+
   return (
     <AppLayout>
       <div className="flex">
@@ -208,42 +206,50 @@ export default function Dashboard() {
             id="PersonalTables"
             className="w-full h-fit p-4 flex flex-col gap-4"
           >
-            <h1 className="text-2xl font-bold">Personal tables:</h1>
-            <AlertDialog>
-              <Button variant="secondary" className="w-fit px-6">
-                <AlertDialogTrigger>Lisa uus!</AlertDialogTrigger>
-              </Button>
-              <AlertDialogContent className="">
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Loo uus tabel</AlertDialogTitle>
+            <div className="flex fle-row w-full h-fit justify-between bg-white rounded-lg p-2 text-black">
+              <h1 className="text-2xl font-bold">Personaal tabelid:</h1>
+              <AlertDialog>
+                <Button variant="secondary" className="w-fit px-6">
+                  <AlertDialogTrigger className="text-3xl">
+                    +
+                  </AlertDialogTrigger>
+                </Button>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="text-black">
+                      Loo uus tabel
+                    </AlertDialogTitle>
+                  </AlertDialogHeader>
                   <Input
                     type="email"
                     value={tableName}
                     onChange={(e) => {
                       setTableName(e.target.value);
                     }}
-                    className="text-white"
+                    className="text-white bg-white border-none py-6 text-black"
                     placeholder="Tabeli nimi"
                   />
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction
-                    onClick={() => {
-                      storeUserTable();
-                    }}
-                  >
-                    Continue
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-
+                  <AlertDialogFooter className="gap-2 lg:gap-0">
+                    <AlertDialogAction
+                      className="flex w-full bg-white border-2 border-black"
+                      onClick={() => {
+                        storeUserTable();
+                      }}
+                    >
+                      Loo uus
+                    </AlertDialogAction>
+                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60">
+                      Katkesta
+                    </AlertDialogCancel>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
             <div
               className={
                 personalTables.length === 0
                   ? "hidden"
-                  : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"
+                  : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 w-full"
               }
             >
               {personalTables?.map((data) => (
@@ -259,7 +265,7 @@ export default function Dashboard() {
             <div
               className={
                 personalTables.length === 0
-                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"
+                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 w-full"
                   : "hidden"
               }
             >
@@ -272,7 +278,9 @@ export default function Dashboard() {
             <Button
               variant="secondary"
               disabled={!canLoadMore}
-              className={personalTables.length === 0 ? "hidden" : "flex gap-2"}
+              className={
+                personalTables.length === 0 ? "hidden" : "flex gap-2 bg-white"
+              }
               onClick={() => {
                 loadMorePersonalTables();
                 setPage(page + 1);
@@ -283,41 +291,50 @@ export default function Dashboard() {
           </div>
 
           <div id="Groups" className="w-full h-fit p-4 flex flex-col gap-4">
-            <h1 className="text-2xl font-bold">Your groups:</h1>
-            <AlertDialog>
-              <Button variant="secondary" className="w-fit px-6">
-                <AlertDialogTrigger>Lisa uus!</AlertDialogTrigger>
-              </Button>
-              <AlertDialogContent className="">
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Loo uus grupp</AlertDialogTitle>
+            <div className="flex fle-row w-full h-fit justify-between bg-white rounded-lg p-2 text-black">
+              <h1 className="text-2xl font-bold">Minu grupid:</h1>
+              <AlertDialog>
+                <Button variant="secondary" className="w-fit px-6">
+                  <AlertDialogTrigger className="text-3xl">
+                    +
+                  </AlertDialogTrigger>
+                </Button>
+                <AlertDialogContent className="">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="text-black">
+                      Loo uus grupp
+                    </AlertDialogTitle>
+                  </AlertDialogHeader>
                   <Input
                     type="email"
                     value={groupName}
                     onChange={(e) => {
                       setGroupName(e.target.value);
                     }}
-                    className="text-white"
+                    className="text-white bg-white border-none py-6 text-black"
                     placeholder="Grupi nimi"
                   />
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction
-                    onClick={() => {
-                      storeGroup();
-                    }}
-                  >
-                    Continue
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+                  <AlertDialogFooter className="gap-2 lg:gap-0">
+                    <AlertDialogAction
+                      className="flex w-full bg-white border-2 border-black"
+                      onClick={() => {
+                        storeGroup();
+                      }}
+                    >
+                      Continue
+                    </AlertDialogAction>
+                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60">
+                      Cancel
+                    </AlertDialogCancel>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
             <div
               className={
                 groups.length === 0
                   ? "hidden"
-                  : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"
+                  : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 w-full"
               }
             >
               {groups?.map((data) => (
@@ -333,7 +350,7 @@ export default function Dashboard() {
             <div
               className={
                 groups.length === 0
-                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"
+                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 w-full"
                   : "hidden"
               }
             >
@@ -346,7 +363,7 @@ export default function Dashboard() {
             <Button
               variant="secondary"
               disabled={!canLoadMoreGroups}
-              className={groups.length === 0 ? "hidden" : "flex gap-2"}
+              className={groups.length === 0 ? "hidden" : "flex gap-2 bg-white"}
               onClick={() => {
                 loadMoreGroups();
               }}
