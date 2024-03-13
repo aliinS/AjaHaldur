@@ -229,7 +229,7 @@ export default function SingleTable() {
                   <AlertDialogContent>
                     <AlertDialogTitle>Change table's name</AlertDialogTitle>
                     <Input
-                      className="flex w-full text-white"
+                      className="flex w-full "
                       type="text"
                       placeholder="Title"
                       value={title}
@@ -261,7 +261,7 @@ export default function SingleTable() {
           </div>
 
           <div className="flex flex-col gap-4 ">
-            <div className="p-4 bg-white grid grid-cols-4 gap-4 rounded-lg">
+            <div className="p-4 bg-white grid xl:grid-cols-4 gap-4 rounded-lg">
               <Popover className="flex w-full">
                 <PopoverTrigger asChild>
                   <Button
@@ -342,7 +342,7 @@ export default function SingleTable() {
                 </AlertDialog>
               </div>
 
-              <Table className=" bg-[#EFEFEF]">
+              <Table className=" bg-[#EFEFEF] rounded-lg">
                 <TableHeader>
                   <TableRow>
                     <TableHead className="w-48">Date</TableHead>
@@ -362,12 +362,12 @@ export default function SingleTable() {
                       <TableCell className="w-auto">
                         {data?.location || "-"}
                       </TableCell>
-                      <TableCell className="w-4">
+                      <TableCell className="w-fit flex gap-2">
                         <AlertDialog>
                           <AlertDialogTrigger>
                             <Button
                               className="w-fit"
-                              variant="secondary"
+                              variant="outline"
                               onClick={() => {
                                 setDate(data.date);
                                 setTime(data.time);
@@ -454,13 +454,9 @@ export default function SingleTable() {
                             </AlertDialogContent>
                           </form>
                         </AlertDialog>
-                      </TableCell>
-                      <TableCell className="w-4">
                         <Button
-                          className="w-fit"
                           variant="destructive"
-                          className="
-                          bg-[#FF0000]/60 text-black"
+                          className="bg-[#FF0000]/60 text-blac kw-fit"
                           onClick={() => {
                             deleteTableContent(data.id);
                           }}
