@@ -230,17 +230,17 @@ export default function Dashboard() {
                     placeholder="Tabeli nimi"
                   />
                   <AlertDialogFooter className="gap-2 lg:gap-0">
+                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60">
+                      Katkesta
+                    </AlertDialogCancel>
                     <AlertDialogAction
-                      className="flex w-full bg-white border-2 border-black"
+                      className="flex w-full bg-white "
                       onClick={() => {
                         storeUserTable();
                       }}
                     >
                       Loo uus
                     </AlertDialogAction>
-                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60">
-                      Katkesta
-                    </AlertDialogCancel>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
@@ -315,17 +315,17 @@ export default function Dashboard() {
                     placeholder="Grupi nimi"
                   />
                   <AlertDialogFooter className="gap-2 lg:gap-0">
+                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60">
+                      Cancel
+                    </AlertDialogCancel>
                     <AlertDialogAction
-                      className="flex w-full bg-white border-2 border-black"
+                      className="flex w-full bg-white"
                       onClick={() => {
                         storeGroup();
                       }}
                     >
                       Continue
                     </AlertDialogAction>
-                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60">
-                      Cancel
-                    </AlertDialogCancel>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
