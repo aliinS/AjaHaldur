@@ -22,7 +22,7 @@ export default function AppLayout({ children }) {
           <div className="flex flex-col gap-4">
             <button onClick={() => navigate("/dashboard")} className="w-fit">
               <SidebarItem
-                icon={<Package size={20} color="#c2c2c2" />}
+                icon={<Package size={20} color="black" />}
                 text="Dashboard"
                 active={isActive("/dashboard")}
               />
@@ -30,7 +30,7 @@ export default function AppLayout({ children }) {
 
             <button onClick={() => navigate("/dashboard")} className="w-fit">
               <SidebarItem
-                icon={<Boxes size={20} color="#c2c2c2" />}
+                icon={<Boxes size={20} color="black" />}
                 text="Groups"
                 active={isActive("/xxx")}
               />
@@ -38,7 +38,7 @@ export default function AppLayout({ children }) {
 
             <button onClick={() => navigate("/dashboard")} className="w-fit">
               <SidebarItem
-                icon={<BarChart3 size={20} color="#c2c2c2" />}
+                icon={<BarChart3 size={20} color="black" />}
                 text="Tables"
                 active={isActive("/xxx")}
               />
@@ -48,7 +48,7 @@ export default function AppLayout({ children }) {
           <div className="flex flex-col gap-4 pt-4">
             <button onClick={() => navigate("/settingsTable")} className="w-fit">
               <SidebarItem
-                icon={<Settings size={20} color="#c2c2c2" />}
+                icon={<Settings size={20} color="black" />}
                 text="Settings"
                 active={isActive("/settingsTable")}
               />
@@ -56,7 +56,7 @@ export default function AppLayout({ children }) {
 
             <button onClick={() => logout()} className="w-fit">
               <SidebarItem
-                icon={<LogOut size={20} color="#c2c2c2" />}
+                icon={<LogOut size={20} color="black" />}
                 text="Logout"
               />
             </button>
@@ -66,9 +66,9 @@ export default function AppLayout({ children }) {
 
       {/* Mobile Sidebar */}
       <SidenavMobile>
-        <button onClick={() => navigate("/dashboard")} className="flex items-center justify-center h-fit w-fit">
+        <button onClick={() => navigate("/dashboard")} className="flex items-center justify-center h-fit w-full">
           <SidenavMobileItem
-            icon={<LucideLayoutDashboard size={20} color="#c2c2c2" />}
+            icon={<LucideLayoutDashboard size={20} color="black" />}
             // text="Dashboard"
             active={isActive("/dashboard")}
           />
@@ -76,7 +76,7 @@ export default function AppLayout({ children }) {
 
         {/* <button onClick={() => navigate("/dashboard")} className="flex items-center justify-center h-fit w-fit">
           <SidenavMobileItem
-            icon={<Boxes size={20} color="#c2c2c2" />}
+            icon={<Boxes size={20} color="black" />}
             // text="Groups"
             active={isActive("/xxx")}
           />
@@ -84,23 +84,23 @@ export default function AppLayout({ children }) {
 
         <button onClick={() => navigate("/dashboard")} className="flex items-center justify-center h-fit w-fit">
           <SidenavMobileItem
-            icon={<BarChart3 size={20} color="#c2c2c2" />}
+            icon={<BarChart3 size={20} color="black" />}
             // text="Tables"
             active={isActive("/xxx")}
           />
         </button> */}
 
-        <button onClick={() => navigate("/settingsTable")} className="flex items-center justify-center h-fit w-fit">
+        <button onClick={() => navigate("/settingsTable")} className="flex items-center justify-center h-fit w-full">
           <SidenavMobileItem
-            icon={<Settings size={20} color="#c2c2c2" />}
+            icon={<Settings size={20} color="black" />}
             // text="Settings"
             active={isActive("/settingsTable")}
           />
         </button>
 
-        <button onClick={() => logout()} className="flex items-center justify-center h-fit w-fit">
+        <button onClick={() => logout()} className="flex items-center justify-center h-fit w-full">
           <SidenavMobileItem
-            icon={<LogOut size={20} color="#c2c2c2" />}
+            icon={<LogOut size={20} color="black" />}
             // text="Logout"
           />
         </button>

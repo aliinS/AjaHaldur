@@ -209,7 +209,7 @@ export default function Dashboard() {
             <div className="flex fle-row w-full h-fit justify-between bg-white rounded-lg p-2 text-black">
               <h1 className="text-2xl font-bold">Personaal tabelid:</h1>
               <AlertDialog>
-                <Button variant="secondary" className="w-fit px-6">
+                <Button variant="ghost" className="w-fit px-6">
                   <AlertDialogTrigger className="text-3xl">
                     +
                   </AlertDialogTrigger>
@@ -294,7 +294,7 @@ export default function Dashboard() {
             <div className="flex fle-row w-full h-fit justify-between bg-white rounded-lg p-2 text-black">
               <h1 className="text-2xl font-bold">Minu grupid:</h1>
               <AlertDialog>
-                <Button variant="secondary" className="w-fit px-6">
+                <Button variant="ghost" className="w-fit px-6">
                   <AlertDialogTrigger className="text-3xl">
                     +
                   </AlertDialogTrigger>

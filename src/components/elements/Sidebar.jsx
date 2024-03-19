@@ -6,7 +6,7 @@ export default function Sidebar({ children }) {
   return (
     <>
       {/* Desktop Sidebar */}
-      <nav className="hidden md:flex md:flex-col md:h-screen md:border-r md:border-gray-600 md:shadow-sm md:bg-black md:w-20 md:sticky md:top-0">
+      <nav className="hidden md:flex md:flex-col md:h-screen md:shadow-sm md:bg-[#E4E4E4] md:w-20 md:sticky md:top-0">
         <div className="p-2">
           <Link to="/" className="flex justify-center items-center">
             <img src={logo} alt="Logo" className="w-16"/>
@@ -25,8 +25,8 @@ export function SidebarItem({ icon, text, active }) {
       className={`
         relative flex items-center p-2
         font-medium rounded-md cursor-pointer
-        transition-colors group border-2 border-gray-600/50
-        ${active ? "bg-gray-800" : "bg-gray-800/50"}
+        transition-colors group border-2 
+        ${active ? "bg-white" : "bg-white/50"}
     `}
     >
       {icon}
@@ -47,8 +47,8 @@ export function SidebarItem({ icon, text, active }) {
 
 export function SidenavMobile({ children }) {
   return (
-    <nav className="md:hidden fixed bottom-0 h-16 flex items-center bg-black w-full z-[100]">
-      <div className="flex justify-around h-fit items-center px-4 py-2 w-full">
+    <nav className="md:hidden fixed bottom-0 h-16 flex items-center bg-[#E4E4E4] w-full z-[100]">
+      <div className="flex justify-around h-fit items-center px-2 py-2 w-full gap-2">
         {children}
       </div>
     </nav>
@@ -61,8 +61,8 @@ export function SidenavMobileItem({ icon, text, active }) {
       className={`relative flex flex-col items-center p-3
         font-medium rounded-md cursor-pointer w-full
         transition-colors group
-        border-2 ${active ? 'border-white' : 'border-gray-600/50'}
-        ${active ? 'bg-gray-800' : 'bg-gray-800/50'}
+        border-2
+        ${active ? 'bg-white' : 'bg-white/50'}
       `}
     >
       {icon}
