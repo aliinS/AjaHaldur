@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Badge } from "@/components/ui/badge"
+
 
 const GroupBox = ({text, createdAt, updatedAt, id, isOwner}) => {
   const squareStyle = {
@@ -46,6 +48,8 @@ const GroupBox = ({text, createdAt, updatedAt, id, isOwner}) => {
   return (
     <div className="flex flex-col gap-2 w-full h-[200px] rounded-md p-4 bg-white text-black">
       <h1 className="text-xl font-bold h-full">{text}</h1>
+      {}
+      <Badge variant="outline" className={isOwner ? 'w-fit' : 'hidden'}>Omanik</Badge>
       <div className="flex w-full justify-between gap-4">
         <Button className="w-full border-2 border-black bg-white" variant="secondary" onClick={
           () => {
