@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const GroupBox = ({text, createdAt, updatedAt, id}) => {
+const GroupBox = ({text, createdAt, updatedAt, id, isOwner}) => {
   const squareStyle = {
     width: '100%',
     height: '200px',
@@ -52,6 +52,7 @@ const GroupBox = ({text, createdAt, updatedAt, id}) => {
             navigate(`/group/${id}`);
           }
         }>Ava</Button>
+        {isOwner &&(
         <Button 
           className="bg-[#FF0000]/60 w-full" 
           variant="destructive" 
@@ -60,6 +61,7 @@ const GroupBox = ({text, createdAt, updatedAt, id}) => {
           }}>
             Kustuta
           </Button>
+        )}
       </div>
     </div>
   );

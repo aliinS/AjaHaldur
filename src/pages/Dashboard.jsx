@@ -342,6 +342,7 @@ export default function Dashboard() {
                   id={data.id}
                   key={data.id}
                   text={data.name}
+                  isOwner={data.isOwner}
                   createdAt={data.created_at}
                   updatedAt={data.updated_at}
                 />
