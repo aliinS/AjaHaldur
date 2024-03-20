@@ -180,6 +180,7 @@ export default function SingleGroup() {
             <div className="w-full flex justify-between gap-4 p-4 bg-white rounded-lg text-black">
               <h1 className="text-2xl">{data?.name}</h1>
               <div className="flex items-center">
+                {data?.isOwner && (
                 <AlertDialog>
                   <AlertDialogTrigger
                     onClick={() => {
@@ -229,6 +230,7 @@ export default function SingleGroup() {
                     </AlertDialogContent>
                   </form>
                 </AlertDialog>
+                )}
               </div>
             </div>
             <div className="flex bg-white w-full h-fit p-4 justify-around rounded-lg gap-4 flex-col lg:flex-row lg:justify-start">
