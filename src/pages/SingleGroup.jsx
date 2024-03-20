@@ -180,6 +180,7 @@ export default function SingleGroup() {
             <div className="w-full flex justify-between gap-4 p-4 bg-white rounded-lg text-black">
               <h1 className="text-2xl">{data?.name}</h1>
               <div className="flex items-center">
+                {data?.isOwner && (
                 <AlertDialog>
                   <AlertDialogTrigger
                     onClick={() => {
@@ -229,9 +230,11 @@ export default function SingleGroup() {
                     </AlertDialogContent>
                   </form>
                 </AlertDialog>
+                )}
               </div>
             </div>
             <div className="flex bg-white w-full h-fit p-4 justify-around rounded-lg gap-4 flex-col lg:flex-row lg:justify-start">
+              {data?.isOwner && (
               <AlertDialog>
                 <AlertDialogTrigger className="w-full lg:w-fit">
                   <Button variant="secondary" className="w-full bg-[#EFEFEF]">
@@ -265,6 +268,7 @@ export default function SingleGroup() {
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
+              )}
 
               <AlertDialog>
                 <AlertDialogTrigger className="w-full lg:w-fit">
@@ -465,11 +469,16 @@ export default function SingleGroup() {
                           </AlertDialogContentDesc>
                         </AlertDialogDesc>
                       </TableCell>
-                      <TableCell className="w-full lg:w-fit">
-                        <Button className="w-full bg-white text-black lg:w-fit">
-                          Õigused
-                        </Button>
-                      </TableCell>
+
+                      {data?.isOwner && (
+                        <TableCell className="w-full lg:w-fit">
+                          <Button className="w-full bg-white text-black lg:w-fit">
+                            Õigused
+                          </Button>
+                        </TableCell>
+                      )}
+
+                      {data?.isOwner && (
                       <TableCell className="w-full lg:w-fit">
                         <AlertDialog>
                           <AlertDialogTrigger className="w-full lg:w-fit">
@@ -500,6 +509,7 @@ export default function SingleGroup() {
                           </AlertDialogContent>
                         </AlertDialog>
                       </TableCell>
+                      )}
                     </TableRow>
                   );
                 })}
