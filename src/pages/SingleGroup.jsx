@@ -207,7 +207,7 @@ export default function SingleGroup() {
                           setName(e.target.value);
                         }}
                       />
-                      <AlertDialogFooter className="gap-2 flex-col">
+                      <AlertDialogFooter className="flex-col">
                         <AlertDialogAction
                           className="bg-white lg:w-full"
                           type="submit"
@@ -250,18 +250,18 @@ export default function SingleGroup() {
                       setInviteEmail(e.target.value);
                     }}
                   />
-                  <AlertDialogFooter>
-                    <AlertDialogCancel className="bg-[#FF0000]/60">
-                      Cancel
-                    </AlertDialogCancel>
+                  <AlertDialogFooter className="flex-col">
                     <AlertDialogAction
-                      className="bg-white"
+                      className="bg-white w-full"
                       onClick={() => {
                         inviteMember();
                       }}
                     >
                       Continue
                     </AlertDialogAction>
+                    <AlertDialogCancel className="bg-[#FF0000]/60 w-full">
+                      Cancel
+                    </AlertDialogCancel>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
@@ -287,7 +287,7 @@ export default function SingleGroup() {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {data?.users.map((user) => {
+                        {data?.membersList.map((user) => {
                           return (
                             <TableRow key={user.id}>
                               <TableCell>{user.name}</TableCell>

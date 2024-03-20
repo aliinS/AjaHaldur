@@ -229,9 +229,9 @@ export default function SingleTable() {
                   }}
                 >
                   <AlertDialogContent>
-                    <AlertDialogTitle>Change table's name</AlertDialogTitle>
+                    <AlertDialogTitle className="p-4 bg-white text-black rounded-lg">Muuda tabeli nime</AlertDialogTitle>
                     <Input
-                      className="flex w-full "
+                      className="flex w-full  h-fit bg-white p-4"
                       type="text"
                       placeholder="Title"
                       value={title}
@@ -240,21 +240,23 @@ export default function SingleTable() {
                       }}
                     />
                     <AlertDialogFooter>
-                      <AlertDialogCancel
-                        onClick={() => {
-                          setTitle("");
-                        }}
-                      >
-                        Cancel
-                      </AlertDialogCancel>
                       <AlertDialogAction
+                      className="w-full bg-white"
                         type="submit"
                         onClick={() => {
                           updateTable(data.id);
                         }}
                       >
-                        Update
+                        Uuenda
                       </AlertDialogAction>
+                      <AlertDialogCancel
+                      className="w-full bg-[#FF0000]/60"
+                        onClick={() => {
+                          setTitle("");
+                        }}
+                      >
+                        Katkesta
+                      </AlertDialogCancel>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </form>
@@ -392,15 +394,15 @@ export default function SingleTable() {
                             }}
                           >
                             <AlertDialogContent>
-                              <AlertDialogTitle>
-                                Change entry's data
+                              <AlertDialogTitle className="w-full h-fit p-4 bg-white rounded-lg text-black">
+                                Muuda sissekannet
                               </AlertDialogTitle>
-                              <Popover className="flex w-fit">
+                              <Popover className="flex w-fit bg-white">
                                 <PopoverTrigger asChild>
                                   <Button
                                     variant={"secondary"}
                                     className={cn(
-                                      "w-full px-1 justify-start text-left font-normal",
+                                      "w-full h-fit p-4 px-1 justify-start text-left font-normal bg-white",
                                       !date && "text-muted-foreground"
                                     )}
                                   >
@@ -422,7 +424,7 @@ export default function SingleTable() {
                                 </PopoverContent>
                               </Popover>
                               <Input
-                                className="flex w-full"
+                                className="flex w-full h-fit bg-white p-4"
                                 type="number"
                                 placeholder="Hours"
                                 value={time}
@@ -431,7 +433,7 @@ export default function SingleTable() {
                                 }}
                               />
                               <Input
-                                className="flex w-full"
+                                className="flex w-full h-fit bg-white p-4"
                                 type="text"
                                 placeholder="Object"
                                 value={location}
@@ -441,23 +443,25 @@ export default function SingleTable() {
                               />
                               <AlertDialogFooter>
                                 {/* ... (other JSX) */}
+                                <AlertDialogAction
+                                className="w-full bg-white"
+                                  type="submit"
+                                  onClick={() => {
+                                    updateTableContent(data.id);
+                                  }}
+                                >
+                                  Uuenda
+                                </AlertDialogAction>
                                 <AlertDialogCancel
+                                className="w-full bg-[#FF0000]/60"
                                   onClick={() => {
                                     setTime("");
                                     setLocation("");
                                     setDate(null);
                                   }}
                                 >
-                                  Cancel
+                                  Katkesta
                                 </AlertDialogCancel>
-                                <AlertDialogAction
-                                  type="submit"
-                                  onClick={() => {
-                                    updateTableContent(data.id);
-                                  }}
-                                >
-                                  Update
-                                </AlertDialogAction>
                               </AlertDialogFooter>
                             </AlertDialogContent>
                           </form>

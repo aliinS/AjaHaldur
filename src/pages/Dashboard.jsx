@@ -229,10 +229,7 @@ export default function Dashboard() {
                     className="text-white bg-white border-none py-6 text-black"
                     placeholder="Tabeli nimi"
                   />
-                  <AlertDialogFooter className="gap-2 lg:gap-0">
-                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60">
-                      Katkesta
-                    </AlertDialogCancel>
+                  <AlertDialogFooter className="flex-col lg:gap-0">
                     <AlertDialogAction
                       className="flex w-full bg-white "
                       onClick={() => {
@@ -241,6 +238,9 @@ export default function Dashboard() {
                     >
                       Loo uus
                     </AlertDialogAction>
+                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60">
+                      Katkesta
+                    </AlertDialogCancel>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
@@ -314,18 +314,18 @@ export default function Dashboard() {
                     className="text-white bg-white border-none py-6 text-black"
                     placeholder="Grupi nimi"
                   />
-                  <AlertDialogFooter className="gap-2 lg:gap-0">
-                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60">
-                      Cancel
-                    </AlertDialogCancel>
+                  <AlertDialogFooter className="flex-col lg:gap-0">
                     <AlertDialogAction
                       className="flex w-full bg-white"
                       onClick={() => {
                         storeGroup();
                       }}
                     >
-                      Continue
+                      Loo uus
                     </AlertDialogAction>
+                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60">
+                      Katkesta
+                    </AlertDialogCancel>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
