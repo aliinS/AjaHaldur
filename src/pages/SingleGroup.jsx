@@ -491,20 +491,21 @@ export default function SingleGroup() {
                           </AlertDialogTrigger>
                           <AlertDialogContent className="">
                             <AlertDialogHeader>
-                              <AlertDialogTitle>
+                              <AlertDialogTitle className="text-black">
                                 Kas oled kindel, et soovid eemaldada kasutaja (
                                 {user.name}).
                               </AlertDialogTitle>
                             </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Katkesta</AlertDialogCancel>
+                            <AlertDialogFooter className="flex flex-col">
                               <AlertDialogAction
+                              className="bg-white w-full"
                                 onClick={() => {
                                   removeMember(user.id);
                                 }}
                               >
                                 Kinnita
                               </AlertDialogAction>
+                                <AlertDialogCancel className="bg-[#FF0000]/60 w-full">Katkesta</AlertDialogCancel>
                             </AlertDialogFooter>
                           </AlertDialogContent>
                         </AlertDialog>
