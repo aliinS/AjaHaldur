@@ -380,8 +380,8 @@ export default function SingleGroup() {
                             />
                             <Separator className="flex lg:hidden" />
 
-                            <div className="max-h-80 h-fit overflow-y-auto min-w-64 w-full rounded-lg bg-white overflow-x-auto lg:w-full lg:max-w-full">
-                              <Table className="text-black max-h-80 m-2 bg-[#EFEFEF] min-w-64lg:w-full lg:max-w-full">
+                            <div className="max-h-80 h-fit overflow-y-auto p-2 min-w-64 w-full rounded-lg bg-white overflow-x-auto lg:w-full lg:max-w-full">
+                              <Table className="text-black max-h-80 bg-[#EFEFEF] min-w-64 lg:w-full lg:max-w-full">
                                 <TableHeader>
                                   <TableRow className="bg-[#EFEFEF]">
                                     <TableHead>Date</TableHead>
@@ -464,7 +464,7 @@ export default function SingleGroup() {
                               </Table>
                             </div>
                             <AlertDialogCancelDesc className="w-full">
-                              Sulge
+                              <Button variant="secondary">Sulge</Button>
                             </AlertDialogCancelDesc>
                           </AlertDialogContentDesc>
                         </AlertDialogDesc>
