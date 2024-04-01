@@ -339,8 +339,8 @@ export default function SingleGroup() {
                             </Button>
                           </AlertDialogTriggerDesc>
                           <AlertDialogContentDesc className="items-center flex flex-col w-full">
-                            <AlertDialogHeaderDesc>
-                              <AlertDialogTitleDesc>
+                            <AlertDialogHeaderDesc className="flex w-full">
+                              <AlertDialogTitleDesc className="text-black bg-white flex w-full h-fit p-4 rounded-lg">
                                 Töötunnid
                               </AlertDialogTitleDesc>
                             </AlertDialogHeaderDesc>
@@ -348,7 +348,7 @@ export default function SingleGroup() {
                               <PopoverTrigger asChild>
                                 <Button
                                   variant={"outline"}
-                                  className="w-full px-1 justify-start text-left font-normal"
+                                  className="w-full px-1 justify-start text-left font-normal text-black bg-white h-fit p-4"
                                 >
                                   <CalendarIcon className="mr-2 h-4 w-4" />
                                 </Button>
@@ -358,21 +358,21 @@ export default function SingleGroup() {
                               </PopoverContent>
                             </Popover>
                             <Input
-                              className="flex w-full text-white"
+                              className="flex w-full text-black h-fit p-4 bg-white"
                               type="number"
                               placeholder="Hours"
                             />
                             <Input
-                              className="flex w-full text-white"
+                              className="flex w-full text-black h-fit p-4 bg-white"
                               type="text"
                               placeholder="Object"
                             />
                             <Button
-                              className="flex w-full"
+                              className="flex w-full text-black h-fit bg-white"
                               type="submit"
                               variant="secondary"
                             >
-                              Submit
+                              Sisesta
                             </Button>
                             <Separator
                               orientation="vertical"
@@ -380,10 +380,10 @@ export default function SingleGroup() {
                             />
                             <Separator className="flex lg:hidden" />
 
-                            <div className="max-h-80 h-fit overflow-y-auto min-w-64 w-full overflow-x-auto lg:w-full lg:max-w-full">
-                              <Table className="text-white max-h-80 min-w-64 lg:w-full lg:max-w-full">
+                            <div className="max-h-80 h-fit overflow-y-auto p-2 min-w-64 w-full rounded-lg bg-white overflow-x-auto lg:w-full lg:max-w-full">
+                              <Table className="text-black max-h-80 bg-[#EFEFEF] min-w-64 lg:w-full lg:max-w-full">
                                 <TableHeader>
-                                  <TableRow>
+                                  <TableRow className="bg-[#EFEFEF]">
                                     <TableHead>Date</TableHead>
                                     <TableHead>Hours</TableHead>
                                     <TableHead>Object</TableHead>
@@ -464,7 +464,7 @@ export default function SingleGroup() {
                               </Table>
                             </div>
                             <AlertDialogCancelDesc className="w-full">
-                              Sulge
+                              <Button variant="secondary">Sulge</Button>
                             </AlertDialogCancelDesc>
                           </AlertDialogContentDesc>
                         </AlertDialogDesc>
