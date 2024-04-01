@@ -463,8 +463,8 @@ export default function SingleGroup() {
                                 </TableBody>
                               </Table>
                             </div>
-                            <AlertDialogCancelDesc className="w-full">
-                              <Button variant="secondary">Sulge</Button>
+                            <AlertDialogCancelDesc className="w-full bg-white">
+                              Sulge
                             </AlertDialogCancelDesc>
                           </AlertDialogContentDesc>
                         </AlertDialogDesc>
