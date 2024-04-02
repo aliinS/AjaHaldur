@@ -1,6 +1,14 @@
-import { BarChart3, Boxes, Package, RefreshCw, Settings } from "lucide-react";
+import {
+  BarChart3,
+  Boxes,
+  LogOut,
+  Package,
+  RefreshCw,
+  Settings,
+} from "lucide-react";
 import Sidebar, { SidebarItem } from "@/components/elements/Sidebar";
-import DashboardBox from "@/components/elements/DashboardBox";
+import GroupBox from "@/components/elements/GroupBox";
+import TableBox from "@/components/elements/TableBox";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { fetchPersonalTables } from "@/api/tables";
@@ -20,6 +28,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
+import { logout } from "@/api/auth";
 
 export default function Dashboard() {
   const [personalTables, setPersonalTables] = useState([]);
@@ -30,6 +39,7 @@ export default function Dashboard() {
   const [canLoadMoreGroups, setCanLoadMoreGroups] = useState(true);
 
   const [tableName, setTableName] = useState("");
+  const [groupName, setGroupName] = useState("");
 
   const navigate = useNavigate();
   let promise = null;
@@ -41,8 +51,10 @@ export default function Dashboard() {
         .then((response) => {
           setPersonalTables(response.data.data);
           promise = null;
-          if (response.data.last_page == groupsPage) {
-            setCanLoadMoreGroups(false);
+          if (response.data.last_page == page) {
+            setCanLoadMore(false);
+          } else {
+            setCanLoadMore(true);
           }
           setPage(2);
         })
@@ -69,6 +81,8 @@ export default function Dashboard() {
           promise = null;
           if (response.data.last_page == page) {
             setCanLoadMore(false);
+          } else {
+            setCanLoadMore(true);
           }
         })
         .catch((error) => {
@@ -88,12 +102,14 @@ export default function Dashboard() {
   function loadGroups() {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/groups?page=1&amount=4`)
+        .post(`api/groups?page=1&amount=4`)
         .then((response) => {
           setGroups(response.data.data);
           promise = null;
           if (response.data.last_page == groupsPage) {
             setCanLoadMoreGroups(false);
+          } else {
+            setCanLoadMoreGroups(true);
           }
           setGroupsPage(2);
         })
@@ -114,13 +130,15 @@ export default function Dashboard() {
   function loadMoreGroups(amount = 4) {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/groups?page=${page}&amount=${amount}`)
+        .post(`api/groups?page=${page}&amount=${amount}`)
         .then((response) => {
           setGroups(groups.concat(response.data.data));
           promise = null;
           setGroupsPage(groupsPage + 1);
           if (response.data.last_page == groupsPage) {
             setCanLoadMoreGroups(false);
+          } else {
+            setCanLoadMoreGroups(true);
           }
         })
         .catch((error) => {
@@ -142,10 +160,9 @@ export default function Dashboard() {
       promise = axios
         .post(`api/tables/store`, {
           title: tableName,
-          type: "peronal",
+          type: "personal",
         })
         .then((response) => {
-          console.log(response.data);
           loadPersonalTables();
         })
         .catch((error) => {
@@ -162,6 +179,29 @@ export default function Dashboard() {
     });
   }
 
+  function storeGroup() {
+    axios.get("/sanctum/csrf-cookie").then(() => {
+      promise = axios
+        .post(`api/groups/store`, {
+          name: groupName,
+        })
+        .then((response) => {
+          loadGroups();
+        })
+        .catch((error) => {
+          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+        });
+
+      toast.promise(promise, {
+        loading: "Loading...",
+        success: (data) => {
+          return `Group created successfully`;
+        },
+        error: "Group cannot be created",
+      });
+    });
+  }
+
   useEffect(() => {
     loadPersonalTables();
     loadGroups();
@@ -171,55 +211,73 @@ export default function Dashboard() {
     <div className="flex">
       <div className="flex">
         <Sidebar>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            onClick={() => {
-              navigate("/dashboard");
-            }}
-          >
-            <SidebarItem
-              icon={<Package size={20} color="#c2c2c2" />}
-              text="Avaleht"
-              active
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            // onClick={() => {
-            //   navigate("/dashboard");
-            // }}
-          >
-            <SidebarItem
-              icon={<Boxes size={20} color="#c2c2c2" />}
-              text="Grupid"
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            // onClick={() => {
-            //   navigate("/dashboard");
-            // }}
-          >
-            <SidebarItem
-              icon={<BarChart3 size={20} color="#c2c2c2" />}
-              text="Tabelid"
-            />
-          </button>
-          <button
-            className="w-8 h-8 flex justify-center items-center"
-            onClick={() => {
-              navigate("/settingsTable");
-            }}
-          >
-            <SidebarItem
-              icon={<Settings size={20} color="#c2c2c2" />}
-              text="Seaded"
-            />
-          </button>
+          <div className="flex flex-col justify-between h-full ">
+            <div className="flex flex-col gap-4">
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                onClick={() => {
+                  navigate("/dashboard");
+                }}
+              >
+                <SidebarItem
+                  icon={<Package size={20} color="#c2c2c2" />}
+                  text="Dashboard"
+                  active
+                />
+              </button>
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                // onClick={() => {
+                //   navigate("/dashboard");
+                // }}
+              >
+                <SidebarItem
+                  icon={<Boxes size={20} color="#c2c2c2" />}
+                  text="Groups"
+                />
+              </button>
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                // onClick={() => {
+                //   navigate("/dashboard");
+                // }}
+              >
+                <SidebarItem
+                  icon={<BarChart3 size={20} color="#c2c2c2" />}
+                  text="Tables"
+                />
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                onClick={() => {
+                  navigate("/settingsTable");
+                }}
+              >
+                <SidebarItem
+                  icon={<Settings size={20} color="#c2c2c2" />}
+                  text="Settings"
+                />
+              </button>
+              <button
+                className="w-8 h-8 flex justify-center items-center"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                <SidebarItem
+                  icon={<LogOut size={20} color="#c2c2c2" />}
+                  text="Loguout"
+                />
+              </button>
+            </div>
+          </div>
         </Sidebar>
       </div>
 
-      <div className="text-[#c2c2c2] font-thin p-4 w-full ml-14">
+      <div className="text-[#c2c2c2] font-thin p-2 w-full">
         <div
           id="PersonalTables"
           className="w-full h-fit p-4 flex flex-col gap-4"
@@ -229,18 +287,16 @@ export default function Dashboard() {
             <Button variant="secondary" className="w-fit px-6">
               <AlertDialogTrigger>Lisa uus!</AlertDialogTrigger>
             </Button>
-            <AlertDialogContent className="bg-[#2C2C2C]">
+            <AlertDialogContent className="">
               <AlertDialogHeader>
-                <AlertDialogTitle className="flex w-full justify-center">
-                  Loo uus tabel
-                </AlertDialogTitle>
+                <AlertDialogTitle>Loo uus tabel</AlertDialogTitle>
                 <Input
                   type="email"
                   value={tableName}
                   onChange={(e) => {
                     setTableName(e.target.value);
                   }}
-                  className="text-white"
+                  className=""
                   placeholder="Tabeli nimi"
                 />
               </AlertDialogHeader>
@@ -265,11 +321,12 @@ export default function Dashboard() {
             }
           >
             {personalTables?.map((data) => (
-              <DashboardBox
+              <TableBox
                 key={data.id}
                 text={data.title}
                 createdAt={data.created_at}
                 updatedAt={data.updated_at}
+                id={data.id}
               />
             ))}
           </div>
@@ -301,6 +358,35 @@ export default function Dashboard() {
 
         <div id="Groups" className="w-full h-fit p-4 flex flex-col gap-4">
           <h1 className="text-2xl font-bold">Your groups:</h1>
+          <AlertDialog>
+            <Button variant="secondary" className="w-fit px-6">
+              <AlertDialogTrigger>Lisa uus!</AlertDialogTrigger>
+            </Button>
+            <AlertDialogContent className="">
+              <AlertDialogHeader>
+                <AlertDialogTitle>Loo uus grupp</AlertDialogTitle>
+                <Input
+                  type="email"
+                  value={groupName}
+                  onChange={(e) => {
+                    setGroupName(e.target.value);
+                  }}
+                  className=""
+                  placeholder="Grupi nimi"
+                />
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() => {
+                    storeGroup();
+                  }}
+                >
+                  Continue
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
           <div
             className={
               groups.length === 0
@@ -309,7 +395,8 @@ export default function Dashboard() {
             }
           >
             {groups?.map((data) => (
-              <DashboardBox
+              <GroupBox
+                id={data.id}
                 key={data.id}
                 text={data.name}
                 createdAt={data.created_at}
