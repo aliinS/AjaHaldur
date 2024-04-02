@@ -1,6 +1,6 @@
 import { useContext, createContext, useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "@/assets/Ajahaldur_Logo_1.svg";
+import logo from "@/assets/ajahaldur_logo_white.png";
 import { Separator } from "@/components/ui/separator";
 
 const SidebarContext = createContext();

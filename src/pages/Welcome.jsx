@@ -1,6 +1,6 @@
 import "@/App.css";
 import { AlertTriangle, LucideBox } from "lucide-react";
-import logo from "@/assets/Ajahaldur_Logo_1.svg";
+import logo from "@/assets/ajahaldur_logo_white.png";
 import preview from "@/assets/preview.jpg";
 import { Navigation } from "@/components/elements/navigation";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,9 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+import Navbar from "../components/elements/WelcomeNavbar";
+
+
 
 function Welcome() {
   // axios.get('test').then((response) => {
@@ -24,26 +27,7 @@ function Welcome() {
 
   return (
     <>
-      <div className="w-full h-16 bg-black text-white flex justify-between px-8">
-        <div className="flex gap-2 h-full items-center">
-          <p>Logo</p>
-          <Button variant="link" className="text-white">
-            Pealeht
-          </Button>
-          <Button variant="link" className="text-white">
-            Tutvustus
-          </Button>
-          <Button variant="link" className="text-white">
-            Hinnakiri
-          </Button>
-        </div>
-        <div className="flex gap-2 h-full items-center">
-          <Button variant="link" className="text-white">
-            Registreeri
-          </Button>
-          <Button className="text-black bg-white">Logi sisse</Button>
-        </div>
-      </div>
+      <Navbar />
 
       <div className="h-[600px] relative">
         <img
