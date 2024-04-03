@@ -20,6 +20,7 @@ export default function App() {
             <Route path="settingsTable" element={<Settings />} />
             <Route path="group/:id" element={<SingleGroup />} />
             <Route path="*" element={<NotFound />} />
+            
           </Routes>
         </BrowserRouter>
       </>

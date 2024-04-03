@@ -7,9 +7,9 @@ function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <nav className="w-full h-20 bg-footer text-textInDark flex justify-between px-8 z-20">
+        <nav className="w-full h-20 bg-footer text-textInDark flex justify-between px-8">
             <div className="flex gap-10 h-full items-center">
-                <div className="flex h-20 z-10">
+                <div className="flex h-20">
                     <img src={logo} alt="Logo" />
                 </div>
                 <div className="hidden md:flex gap-6 h-full items-center">
@@ -31,7 +31,7 @@ function Navbar() {
             </button>
             {/* Mobile menu */}
             {isMenuOpen && (
-                <div className="md:hidden absolute top-20 left-0 right-0 bg-footer text-textInDark flex flex-col items-center gap-4 px-8 py-4 z-10">
+                <div className="z-10 md:hidden absolute top-20 left-0 right-0 bg-footer text-textInDark flex flex-col items-center gap-4 px-8 py-4">
                     <button className="text-textInDark">Pealeht</button>
                     <button className="text-textInDark">Tutvustus</button>
                     <button className="text-textInDark">Hinnakiri</button>
