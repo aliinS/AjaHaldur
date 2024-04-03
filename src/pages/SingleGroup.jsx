@@ -117,7 +117,7 @@ export default function SingleGroup() {
         });
 
       toast.promise(promise, {
-        loading: "Loading...",
+        loading: "Loading....",
         success: (data) => {
           return `Group info retrieved successfully`;
         },
