@@ -22,6 +22,7 @@ import {
 
 function RegistrationModal({ onClose, activeTab }) {
 
+
     //PRESS ESC TO CLOSE THE MODAL
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -140,6 +141,29 @@ function Navbar() {
         setIsRegistrationOpen(false);
     };
 
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            // Check if the click occurs outside of the menu
+            const menu = document.getElementById('mobile-menu');
+            if (menu && !menu.contains(event.target)) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        // Add event listener when the menu is open
+        if (isMenuOpen) {
+            document.addEventListener('mousedown', handleOutsideClick);
+        } else {
+            // Remove event listener when the menu is closed to prevent memory leaks
+            document.removeEventListener('mousedown', handleOutsideClick);
+        }
+
+        // Cleanup function to remove event listener when component unmounts
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [isMenuOpen]);
+
     return (
         <nav className="w-full z-10 h-20 bg-footer bg-opacity-80 fixed text-textInDark md:flex justify-between md:px-8 pl-1 pr-4">
             <div className="flex gap-10 h-full items-center">
@@ -168,13 +192,13 @@ function Navbar() {
             </button>
             {/* Mobile menu */}
             {isMenuOpen && (
-                <div className="z-10 md:hidden absolute top-20 left-0 right-0 bg-footer bg-opacity-80 text-textInDark flex flex-col items-center gap-4 px-8 py-4">
+                <div id="mobile-menu" className="z-10 md:hidden absolute top-20 left-0 right-0 bg-footer bg-opacity-80 text-textInDark flex flex-col items-center gap-4 px-8 py-4">
                     <button className="text-textInDark">Pealeht</button>
                     <button className="text-textInDark">Tutvustus</button>
                     <button className="text-textInDark">Hinnakiri</button>
-                    <div className='flex flex-col gap-4 pt-8 w-48'>
+                    <div className='flex flex-col gap-4 pt-2 w-48'>
                         <button className="text-textInLight bg-buttonLight rounded-none px-6 py-2" onClick={handleRegistrationClick}>Registreeri</button>
-                        <button className="text-buttonLight border border-buttonLight rounded-none px-6 py-2" onClick={handleLoginClick}>Logi sisse</button>
+                        <button className="text-buttonLight border bg-footer border-buttonLight rounded-none px-6 py-2" onClick={handleLoginClick}>Logi sisse</button>
                     </div>
                 </div>
             )}
