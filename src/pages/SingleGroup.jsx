@@ -100,7 +100,13 @@ export default function SingleGroup() {
   function fetchTableInfo(id) {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .get(`api/groups/get-table/${id}`)
+        .get(`api/groups/get-table/${id}`,
+        {
+          params: {
+            group_id: data.id,
+          },
+        }
+        )
         .then((response) => {
           setSelectedTableData(response.data);
           console.log(response.data);
