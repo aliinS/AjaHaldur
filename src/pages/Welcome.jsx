@@ -2,31 +2,14 @@ import "@/App.css";
 import { Boxes, LucideBox, Check } from "lucide-react";
 import firstimg from "@/assets/first_image.png";
 import secondimg from "@/assets/second_image.png";
-
-import { Navigation } from "../components/elements/navigation";
 import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from "@/components/ui/navigation-menu";
-import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import Navbar from "../components/elements/WelcomeNavbar";
 
 
 
 
 function Welcome() {
-  // axios.get('test').then((response) => {
-  //   console.log(response);
-  // })
-
+  
   return (
     <>
       <Navbar />

@@ -1,3 +1,6 @@
+// NOT USED IN WELCOME PAGE!
+// on welcome page, the WelcomeNavbar.jsx is used
+
 import { useTheme } from "next-themes";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
