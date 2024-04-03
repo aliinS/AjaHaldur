@@ -1,5 +1,5 @@
 import "@/App.css";
-import { Boxes, LucideBox } from "lucide-react";
+import { Boxes, LucideBox, Check } from "lucide-react";
 import firstimg from "@/assets/first_image.png";
 import secondimg from "@/assets/second_image.png";
 
@@ -30,11 +30,11 @@ function Welcome() {
   return (
     <>
       <Navbar />
-      <section id="hero-banner" className="h-screen relative">
+      <section id="hero-banner" className="h-screen relative mb-8">
         <img
           className="h-full w-full absolute inset-0 object-cover blur-sm brightness-50"
           src={firstimg}
-          alt="A person managing tasks on a computer screen" // More descriptive alt text
+          alt="A farmer managing tasks on a mobile screen"
         />
 
         <div className="absolute inset-0 px-8 flex items-center">
@@ -49,21 +49,21 @@ function Welcome() {
             </p>
             <div className="flex gap-2">
               <Button className="rounded-none bg-footer">Alusta siit!</Button>
-              <Button variant="outline" className="bg-transparent rounded-none border-buttonLight text-textInDark" >Rohkem infot ...</Button>  {/* Use a pre-defined variant */}
+              <Button variant="outline" className="bg-transparent rounded-none border-buttonLight text-textInDark" >Rohkem infot ...</Button>
             </div>
           </div>
         </div>
       </section>
-      <br />
 
-      <section id="second" className="h-[600px] flex flex-col md:flex-row gap-4 px-8 items-center">
-        <div className="flex flex-col gap-6 text-center h-full md:w-1/2">
-          <h2 className="font-bold text-2xl">Lihtsusta ja kiirenda oma igakuised töötundide halduseid!</h2>
-          <p>
-            Peale esialgset sättimist saad kiirelt ja mugavalt oma tiimi graafikuid moodustada, nende tööaega jälgida ja analüüse teha.
-          </p>
-          <div className="flex flex-col lg:flex-row gap-4">
-            <div className="flex flex-col gap-2 w-full lg:w-1/2 items-center">
+      <section id="second" className="flex flex-col md:flex-row gap-4 mx-5 px-10 items-center pt-8 pb-8">
+        <div className="flex flex-col gap-6 md:text-start text-center h-full md:w-1/2">
+          <div className="flex flex-col gap-5 pb-5 max-w-[500px]">
+            <h2 className="font-bold text-3xl md:text-4xl">Lihtsusta ja kiirenda oma igakuised töötundide halduseid!</h2>
+            <p>
+              Peale esialgset sättimist saad kiirelt ja mugavalt oma tiimi graafikuid moodustada, nende tööaega jälgida ja analüüse teha.
+            </p></div>
+          <div className="flex flex-col lg:flex-row gap-4 max-w-[500px]">
+            <div className="flex flex-col gap-2 lg:w-1/2 items-center">
               <LucideBox size={32} />
               <h2 className="font-bold text-lg">Mugavus</h2>
               <p className="text-sm">Loo ja halda oma tiimi töögraafikuid AjaHalduris lihtsalt ja mugavalt.</p>
@@ -74,7 +74,7 @@ function Welcome() {
               <p className="text-sm">Tehke koostööd ilma vaevata ja hoia kõik osalejad samal lehel.</p>
             </div>
           </div>
-          <div className="flex gap-2 justify-center">
+          <div className="flex gap-2 md:justify-start justify-center pb-2 pt-5">
             <Button variant="outline" className="bg-transparent border-black rounded-none">
               Loe lähemalt...
             </Button>
@@ -83,10 +83,54 @@ function Welcome() {
             </Button>
           </div>
         </div>
-        <div className="h-full md:w-1/2 flex md:justify-end">
-          <img src={secondimg} alt="Image" className="h-96 w-auto object-cover" />
+        <div className="h-full md:w-1/2 flex md:justify-end pb-6">
+          <img src={secondimg} alt="Screenshot of AjaHaldur personal table" className="max-h-[600px] w-auto object-cover" />
         </div>
       </section>
+
+      <section id="third-pricing" className="bg-bgLight pt-20">
+        <div className="container mx-auto max-w-sm md:max-w-4xl">
+          <div className="gap-2 mb-5">
+            <h1 className="font-bold text-3xl text-center">Hinnaplaan</h1>
+            <p className="text-center pt-3">Vali plaan, mis sobib Sinu vajadustega.</p>
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-3 justify-center">
+            <div className="border border-black flex flex-col text-start p-8 md:w-1/2 gap-3">
+              <div className="flex justify-end"><LucideBox size={42} /></div>
+              <p className="font-bold"><i>Basic</i></p>
+              <h2 className="font-bold text-4xl">123eur kuus</h2>
+              <div className="border-t border-gray-500 my-4"></div>
+              <p>Sisaldab:</p>
+              <p className="flex gap-3"><Check /> Personaal tabelite loomine</p>
+              <p className="flex gap-3"><Check /> Gruppide loomine</p>
+              <p className="flex gap-3"><Check /> Tundide haldus</p>
+              <p className="flex gap-3"><Check className="text-transparent" /></p>
+              <p className="flex gap-3"><Check className="text-transparent" /></p>
+              <div className="flex py-4">
+                <button className="bg-footer text-textInDark py-2 w-full">Vali plaan</button>
+            </div>
+          </div>
+
+          <div className="border border-black flex flex-col text-start p-8 md:w-1/2 gap-3">
+            <div className="flex justify-end"><LucideBox size={42} /></div>
+            <p className="font-bold"><i>Business</i></p>
+            <h2 className="font-bold text-4xl">123eur kuus</h2>
+            <div className="border-t border-gray-500 my-4"></div>
+            <p>Sisaldab:</p>
+            <p className="flex gap-3"><Check /> Personaal tabelite loomine</p>
+            <p className="flex gap-3"><Check /> Gruppide loomine</p>
+            <p className="flex gap-3"><Check /> Tundide haldus</p>
+            <p className="flex gap-3"><Check /> Misiganes X asja</p>
+            <p className="flex gap-3"><Check /> Au ja kiitus</p>
+            <div className="flex py-4">
+              <button className="bg-footer text-textInDark py-2 w-full">Vali plaan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section >
+
 
     </>
   );
