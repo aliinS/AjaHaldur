@@ -9,7 +9,7 @@ import Navbar from "../components/elements/WelcomeNavbar";
 
 
 function Welcome() {
-  
+
   return (
     <>
       <Navbar />
@@ -92,27 +92,27 @@ function Welcome() {
               <p className="flex gap-3"><Check className="text-transparent" /></p>
               <div className="flex py-4">
                 <button className="bg-footer text-textInDark py-2 w-full">Vali plaan</button>
+              </div>
             </div>
-          </div>
 
-          <div className="border border-black flex flex-col text-start p-8 md:w-1/2 gap-3">
-            <div className="flex justify-end"><LucideBox size={42} /></div>
-            <p className="font-bold"><i>Business</i></p>
-            <h2 className="font-bold text-4xl">123eur kuus</h2>
-            <div className="border-t border-gray-500 my-4"></div>
-            <p>Sisaldab:</p>
-            <p className="flex gap-3"><Check /> Personaal tabelite loomine</p>
-            <p className="flex gap-3"><Check /> Gruppide loomine</p>
-            <p className="flex gap-3"><Check /> Tundide haldus</p>
-            <p className="flex gap-3"><Check /> Misiganes X asja</p>
-            <p className="flex gap-3"><Check /> Au ja kiitus</p>
-            <div className="flex py-4">
-              <button className="bg-footer text-textInDark py-2 w-full">Vali plaan</button>
+            <div className="border border-black flex flex-col text-start p-8 md:w-1/2 gap-3">
+              <div className="flex justify-end"><LucideBox size={42} /></div>
+              <p className="font-bold"><i>Business</i></p>
+              <h2 className="font-bold text-4xl">123eur kuus</h2>
+              <div className="border-t border-gray-500 my-4"></div>
+              <p>Sisaldab:</p>
+              <p className="flex gap-3"><Check /> Personaal tabelite loomine</p>
+              <p className="flex gap-3"><Check /> Gruppide loomine</p>
+              <p className="flex gap-3"><Check /> Tundide haldus</p>
+              <p className="flex gap-3"><Check /> Misiganes X asja</p>
+              <p className="flex gap-3"><Check /> Au ja kiitus</p>
+              <div className="flex py-4">
+                <button className="bg-footer text-textInDark py-2 w-full">Vali plaan</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section >
+      </section >
 
 
     </>
