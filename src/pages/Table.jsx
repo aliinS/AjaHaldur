@@ -229,7 +229,9 @@ export default function SingleTable() {
                   }}
                 >
                   <AlertDialogContent>
-                    <AlertDialogTitle className="p-4 bg-white text-black rounded-lg">Muuda tabeli nime</AlertDialogTitle>
+                    <AlertDialogTitle className="p-4 bg-white text-black rounded-lg">
+                      Muuda tabeli nime
+                    </AlertDialogTitle>
                     <Input
                       className="flex w-full  h-fit bg-white p-4"
                       type="text"
@@ -241,7 +243,7 @@ export default function SingleTable() {
                     />
                     <AlertDialogFooter>
                       <AlertDialogAction
-                      className="w-full bg-white"
+                        className="w-full bg-white"
                         type="submit"
                         onClick={() => {
                           updateTable(data.id);
@@ -250,7 +252,7 @@ export default function SingleTable() {
                         Uuenda
                       </AlertDialogAction>
                       <AlertDialogCancel
-                      className="w-full bg-[#FF0000]/60"
+                        className="w-full bg-[#FF0000]/60"
                         onClick={() => {
                           setTitle("");
                         }}
@@ -334,9 +336,7 @@ export default function SingleTable() {
                     </button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
-                    <AlertDialogHeader>
-                      mingi
-                    </AlertDialogHeader>
+                    <AlertDialogHeader>mingi</AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
                       <AlertDialogAction>Continue</AlertDialogAction>
@@ -438,7 +438,7 @@ export default function SingleTable() {
                               <AlertDialogFooter>
                                 {/* ... (other JSX) */}
                                 <AlertDialogAction
-                                className="w-full bg-white"
+                                  className="w-full bg-white"
                                   type="submit"
                                   onClick={() => {
                                     updateTableContent(data.id);
@@ -447,7 +447,7 @@ export default function SingleTable() {
                                   Uuenda
                                 </AlertDialogAction>
                                 <AlertDialogCancel
-                                className="w-full bg-[#FF0000]/60"
+                                  className="w-full bg-[#FF0000]/60"
                                   onClick={() => {
                                     setTime("");
                                     setLocation("");
@@ -460,15 +460,28 @@ export default function SingleTable() {
                             </AlertDialogContent>
                           </form>
                         </AlertDialog>
-                        <Button
-                          variant="destructive"
-                          className="bg-[#FF0000]/60 text-blac w-fit"
-                          onClick={() => {
-                            deleteTableContent(data.id);
-                          }}
-                        >
-                          <Trash2 className="size-4" />
-                        </Button>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button variant="destructive">
+                              <Trash2 className="size-4" />
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              Kas soovite kustutada sissekande? <br /> {format(data?.date, "PPP")} | {data.time}h | {data?.location || "-"}
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Katkesta</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => {
+                                  deleteTableContent(data.id);
+                                }}
+                              >
+                                Kustuta
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
                       </TableCell>
                     </TableRow>
                   ))}
