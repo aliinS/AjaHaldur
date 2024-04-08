@@ -422,7 +422,7 @@ export default function SingleGroup() {
                                 <Button
                                   variant={"outline"}
                                   className={cn(
-                                    "w-full px-1 justify-start text-left font-normal bg-[#EFEFEF]",
+                                    "w-full h-fit p-4 justify-start text-left font-normal bg-white",
                                     !date && "text-muted-foreground"
                                   )}
                                 >
@@ -447,6 +447,7 @@ export default function SingleGroup() {
                               className="flex w-full text-black h-fit p-4 bg-white"
                               type="number"
                               placeholder="Hours"
+                              step="0.5"
                               onChange={(e) => {
                                 setTime(e.target.value);
                               }}
