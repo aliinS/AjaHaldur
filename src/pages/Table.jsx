@@ -335,14 +335,7 @@ export default function SingleTable() {
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>
-                        Are you absolutely sure?
-                      </AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This action cannot be undone. This will permanently
-                        delete your account and remove your data from our
-                        servers.
-                      </AlertDialogDescription>
+                      mingi
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -427,6 +420,7 @@ export default function SingleTable() {
                                 className="flex w-full h-fit bg-white p-4"
                                 type="number"
                                 placeholder="Hours"
+                                step="0.5"
                                 value={time}
                                 onChange={(e) => {
                                   setTime(e.target.value);
