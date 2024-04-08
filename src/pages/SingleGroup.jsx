@@ -100,13 +100,11 @@ export default function SingleGroup() {
   function fetchTableInfo(id) {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .get(`api/groups/get-table/${id}`,
-        {
+        .get(`api/groups/get-table/${id}`, {
           params: {
             group_id: data.id,
           },
-        }
-        )
+        })
         .then((response) => {
           setSelectedTableData(response.data);
           console.log(response.data);
@@ -403,6 +401,7 @@ export default function SingleGroup() {
                         <AlertDialogDesc>
                           <AlertDialogTriggerDesc className="w-full lg:w-fit">
                             <Button
+                              variant="secondary"
                               className="w-full bg-white text-black"
                               onClick={() => {
                                 fetchTableInfo(user?.id);
@@ -575,7 +574,10 @@ export default function SingleGroup() {
 
                       {data?.isOwner && (
                         <TableCell className="w-full lg:w-fit">
-                          <Button className="w-full bg-white text-black lg:w-fit">
+                          <Button
+                            variant="secondary"
+                            className="w-full bg-white text-black lg:w-fit"
+                          >
                             Õigused
                           </Button>
                         </TableCell>
