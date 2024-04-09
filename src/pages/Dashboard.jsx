@@ -231,14 +231,14 @@ export default function Dashboard() {
                   />
                   <AlertDialogFooter className="flex-col lg:gap-0">
                     <AlertDialogAction
-                      className="flex w-full bg-white "
+                      className="flex w-full bg-white hover:bg-gray-100"
                       onClick={() => {
                         storeUserTable();
                       }}
                     >
                       Loo uus
                     </AlertDialogAction>
-                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60">
+                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60 hover:bg-red-600">
                       Katkesta
                     </AlertDialogCancel>
                   </AlertDialogFooter>
@@ -316,14 +316,14 @@ export default function Dashboard() {
                   />
                   <AlertDialogFooter className="flex-col lg:gap-0">
                     <AlertDialogAction
-                      className="flex w-full bg-white"
+                      className="flex w-full bg-white hover:bg-gray-100"
                       onClick={() => {
                         storeGroup();
                       }}
                     >
                       Loo uus
                     </AlertDialogAction>
-                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60">
+                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60 hover:bg-red-600">
                       Katkesta
                     </AlertDialogCancel>
                   </AlertDialogFooter>
