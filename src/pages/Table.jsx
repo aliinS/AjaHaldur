@@ -17,7 +17,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import * as React from "react";
-import { format } from "date-fns";
+import { addDays, format } from "date-fns";
 import { Calendar as CalendarIcon, Pencil, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -48,12 +48,17 @@ import AppLayout from "../components/elements/AppLayout";
 export default function SingleTable() {
   const { id } = useParams();
   const [data, setData] = useState([]);
+  const [unfilteredData, setUnfilteredData] = useState([]);
   const navigate = useNavigate();
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [location, setLocation] = useState("");
   const [title, setTitle] = useState("");
   const [hours, setHours] = useState("");
+  const [filtered , setFiltered] = useState(false);
+
+  const [selectedFilterDate1, setSelectedFilterDate1] = useState(null);
+  const [selectedFilterDate2, setSelectedFilterDate2] = useState(null);
 
   let promise = null;
 
@@ -184,6 +189,7 @@ export default function SingleTable() {
         .get(`api/tables/show/${id}`)
         .then((response) => {
           setData(response.data.table);
+          setUnfilteredData(response.data.table);
           setHours(response.data.hours);
           message = response.data.message;
         })
@@ -199,6 +205,38 @@ export default function SingleTable() {
         },
         error: message,
       });
+    });
+  }
+
+  function filterData() {
+    setUnfilteredData(data);
+
+    // filter data in `data` variable where you show entries between selectedFilterDate1 and selectedFilterDate2 by their created_at timestamp
+    // store the filtered data in a variable called `data` and old data into `unfilteredData`
+    //
+    setUnfilteredData(data);
+    // console.log(data);
+    const filteredData = unfilteredData?.content.filter((entry) => {
+
+      
+      const formattedDate= new Date(entry.date);
+      const formattedSelectedFilterDate1 = new Date(selectedFilterDate1);
+      const formattedSelectedFilterDate2 = new Date(selectedFilterDate2);
+
+      setFiltered(true);
+
+      return (
+        formattedDate >= formattedSelectedFilterDate1 &&
+        formattedDate <= formattedSelectedFilterDate2
+      );
+    });
+
+
+    console.log("filteredData: ", filteredData);
+
+    setData({
+      ...data,
+      content: filteredData,
     });
   }
 
@@ -332,14 +370,66 @@ export default function SingleTable() {
                 <AlertDialog>
                   <AlertDialogTrigger>
                     <button className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md ">
-                      Filtrid
+                      Filtrid <span className={filtered ? "block font-bold" : "hidden"}>filtered</span>
                     </button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>mingi</AlertDialogHeader>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !selectedFilterDate1 && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {selectedFilterDate1 ? (
+                            format(selectedFilterDate1, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          mode="single"
+                          selected={selectedFilterDate1}
+                          onSelect={setSelectedFilterDate1}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !selectedFilterDate2 && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {selectedFilterDate2 ? (
+                            format(selectedFilterDate2, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          mode="single"
+                          selected={selectedFilterDate2}
+                          onSelect={setSelectedFilterDate2}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction>Continue</AlertDialogAction>
+                      <AlertDialogAction onClick={filterData}>Continue</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
@@ -468,7 +558,9 @@ export default function SingleTable() {
                           </AlertDialogTrigger>
                           <AlertDialogContent>
                             <AlertDialogHeader>
-                              Kas soovite kustutada sissekande? <br /> {format(data?.date, "PPP")} | {data.time}h | {data?.location || "-"}
+                              Kas soovite kustutada sissekande? <br />{" "}
+                              {format(data?.date, "PPP")} | {data.time}h |{" "}
+                              {data?.location || "-"}
                             </AlertDialogHeader>
                             <AlertDialogFooter>
                               <AlertDialogCancel>Katkesta</AlertDialogCancel>
