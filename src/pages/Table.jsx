@@ -285,7 +285,7 @@ export default function SingleTable() {
                     />
                     <AlertDialogFooter>
                       <AlertDialogAction
-                        className="w-full bg-white"
+                        className="w-full bg-white hover:bg-gray-100"
                         type="submit"
                         onClick={() => {
                           updateTable(data.id);
@@ -294,7 +294,7 @@ export default function SingleTable() {
                         Uuenda
                       </AlertDialogAction>
                       <AlertDialogCancel
-                        className="w-full bg-[#FF0000]/60"
+                        className="w-full bg-[#FF0000]/60 hover:bg-red-600"
                         onClick={() => {
                           setTitle("");
                         }}
@@ -315,7 +315,7 @@ export default function SingleTable() {
                   <Button
                     variant={"outline"}
                     className={cn(
-                      "w-full px-1 justify-start text-left font-normal bg-[#EFEFEF]",
+                      "w-full px-1 justify-start text-left font-normal bg-[#EFEFEF] hover:bg-gray-100",
                       !date && "text-muted-foreground"
                     )}
                   >
@@ -354,7 +354,7 @@ export default function SingleTable() {
                 }}
               />
               <Button
-                className="flex w-full bg-[#EFEFEF]"
+                className="flex w-full bg-[#EFEFEF] hover:bg-gray-100"
                 type="submit"
                 variant="secondary"
                 onClick={() => {
@@ -372,9 +372,9 @@ export default function SingleTable() {
                 </div>
 
                 <AlertDialog>
-                  <AlertDialogTrigger className="flex items-center gap-4">
-                    <button className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md ">
-                      Filtrid 
+                  <AlertDialogTrigger>
+                    <button className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md hover:bg-gray-100">
+                      Filtrid
                     </button>
                     <span className={filtered ? "block font-bold" : "hidden"}>{diplayFilteredDate}</span>
                   </AlertDialogTrigger>
@@ -464,7 +464,7 @@ export default function SingleTable() {
                         <AlertDialog>
                           <AlertDialogTrigger>
                             <Button
-                              className="w-fit"
+                              className="w-fit hover:bg-gray-100"
                               variant="outline"
                               onClick={() => {
                                 setDate(data.date);
@@ -490,7 +490,7 @@ export default function SingleTable() {
                                   <Button
                                     variant={"secondary"}
                                     className={cn(
-                                      "w-full h-fit p-4 px-1 justify-start text-left font-normal bg-white",
+                                      "w-full h-fit p-4 px-1 justify-start text-left font-normal bg-white hover:bg-gray-100",
                                       !date && "text-muted-foreground"
                                     )}
                                   >
@@ -533,7 +533,7 @@ export default function SingleTable() {
                               <AlertDialogFooter>
                                 {/* ... (other JSX) */}
                                 <AlertDialogAction
-                                  className="w-full bg-white"
+                                  className="w-full bg-white hover:bg-gray-100"
                                   type="submit"
                                   onClick={() => {
                                     updateTableContent(data.id);
@@ -542,7 +542,7 @@ export default function SingleTable() {
                                   Uuenda
                                 </AlertDialogAction>
                                 <AlertDialogCancel
-                                  className="w-full bg-[#FF0000]/60"
+                                  className="w-full bg-[#FF0000]/60 hover:bg-red-600"
                                   onClick={() => {
                                     setTime("");
                                     setLocation("");
@@ -557,7 +557,7 @@ export default function SingleTable() {
                         </AlertDialog>
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
-                            <Button variant="destructive">
+                            <Button variant="destructive" className="hover:bg-red-600">
                               <Trash2 className="size-4" />
                             </Button>
                           </AlertDialogTrigger>
@@ -568,8 +568,9 @@ export default function SingleTable() {
                               {data?.location || "-"}
                             </AlertDialogHeader>
                             <AlertDialogFooter>
-                              <AlertDialogCancel>Katkesta</AlertDialogCancel>
+                              <AlertDialogCancel className="w-full bg-white hover:bg-gray-100 text-black">Katkesta</AlertDialogCancel>
                               <AlertDialogAction
+                              className="w-full bg-[#FF0000]/60 text-white hover:bg-red-600"
                                 onClick={() => {
                                   deleteTableContent(data.id);
                                 }}

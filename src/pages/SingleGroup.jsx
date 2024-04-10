@@ -276,7 +276,7 @@ export default function SingleGroup() {
                         />
                         <AlertDialogFooter className="flex-col">
                           <AlertDialogAction
-                            className="bg-white lg:w-full"
+                            className="bg-white lg:w-full hover:bg-gray-100"
                             type="submit"
                             onClick={() => {
                               updateGroup();
@@ -285,7 +285,7 @@ export default function SingleGroup() {
                             Update
                           </AlertDialogAction>
                           <AlertDialogCancel
-                            className="bg-[#FF0000]/60 lg:w-full"
+                            className="bg-[#FF0000]/60 lg:w-full hover:bg-red-600"
                             onClick={() => {
                               setName("");
                             }}
@@ -303,7 +303,7 @@ export default function SingleGroup() {
               {data?.isOwner && (
                 <AlertDialog>
                   <AlertDialogTrigger className="w-full lg:w-fit">
-                    <Button variant="secondary" className="w-full bg-[#EFEFEF]">
+                    <Button variant="secondary" className="w-full bg-[#EFEFEF] hover:bg-gray-100">
                       Lisa kasutaja
                     </Button>
                   </AlertDialogTrigger>
@@ -321,14 +321,14 @@ export default function SingleGroup() {
                     />
                     <AlertDialogFooter className="flex-col">
                       <AlertDialogAction
-                        className="bg-white w-full"
+                        className="bg-white w-full hover:bg-gray-100"
                         onClick={() => {
                           inviteMember();
                         }}
                       >
                         Continue
                       </AlertDialogAction>
-                      <AlertDialogCancel className="bg-[#FF0000]/60 w-full">
+                      <AlertDialogCancel className="bg-[#FF0000]/60 w-full hover:bg-red-600">
                         Cancel
                       </AlertDialogCancel>
                     </AlertDialogFooter>
@@ -338,7 +338,7 @@ export default function SingleGroup() {
 
               <AlertDialog>
                 <AlertDialogTrigger className="w-full lg:w-fit">
-                  <Button variant="secondary" className="w-full bg-[#EFEFEF]">
+                  <Button variant="secondary" className="w-full bg-[#EFEFEF] hover:bg-gray-100">
                     Kasutajad
                   </Button>
                 </AlertDialogTrigger>
@@ -369,7 +369,7 @@ export default function SingleGroup() {
                     </Table>
                   </div>
                   <AlertDialogFooter>
-                    <AlertDialogCancel className="bg-[#FF0000]/60">
+                    <AlertDialogCancel className="bg-[#FF0000]/60 hover:bg-red-600">
                       Sulge
                     </AlertDialogCancel>
                     {/* <AlertDialogAction
@@ -402,7 +402,7 @@ export default function SingleGroup() {
                           <AlertDialogTriggerDesc className="w-full lg:w-fit">
                             <Button
                               variant="secondary"
-                              className="w-full bg-white text-black"
+                              className="w-full bg-white text-black hover:bg-gray-100"
                               onClick={() => {
                                 fetchTableInfo(user?.id);
                               }}
@@ -421,7 +421,7 @@ export default function SingleGroup() {
                                 <Button
                                   variant={"outline"}
                                   className={cn(
-                                    "w-full h-fit p-4 justify-start text-left font-normal bg-white",
+                                    "w-full h-fit p-4 justify-start text-left font-normal bg-white hover:bg-gray-100",
                                     !date && "text-muted-foreground"
                                   )}
                                 >
@@ -460,7 +460,7 @@ export default function SingleGroup() {
                               }}
                             />
                             <Button
-                              className="flex w-full text-black h-fit bg-white"
+                              className="flex w-full text-black h-fit bg-white hover:bg-gray-100"
                               type="submit"
                               variant="secondary"
                               onClick={() => {
@@ -576,7 +576,7 @@ export default function SingleGroup() {
                         <TableCell className="w-full lg:w-fit">
                           <Button
                             variant="secondary"
-                            className="w-full bg-white text-black lg:w-fit"
+                            className="w-full bg-white text-black hover:bg-gray-100 lg:w-fit"
                           >
                             Õigused
                           </Button>
@@ -588,7 +588,7 @@ export default function SingleGroup() {
                           <AlertDialog>
                             <AlertDialogTrigger className="w-full lg:w-fit">
                               <Button
-                                className="w-full bg-[#FF0000]/60"
+                                className="w-full bg-[#FF0000]/60 hover:bg-red-600"
                                 variant="destructive"
                               >
                                 Eemalda
@@ -603,14 +603,14 @@ export default function SingleGroup() {
                               </AlertDialogHeader>
                               <AlertDialogFooter className="flex flex-col">
                                 <AlertDialogAction
-                                  className="bg-white w-full"
+                                  className="bg-white w-full hover:bg-gray-100"
                                   onClick={() => {
                                     removeMember(user.id);
                                   }}
                                 >
                                   Kinnita
                                 </AlertDialogAction>
-                                <AlertDialogCancel className="bg-[#FF0000]/60 w-full">
+                                <AlertDialogCancel className="bg-[#FF0000]/60 w-full hover:bg-red-600">
                                   Katkesta
                                 </AlertDialogCancel>
                               </AlertDialogFooter>
