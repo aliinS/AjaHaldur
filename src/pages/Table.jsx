@@ -56,6 +56,7 @@ export default function SingleTable() {
   const [title, setTitle] = useState("");
   const [hours, setHours] = useState("");
   const [filtered , setFiltered] = useState(false);
+  const [diplayFilteredDate, setDisplayFilteredDate] = useState("");
 
   const [selectedFilterDate1, setSelectedFilterDate1] = useState(null);
   const [selectedFilterDate2, setSelectedFilterDate2] = useState(null);
@@ -226,13 +227,16 @@ export default function SingleTable() {
       setFiltered(true);
 
       return (
-        formattedDate >= formattedSelectedFilterDate1 &&
-        formattedDate <= formattedSelectedFilterDate2
+        formattedDate >= formattedSelectedFilterDate1 && formattedDate <= formattedSelectedFilterDate2
       );
     });
 
+    const date1 = new Date(selectedFilterDate1);
+    const date2 = new Date(selectedFilterDate2);
+    const formattedDate1 = format(date1, 'MMMM d, y');
+    const formattedDate2 = format(date2, 'MMMM d, y');
 
-    console.log("filteredData: ", filteredData);
+    setDisplayFilteredDate(`${formattedDate1} - ${formattedDate2}`);
 
     setData({
       ...data,
@@ -368,10 +372,11 @@ export default function SingleTable() {
                 </div>
 
                 <AlertDialog>
-                  <AlertDialogTrigger>
+                  <AlertDialogTrigger className="flex items-center gap-4">
                     <button className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md ">
-                      Filtrid <span className={filtered ? "block font-bold" : "hidden"}>filtered</span>
+                      Filtrid 
                     </button>
+                    <span className={filtered ? "block font-bold" : "hidden"}>{diplayFilteredDate}</span>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>mingi</AlertDialogHeader>
