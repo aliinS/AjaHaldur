@@ -68,7 +68,7 @@ const TableBox = ({ text, createdAt, updatedAt, id }) => {
       <h1 className="text-xl font-bold h-full">{text}</h1>
       <div className="flex w-full justify-between gap-4">
         <Button
-          className="w-full border-2 border-black bg-white"
+          className="w-full border-2 border-black bg-white hover:bg-gray-100"
           variant="secondary"
           onClick={() => {
             navigate(`/table/${id}`);
@@ -79,7 +79,7 @@ const TableBox = ({ text, createdAt, updatedAt, id }) => {
 
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button className="bg-[#FF0000]/60 w-full" variant="destructive">
+            <Button className="bg-[#FF0000]/60 w-full hover:bg-red-600" variant="destructive">
               Kustuta
             </Button>
           </AlertDialogTrigger>
@@ -88,11 +88,11 @@ const TableBox = ({ text, createdAt, updatedAt, id }) => {
               Kas olete kindel, et soovite kustutada tabeli ({text})?
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel className="w-full bg-white text-black">
+              <AlertDialogCancel className="w-full bg-white text-black hover:bg-gray-100">
                 Loobu
               </AlertDialogCancel>
               <AlertDialogAction
-                className="w-full bg-[#FF0000]/60 text-white"
+                className="w-full bg-[#FF0000]/60 text-white hover:bg-red-600"
                 onClick={() => {
                   deleteTable(id);
                 }}
