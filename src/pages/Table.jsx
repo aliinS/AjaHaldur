@@ -55,7 +55,7 @@ export default function SingleTable() {
   const [location, setLocation] = useState("");
   const [title, setTitle] = useState("");
   const [hours, setHours] = useState("");
-  const [filtered , setFiltered] = useState(false);
+  const [filtered, setFiltered] = useState(false);
   const [diplayFilteredDate, setDisplayFilteredDate] = useState("");
 
   const [selectedFilterDate1, setSelectedFilterDate1] = useState(null);
@@ -193,6 +193,15 @@ export default function SingleTable() {
           setUnfilteredData(response.data.table);
           setHours(response.data.hours);
           message = response.data.message;
+
+          // if query params from url have to and from, then filter the content
+          const params = new URLSearchParams(window.location.search);
+          const to = params.get("to");
+          const from = params.get("from");
+          if (to && from) {
+            filterData(from, to);
+          }
+          
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -209,38 +218,51 @@ export default function SingleTable() {
     });
   }
 
-  function filterData() {
-    setUnfilteredData(data);
+  function filterData(from , to) {
+    let message = "";
 
-    // filter data in `data` variable where you show entries between selectedFilterDate1 and selectedFilterDate2 by their created_at timestamp
-    // store the filtered data in a variable called `data` and old data into `unfilteredData`
-    //
-    setUnfilteredData(data);
-    // console.log(data);
-    const filteredData = unfilteredData?.content.filter((entry) => {
+    let date1;
+    let date2;
 
-      
-      const formattedDate= new Date(entry.date);
-      const formattedSelectedFilterDate1 = new Date(selectedFilterDate1);
-      const formattedSelectedFilterDate2 = new Date(selectedFilterDate2);
 
-      setFiltered(true);
+    if (to && from) {
+      date1 = from;
+      date2 = to;
+    } else {
+      date1 = format(selectedFilterDate1, "yyyy-MM-dd");
+      date2 = format(selectedFilterDate2, "yyyy-MM-dd");
 
-      return (
-        formattedDate >= formattedSelectedFilterDate1 && formattedDate <= formattedSelectedFilterDate2
-      );
-    });
+      //add date 1 to 'from' and date2 to 'to' query params
+      navigate(`?from=${date1}&to=${date2}`);
+    }
 
-    const date1 = new Date(selectedFilterDate1);
-    const date2 = new Date(selectedFilterDate2);
-    const formattedDate1 = format(date1, 'MMMM d, y');
-    const formattedDate2 = format(date2, 'MMMM d, y');
+    axios.get("/sanctum/csrf-cookie").then(() => {
+      promise = axios
+        .get(
+          `api/tables/content/filter/${id}?from=${date1}&to=${date2}`
+        )
+        .then((response) => {
+          const newData = {
+            ...data,
+            content: response.data.content,
+            hours: response.data.hours,
+          };
+    
+          setData(newData);
+          message = response.data.message;
+        })
+        .catch((error) => {
+          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
+        });
 
-    setDisplayFilteredDate(`${formattedDate1} - ${formattedDate2}`);
-
-    setData({
-      ...data,
-      content: filteredData,
+      toast.promise(promise, {
+        loading: "Loading...",
+        success: (data) => {
+          return message;
+        },
+        error: message,
+      });
     });
   }
 
@@ -368,7 +390,7 @@ export default function SingleTable() {
             <div className="overflow-x-auto flex flex-col gap-4 p-4 bg-white rounded-lg">
               <div className="flex gap-4">
                 <div className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md ">
-                  Tunnid: {hours}
+                  Tunnid: {data.hours}
                 </div>
 
                 <AlertDialog>
@@ -376,7 +398,9 @@ export default function SingleTable() {
                     <button className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md hover:bg-gray-100">
                       Filtrid
                     </button>
-                    <span className={filtered ? "block font-bold" : "hidden"}>{diplayFilteredDate}</span>
+                    <span className={filtered ? "block font-bold" : "hidden"}>
+                      {diplayFilteredDate}
+                    </span>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>mingi</AlertDialogHeader>
@@ -434,7 +458,9 @@ export default function SingleTable() {
                     </Popover>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={filterData}>Continue</AlertDialogAction>
+                      <AlertDialogAction onClick={filterData}>
+                        Continue
+                      </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
@@ -557,7 +583,10 @@ export default function SingleTable() {
                         </AlertDialog>
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
-                            <Button variant="destructive" className="hover:bg-red-600">
+                            <Button
+                              variant="destructive"
+                              className="hover:bg-red-600"
+                            >
                               <Trash2 className="size-4" />
                             </Button>
                           </AlertDialogTrigger>
@@ -568,9 +597,11 @@ export default function SingleTable() {
                               {data?.location || "-"}
                             </AlertDialogHeader>
                             <AlertDialogFooter>
-                              <AlertDialogCancel className="w-full bg-white hover:bg-gray-100 text-black">Katkesta</AlertDialogCancel>
+                              <AlertDialogCancel className="w-full bg-white hover:bg-gray-100 text-black">
+                                Katkesta
+                              </AlertDialogCancel>
                               <AlertDialogAction
-                              className="w-full bg-[#FF0000]/60 text-white hover:bg-red-600"
+                                className="w-full bg-[#FF0000]/60 text-white hover:bg-red-600"
                                 onClick={() => {
                                   deleteTableContent(data.id);
                                 }}
