@@ -209,11 +209,9 @@ export default function Dashboard() {
             <div className="flex fle-row w-full h-fit justify-between bg-white rounded-lg p-2 text-black">
               <h1 className="text-2xl font-bold">Personaal tabelid:</h1>
               <AlertDialog>
-                <Button variant="ghost" className="w-fit px-6">
-                  <AlertDialogTrigger className="text-3xl">
-                    +
-                  </AlertDialogTrigger>
-                </Button>
+                <AlertDialogTrigger className="text-3xl font-bold flex h-fit w-fit px-6">
+                  +
+                </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
                     <AlertDialogTitle className="text-black">
@@ -286,7 +284,7 @@ export default function Dashboard() {
                 setPage(page + 1);
               }}
             >
-              Load more <RefreshCw />
+              Lae veel <RefreshCw />
             </Button>
           </div>
 
@@ -294,11 +292,9 @@ export default function Dashboard() {
             <div className="flex fle-row w-full h-fit justify-between bg-white rounded-lg p-2 text-black">
               <h1 className="text-2xl font-bold">Minu grupid:</h1>
               <AlertDialog>
-                <Button variant="ghost" className="w-fit px-6">
-                  <AlertDialogTrigger className="text-3xl">
-                    +
-                  </AlertDialogTrigger>
-                </Button>
+                <AlertDialogTrigger className="text-3xl font-bold flex h-fit w-fit px-6">
+                  +
+                </AlertDialogTrigger>
                 <AlertDialogContent className="">
                   <AlertDialogHeader>
                     <AlertDialogTitle className="text-black">
@@ -369,7 +365,7 @@ export default function Dashboard() {
                 loadMoreGroups();
               }}
             >
-              Load more <RefreshCw />
+              Lae veel <RefreshCw />
             </Button>
           </div>
         </div>

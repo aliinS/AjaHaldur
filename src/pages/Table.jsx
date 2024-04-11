@@ -309,7 +309,7 @@ export default function SingleTable() {
                     <Input
                       className="flex w-full  h-fit bg-white p-4"
                       type="text"
-                      placeholder="Title"
+                      placeholder="Tabeli nimi"
                       value={title}
                       onChange={(e) => {
                         setTitle(e.target.value);
@@ -489,9 +489,9 @@ export default function SingleTable() {
               <Table className=" bg-[#EFEFEF] rounded-lg">
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-48">Date</TableHead>
-                    <TableHead className="w-48">Hours</TableHead>
-                    <TableHead className="w-auto">Object</TableHead>
+                    <TableHead className="w-48">Kuupäev</TableHead>
+                    <TableHead className="w-48">Tunnid</TableHead>
+                    <TableHead className="w-auto">Asukoht</TableHead>
                     <TableHead className="w-4"></TableHead>
                     <TableHead className="w-4"></TableHead>
                   </TableRow>
@@ -560,7 +560,7 @@ export default function SingleTable() {
                               <Input
                                 className="flex w-full h-fit bg-white p-4"
                                 type="number"
-                                placeholder="Hours"
+                                placeholder="Tunnid"
                                 step="0.5"
                                 value={time}
                                 onChange={(e) => {
@@ -570,7 +570,7 @@ export default function SingleTable() {
                               <Input
                                 className="flex w-full h-fit bg-white p-4"
                                 type="text"
-                                placeholder="Object"
+                                placeholder="Asukoht"
                                 value={location}
                                 onChange={(e) => {
                                   setLocation(e.target.value);
