@@ -201,6 +201,8 @@ export default function SingleTable() {
           if (to && from) {
             filterData(from, to);
           }
+
+          console.log(response.data.table);
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -244,6 +246,15 @@ export default function SingleTable() {
               content: response.data.content,
               hours: response.data.hours,
             };
+
+            setDisplayFilteredDate(
+              `${format(selectedFilterDate1, "PPP")} - ${format(
+                selectedFilterDate2,
+                "PPP"
+              )}`
+            );
+
+            setFiltered(true);
 
             setData(newData);
             message = response.data.message;
@@ -408,68 +419,77 @@ export default function SingleTable() {
                     <button className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md hover:bg-gray-100">
                       Filtrid
                     </button>
-                    <span className={filtered ? "block font-bold" : "hidden"}>
-                      {diplayFilteredDate}
-                    </span>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
-                    <AlertDialogHeader>mingi</AlertDialogHeader>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !selectedFilterDate1 && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {selectedFilterDate1 ? (
-                            format(selectedFilterDate1, "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={selectedFilterDate1}
-                          onSelect={setSelectedFilterDate1}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !selectedFilterDate2 && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {selectedFilterDate2 ? (
-                            format(selectedFilterDate2, "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={selectedFilterDate2}
-                          onSelect={setSelectedFilterDate2}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
+                    <AlertDialogHeader>
+                      <span className={filtered ? "block font-bold" : "hidden"}>
+                        {diplayFilteredDate}
+                      </span>
+                    </AlertDialogHeader>
+                    <AlertDialogDescription className="flex text-black gap-1">
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full justify-start text-left font-normal",
+                              !selectedFilterDate1 && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {selectedFilterDate1 ? (
+                              format(selectedFilterDate1, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={selectedFilterDate1}
+                            onSelect={setSelectedFilterDate1}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <p className="text-2xl">-</p>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full justify-start text-left font-normal",
+                              !selectedFilterDate2 && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {selectedFilterDate2 ? (
+                              format(selectedFilterDate2, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={selectedFilterDate2}
+                            onSelect={setSelectedFilterDate2}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </AlertDialogDescription>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={filterData}>
-                        Continue
+                      <AlertDialogCancel className="w-full">
+                        Katkesta
+                      </AlertDialogCancel>
+                      <AlertDialogAction
+                        className="w-full"
+                        onClick={filterData}
+                      >
+                        Filtreeri
                       </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
@@ -482,7 +502,7 @@ export default function SingleTable() {
                     resetFilter();
                   }}
                 >
-                  Filter reset
+                  Taasta filter
                 </Button>
               </div>
 
