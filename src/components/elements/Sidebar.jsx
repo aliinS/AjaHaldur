@@ -47,7 +47,7 @@ export function SidebarItem({ icon, text, active }) {
 
 export function SidenavMobile({ children }) {
   return (
-    <nav className="md:hidden fixed bottom-0 h-16 flex items-center bg-[#E4E4E4] w-full z-[100]">
+    <nav className="md:hidden fixed bottom-0 h-16 flex items-center bg-[#E4E4E4] w-full z-[50]">
       <div className="flex justify-around h-fit items-center px-2 py-2 w-full gap-2">
         {children}
       </div>
