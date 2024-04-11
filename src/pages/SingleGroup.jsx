@@ -263,12 +263,12 @@ export default function SingleGroup() {
                     >
                       <AlertDialogContent>
                         <AlertDialogTitle className="bg-white p-4 text-black rounded-md">
-                          Muuda tabeli nime
+                          Muuda grupi nime
                         </AlertDialogTitle>
                         <Input
                           className="flex w-full text-black py-4 bg-white h-fit"
                           type="text"
-                          placeholder="Title"
+                          placeholder="grupi nimi"
                           value={name}
                           onChange={(e) => {
                             setName(e.target.value);
@@ -282,7 +282,7 @@ export default function SingleGroup() {
                               updateGroup();
                             }}
                           >
-                            Update
+                            Uuenda
                           </AlertDialogAction>
                           <AlertDialogCancel
                             className="bg-[#FF0000]/60 lg:w-full hover:bg-red-600"
@@ -290,7 +290,7 @@ export default function SingleGroup() {
                               setName("");
                             }}
                           >
-                            Cancel
+                            Katkesta
                           </AlertDialogCancel>
                         </AlertDialogFooter>
                       </AlertDialogContent>
@@ -326,10 +326,10 @@ export default function SingleGroup() {
                           inviteMember();
                         }}
                       >
-                        Continue
+                        Lisa
                       </AlertDialogAction>
                       <AlertDialogCancel className="bg-[#FF0000]/60 w-full hover:bg-red-600">
-                        Cancel
+                        Katkesta
                       </AlertDialogCancel>
                     </AlertDialogFooter>
                   </AlertDialogContent>
@@ -445,7 +445,7 @@ export default function SingleGroup() {
                             <Input
                               className="flex w-full text-black h-fit p-4 bg-white"
                               type="number"
-                              placeholder="Hours"
+                              placeholder="Tunnid"
                               step="0.5"
                               onChange={(e) => {
                                 setTime(e.target.value);
@@ -454,7 +454,7 @@ export default function SingleGroup() {
                             <Input
                               className="flex w-full text-black h-fit p-4 bg-white"
                               type="text"
-                              placeholder="Object"
+                              placeholder="Asukoht"
                               onChange={(e) => {
                                 setLocation(e.target.value);
                               }}
@@ -482,9 +482,9 @@ export default function SingleGroup() {
                               <Table className="text-black max-h-80 bg-[#EFEFEF] min-w-64 lg:w-full lg:max-w-full">
                                 <TableHeader>
                                   <TableRow className="bg-[#EFEFEF]">
-                                    <TableHead>Date</TableHead>
-                                    <TableHead>Hours</TableHead>
-                                    <TableHead>Object</TableHead>
+                                    <TableHead>Kuupäev</TableHead>
+                                    <TableHead>Tunnid</TableHead>
+                                    <TableHead>Asukoht</TableHead>
                                     <TableHead></TableHead>
                                     <TableHead></TableHead>
                                   </TableRow>
@@ -602,17 +602,17 @@ export default function SingleGroup() {
                                 </AlertDialogTitle>
                               </AlertDialogHeader>
                               <AlertDialogFooter className="flex flex-col">
+                                <AlertDialogCancel className="bg-white w-full hover:bg-gray-100 text-black">
+                                  Katkesta
+                                </AlertDialogCancel>
                                 <AlertDialogAction
-                                  className="bg-white w-full hover:bg-gray-100"
+                                  className="bg-[#FF0000]/60 w-full hover:bg-red-600 text-white"
                                   onClick={() => {
                                     removeMember(user.id);
                                   }}
                                 >
-                                  Kinnita
+                                  Eemalda
                                 </AlertDialogAction>
-                                <AlertDialogCancel className="bg-[#FF0000]/60 w-full hover:bg-red-600">
-                                  Katkesta
-                                </AlertDialogCancel>
                               </AlertDialogFooter>
                             </AlertDialogContent>
                           </AlertDialog>
