@@ -201,7 +201,6 @@ export default function SingleTable() {
           if (to && from) {
             filterData(from, to);
           }
-          
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -218,52 +217,63 @@ export default function SingleTable() {
     });
   }
 
-  function filterData(from , to) {
+  function filterData(from, to) {
     let message = "";
 
-    let date1;
-    let date2;
+    if (selectedFilterDate1 && selectedFilterDate2) {
+      let date1;
+      let date2;
 
+      if (to && from) {
+        date1 = from;
+        date2 = to;
+      } else {
+        date1 = format(selectedFilterDate1, "yyyy-MM-dd");
+        date2 = format(selectedFilterDate2, "yyyy-MM-dd");
 
-    if (to && from) {
-      date1 = from;
-      date2 = to;
-    } else {
-      date1 = format(selectedFilterDate1, "yyyy-MM-dd");
-      date2 = format(selectedFilterDate2, "yyyy-MM-dd");
+        //add date 1 to 'from' and date2 to 'to' query params
+        navigate(`?from=${date1}&to=${date2}`);
+      }
 
-      //add date 1 to 'from' and date2 to 'to' query params
-      navigate(`?from=${date1}&to=${date2}`);
-    }
+      axios.get("/sanctum/csrf-cookie").then(() => {
+        promise = axios
+          .get(`api/tables/content/filter/${id}?from=${date1}&to=${date2}`)
+          .then((response) => {
+            const newData = {
+              ...data,
+              content: response.data.content,
+              hours: response.data.hours,
+            };
 
-    axios.get("/sanctum/csrf-cookie").then(() => {
-      promise = axios
-        .get(
-          `api/tables/content/filter/${id}?from=${date1}&to=${date2}`
-        )
-        .then((response) => {
-          const newData = {
-            ...data,
-            content: response.data.content,
-            hours: response.data.hours,
-          };
-    
-          setData(newData);
-          message = response.data.message;
-        })
-        .catch((error) => {
-          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-          message = error.data.message;
+            setData(newData);
+            message = response.data.message;
+          })
+          .catch((error) => {
+            console.log(
+              "%cERROR: ",
+              "color: tomato; font-weight: bold;",
+              error
+            );
+            message = error.data.message;
+          });
+
+        toast.promise(promise, {
+          loading: "Loading...",
+          success: (data) => {
+            return message;
+          },
+          error: message,
         });
-
-      toast.promise(promise, {
-        loading: "Loading...",
-        success: (data) => {
-          return message;
-        },
-        error: message,
       });
-    });
+    }
+  }
+
+  // filter reset
+  function resetFilter() {
+    setFiltered(false);
+    //remove from and to from the URL
+    navigate("");
+    fetchData();
   }
 
   useEffect(() => {
@@ -464,6 +474,16 @@ export default function SingleTable() {
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
+
+                <Button
+                  className={filtered ? "h-full bg-[#EFEFEF]" : "hidden"}
+                  variant="secondary"
+                  onClick={() => {
+                    resetFilter();
+                  }}
+                >
+                  Filter reset
+                </Button>
               </div>
 
               <Table className=" bg-[#EFEFEF] rounded-lg">
