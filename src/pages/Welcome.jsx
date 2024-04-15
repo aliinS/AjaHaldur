@@ -10,6 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import Footer from "../components/elements/Footer";
 
 
 
@@ -86,14 +87,14 @@ function Welcome() {
           <div className="flex flex-col md:flex-row gap-3 justify-center">
             <div className="border border-black flex flex-col text-start p-8 md:w-1/2 gap-3">
               <div className="flex justify-end"><LucideBox size={42} /></div>
-              <p className="font-bold"><i>Basic</i></p>
-              <h2 className="font-bold text-4xl">123eur kuus</h2>
+              <p className="font-bold"><i>Initial</i></p>
+              <h2 className="font-bold text-4xl">TASUTA</h2>
               <div className="border-t border-gray-500 my-4"></div>
               <p>Sisaldab:</p>
-              <p className="flex gap-3"><Check /> Personaal tabelite loomine</p>
-              <p className="flex gap-3"><Check /> Gruppide loomine</p>
-              <p className="flex gap-3"><Check /> Tundide haldus</p>
-              <p className="flex gap-3"><Check className="text-transparent" /></p>
+              <p className="flex gap-3"><Check /> Kuni 3? personaalse tabeli loomist</p>
+              <p className="flex gap-3"><Check /> Kuni 2? grupi loomist</p>
+              <p className="flex gap-3"><Check /> Tundide haldust</p>
+              <p className="flex gap-3"><Check /> Tabelite eksport PDF-na</p>
               <p className="flex gap-3"><Check className="text-transparent" /></p>
               <div className="flex py-4">
                 <button className="bg-footer text-textInDark py-2 w-full">Vali plaan</button>
@@ -103,14 +104,14 @@ function Welcome() {
             <div className="border border-black flex flex-col text-start p-8 md:w-1/2 gap-3">
               <div className="flex justify-end"><LucideBox size={42} /></div>
               <p className="font-bold"><i>Business</i></p>
-              <h2 className="font-bold text-4xl">123eur kuus</h2>
+              <h2 className="font-bold text-4xl">XX eur kuus</h2>
               <div className="border-t border-gray-500 my-4"></div>
               <p>Sisaldab:</p>
-              <p className="flex gap-3"><Check /> Personaal tabelite loomine</p>
-              <p className="flex gap-3"><Check /> Gruppide loomine</p>
-              <p className="flex gap-3"><Check /> Tundide haldus</p>
-              <p className="flex gap-3"><Check /> Misiganes X asja</p>
-              <p className="flex gap-3"><Check /> Au ja kiitus</p>
+              <p className="flex gap-3"><Check /> Kuni X personaalse tabeli loomist</p>
+              <p className="flex gap-3"><Check /> Kuni X grupi loomist</p>
+              <p className="flex gap-3"><Check /> Tundide haldust</p>
+              <p className="flex gap-3"><Check /> Tabelite eksport PDF-na</p>
+              <p className="flex gap-3"><Check /> 24/7 klienditugi</p>
               <div className="flex py-4">
                 <button className="bg-footer text-textInDark py-2 w-full">Vali plaan</button>
               </div>
@@ -175,7 +176,7 @@ function Welcome() {
 
         <div>
           <h2 className="text-xl font-bold pb-2">Tekkis veel küsimusi või ei leidnud vastust?</h2>
-          <p className="pb-3">Meie klienditugi on teie teenistuses. Võtke ühendust ja lahendame teie probleemi.</p>
+          <p className="pb-3">Meie klienditugi on teie teenistuses. Võtke ühendust ja leiame teile vastuse.</p>
           <Button variant="outline" className="bg-bgLight rounded-none border-black">Kirjuta meile!</Button>
 
         </div>
@@ -183,6 +184,8 @@ function Welcome() {
 
 
       </section>
+
+      <Footer />
 
 
 
