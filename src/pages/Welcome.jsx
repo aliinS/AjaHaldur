@@ -123,7 +123,7 @@ function Welcome() {
         <div className="w-full">
           <h1 className="font-bold text-3xl">Korduma kippuvad küsimused</h1>
           <p className="pt-3 mb-10">Siit leiad vastused enamlevinud küsimustele meie rakenduse kohta.</p>
-        <Accordion type="single" collapsible>
+        <Accordion type="single" collapsible className="mb-10">
           <AccordionItem className="border-black border mb-4 px-2" value="item-1">
             <AccordionTrigger className="text-left">Mis on AjaHaldur?</AccordionTrigger>
             <AccordionContent>
@@ -172,6 +172,13 @@ function Welcome() {
           </AccordionItem>
           
         </Accordion>
+
+        <div>
+          <h2 className="text-xl font-bold pb-2">Tekkis veel küsimusi või ei leidnud vastust?</h2>
+          <p className="pb-3">Meie klienditugi on teie teenistuses. Võtke ühendust ja lahendame teie probleemi.</p>
+          <Button variant="outline" className="bg-bgLight rounded-none border-black">Kirjuta meile!</Button>
+
+        </div>
         </div>
 
 
