@@ -3,6 +3,7 @@ import logo from "@/assets/ajahaldur_logo_white.png";
 import { Button } from "@/components/ui/button";
 import { InstagramLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
 import { BsFacebook } from "react-icons/bs";
+import { Link } from 'react-router-dom';
 
 
 
@@ -26,10 +27,10 @@ const Footer = () => {
                 <div className='md:flex md:flex-col-2 md:gap-10 w-full md:justify-evenly md:mt-6'>
                     <div className="flex flex-col items-start gap-4 mb-8">
                         <p className="text-xl font-extrabold">***</p>
-                        <a href="#" className="hover:text-gray-400 flex items-center gap-2">AjaHaldurist</a>
-                        <a href="#" className="hover:text-gray-400 flex items-center gap-2">Hinnakiri</a>
-                        <a href="#" className="hover:text-gray-400 flex items-center gap-2">Kontakt</a>
-                        <a href="#" className="hover:text-gray-400 flex items-center gap-2">Blogi</a>
+                        <Link to="#" className="hover:text-gray-400 flex items-center gap-2">AjaHaldurist</Link>
+                        <Link to="#" className="hover:text-gray-400 flex items-center gap-2">Hinnakiri</Link>
+                        <Link to="/contact" className="hover:text-gray-400 flex items-center gap-2">Kontakt</Link>
+                        <Link to="#" className="hover:text-gray-400 flex items-center gap-2">Blogi</Link>
 
                     </div>
                     <div className="flex flex-col items-start gap-4">
