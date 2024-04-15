@@ -175,8 +175,8 @@ export default function SingleGroup() {
         })
         .then((response) => {
           fetchGroupInfo();
-          setTime("");
-          setLocation("");
+          setTime(null);
+          setLocation(null);
           setDate(null);
           message = response.data.message;
 
@@ -520,6 +520,7 @@ export default function SingleGroup() {
                               type="number"
                               placeholder="Tunnid"
                               step="0.5"
+                              value={time}
                               onChange={(e) => {
                                 setTime(e.target.value);
                               }}
@@ -528,6 +529,7 @@ export default function SingleGroup() {
                               className="flex w-full text-black h-fit p-4 bg-white"
                               type="text"
                               placeholder="Asukoht"
+                              value={location}
                               onChange={(e) => {
                                 setLocation(e.target.value);
                               }}
@@ -553,7 +555,7 @@ export default function SingleGroup() {
 
                               <div className="flex gap-4 p-2 bg-white w-full rounded-md">
                                 <div className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md ">
-                                  Tunnid: {data.hours}
+                                  Tunnid: {selectedTableData?.hours}
                                 </div>
 
                                 <AlertDialog>
@@ -657,7 +659,7 @@ export default function SingleGroup() {
                                   Taasta filter
                                 </Button>
                               </div>
-                            <div className="max-h-80 h-fit overflow-y-auto p-2 min-w-64 w-full rounded-lg bg-white overflow-x-auto lg:w-full lg:max-w-full">
+                            <div className="max-h-72 h-fit overflow-y-auto p-2 min-w-64 w-full rounded-lg bg-white overflow-x-auto lg:w-full lg:max-w-full">
                               <Table className=" bg-[#EFEFEF] rounded-lg">
                                 <TableHeader>
                                   <TableRow>
