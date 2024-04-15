@@ -513,7 +513,6 @@ export default function SingleTable() {
                     <TableHead className="w-48">Tunnid</TableHead>
                     <TableHead className="w-auto">Asukoht</TableHead>
                     <TableHead className="w-4"></TableHead>
-                    <TableHead className="w-4"></TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>

@@ -5,6 +5,7 @@ import {
   LogOut,
   Package,
   Pencil,
+  Trash2,
   Settings,
   Trash,
 } from "lucide-react";
@@ -67,6 +68,13 @@ export default function SingleGroup() {
   const [name, setName] = useState();
   const [inviteEmail, setInviteEmail] = useState();
   const [selectedTableData, setSelectedTableData] = useState();
+  
+  const [filtered, setFiltered] = useState(false);
+  const [selectedFilterDate1, setSelectedFilterDate1] = useState(null);
+  const [selectedFilterDate2, setSelectedFilterDate2] = useState(null);
+  const [diplayFilteredDate, setDisplayFilteredDate] = useState("");
+  const [hours, setHours] = useState("");
+  const [unfilteredData, setUnfilteredData] = useState([]);
 
   const [date, setDate] = useState();
   const [time, setTime] = useState();
@@ -81,7 +89,8 @@ export default function SingleGroup() {
         .get(`api/groups/show/${id}`)
         .then((response) => {
           setData(response.data.group);
-          console.log(response.data.group);
+          setUnfilteredData(response.data.group.users);
+          setHours(response.data.group.hours);
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -107,8 +116,6 @@ export default function SingleGroup() {
         })
         .then((response) => {
           setSelectedTableData(response.data);
-          console.log(response.data);
-          console.log(selectedTableData);
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -140,6 +147,66 @@ export default function SingleGroup() {
           setLocation("");
           setDate("");
           message = response.data.message;
+        })
+        .catch((error) => {
+          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
+        });
+
+      toast.promise(promise, {
+        loading: "Loading...",
+        success: (data) => {
+          return message;
+        },
+        error: message,
+      });
+    });
+  }
+
+  function updateTableContent(id) {
+    let message = "";
+    axios.get("/sanctum/csrf-cookie").then(() => {
+      promise = axios
+        .post(`api/tables/content/update/${id}`, {
+          date: format(date, "yyyy-MM-dd"),
+          time: time,
+          location: location,
+          table_id: selectedTableData.table.id,
+        })
+        .then((response) => {
+          fetchGroupInfo();
+          setTime(null);
+          setLocation(null);
+          setDate(null);
+          message = response.data.message;
+
+          fetchTableInfo(selectedTableData.table.group_member_id);
+        })
+        .catch((error) => {
+          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
+        });
+
+      toast.promise(promise, {
+        loading: "Loading...",
+        success: (data) => {
+          return message;
+        },
+        error: message,
+      });
+    });
+  }
+
+  function deleteTableContent(id) {
+    let message = "";
+    axios.get("/sanctum/csrf-cookie").then(() => {
+      promise = axios
+        .delete(`api/tables/content/delete/${id}`)
+        .then((response) => {
+          fetchGroupInfo();
+          message = response.data.message;
+
+          fetchTableInfo(selectedTableData.table.group_member_id);
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -303,7 +370,10 @@ export default function SingleGroup() {
               {data?.isOwner && (
                 <AlertDialog>
                   <AlertDialogTrigger className="w-full lg:w-fit">
-                    <Button variant="secondary" className="w-full bg-[#EFEFEF] hover:bg-gray-100">
+                    <Button
+                      variant="secondary"
+                      className="w-full bg-[#EFEFEF] hover:bg-gray-100"
+                    >
                       Lisa kasutaja
                     </Button>
                   </AlertDialogTrigger>
@@ -338,7 +408,10 @@ export default function SingleGroup() {
 
               <AlertDialog>
                 <AlertDialogTrigger className="w-full lg:w-fit">
-                  <Button variant="secondary" className="w-full bg-[#EFEFEF] hover:bg-gray-100">
+                  <Button
+                    variant="secondary"
+                    className="w-full bg-[#EFEFEF] hover:bg-gray-100"
+                  >
                     Kasutajad
                   </Button>
                 </AlertDialogTrigger>
@@ -447,6 +520,7 @@ export default function SingleGroup() {
                               type="number"
                               placeholder="Tunnid"
                               step="0.5"
+                              value={time}
                               onChange={(e) => {
                                 setTime(e.target.value);
                               }}
@@ -455,6 +529,7 @@ export default function SingleGroup() {
                               className="flex w-full text-black h-fit p-4 bg-white"
                               type="text"
                               placeholder="Asukoht"
+                              value={location}
                               onChange={(e) => {
                                 setLocation(e.target.value);
                               }}
@@ -478,86 +553,271 @@ export default function SingleGroup() {
                             />
                             <Separator className="flex lg:hidden" />
 
-                            <div className="max-h-80 h-fit overflow-y-auto p-2 min-w-64 w-full rounded-lg bg-white overflow-x-auto lg:w-full lg:max-w-full">
-                              <Table className="text-black max-h-80 bg-[#EFEFEF] min-w-64 lg:w-full lg:max-w-full">
+                              <div className="flex gap-4 p-2 bg-white w-full rounded-md">
+                                <div className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md ">
+                                  Tunnid: {selectedTableData?.hours}
+                                </div>
+
+                                <AlertDialog>
+                                  <AlertDialogTrigger>
+                                    <button className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md hover:bg-gray-100">
+                                      Filtrid
+                                    </button>
+                                  </AlertDialogTrigger>
+                                  <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                      <span
+                                        className={
+                                          filtered
+                                            ? "block font-bold"
+                                            : "hidden"
+                                        }
+                                      >
+                                        {diplayFilteredDate}
+                                      </span>
+                                    </AlertDialogHeader>
+                                    <AlertDialogDescription className="flex text-black gap-1">
+                                      <Popover>
+                                        <PopoverTrigger asChild>
+                                          <Button
+                                            variant={"outline"}
+                                            className={cn(
+                                              "w-full justify-start text-left font-normal",
+                                              !selectedFilterDate1 &&
+                                                "text-muted-foreground"
+                                            )}
+                                          >
+                                            <CalendarIcon className="mr-2 h-4 w-4" />
+                                            {selectedFilterDate1 ? (
+                                              format(selectedFilterDate1, "PPP")
+                                            ) : (
+                                              <span>Pick a date</span>
+                                            )}
+                                          </Button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-auto p-0">
+                                          <Calendar
+                                            mode="single"
+                                            selected={selectedFilterDate1}
+                                            onSelect={setSelectedFilterDate1}
+                                            initialFocus
+                                          />
+                                        </PopoverContent>
+                                      </Popover>
+                                      <p className="text-2xl">-</p>
+                                      <Popover>
+                                        <PopoverTrigger asChild>
+                                          <Button
+                                            variant={"outline"}
+                                            className={cn(
+                                              "w-full justify-start text-left font-normal",
+                                              !selectedFilterDate2 &&
+                                                "text-muted-foreground"
+                                            )}
+                                          >
+                                            <CalendarIcon className="mr-2 h-4 w-4" />
+                                            {selectedFilterDate2 ? (
+                                              format(selectedFilterDate2, "PPP")
+                                            ) : (
+                                              <span>Pick a date</span>
+                                            )}
+                                          </Button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-auto p-0">
+                                          <Calendar
+                                            mode="single"
+                                            selected={selectedFilterDate2}
+                                            onSelect={setSelectedFilterDate2}
+                                            initialFocus
+                                          />
+                                        </PopoverContent>
+                                      </Popover>
+                                    </AlertDialogDescription>
+                                    <AlertDialogFooter>
+                                      <AlertDialogCancel className="w-full">
+                                        Katkesta
+                                      </AlertDialogCancel>
+                                      <AlertDialogAction
+                                        className="w-full"
+                                        // onClick={filterData}
+                                      >
+                                        Filtreeri
+                                      </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                  </AlertDialogContent>
+                                </AlertDialog>
+
+                                <Button
+                                  className={
+                                    filtered ? "h-full bg-[#EFEFEF]" : "hidden"
+                                  }
+                                  variant="secondary"
+                                  onClick={() => {
+                                    resetFilter();
+                                  }}
+                                >
+                                  Taasta filter
+                                </Button>
+                              </div>
+                            <div className="max-h-72 h-fit overflow-y-auto p-2 min-w-64 w-full rounded-lg bg-white overflow-x-auto lg:w-full lg:max-w-full">
+                              <Table className=" bg-[#EFEFEF] rounded-lg">
                                 <TableHeader>
-                                  <TableRow className="bg-[#EFEFEF]">
-                                    <TableHead>Kuupäev</TableHead>
-                                    <TableHead>Tunnid</TableHead>
-                                    <TableHead>Asukoht</TableHead>
-                                    <TableHead></TableHead>
-                                    <TableHead></TableHead>
+                                  <TableRow>
+                                    <TableHead className="w-48">
+                                      Kuupäev
+                                    </TableHead>
+                                    <TableHead className="w-48">
+                                      Tunnid
+                                    </TableHead>
+                                    <TableHead className="w-auto">
+                                      Asukoht
+                                    </TableHead>
+                                    <TableHead className="w-4"></TableHead>
                                   </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                   {selectedTableData?.tableContent?.map(
                                     (data) => (
                                       <TableRow key={data.id}>
-                                        <TableCell className="min-w-40">
+                                        <TableCell className="font-medium w-48">
                                           {format(new Date(data.date), "PPP")}
                                         </TableCell>
-                                        <TableCell className="min-w-20">
+                                        <TableCell className="w-48">
                                           {data.time}
                                         </TableCell>
-                                        <TableCell className="min-w-60">
+                                        <TableCell className="w-auto">
                                           {data.location || "-"}
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell className="w-fit flex gap-2 justify-end">
                                           <AlertDialog>
                                             <AlertDialogTrigger>
                                               <Button
-                                                className="w-fit"
-                                                variant="secondary"
+                                                className="w-fit hover:bg-gray-100"
+                                                variant="outline"
+                                                onClick={() => {
+                                                  setDate(data.date);
+                                                  setTime(data.time);
+                                                  setLocation(data.location);
+                                                }}
                                               >
                                                 <Pencil className="size-4" />
                                               </Button>
                                             </AlertDialogTrigger>
-
+                                            <form
+                                              onSubmit={(event) => {
+                                                event.preventDefault();
+                                                updateTableContent(data.id);
+                                              }}
+                                            >
+                                              <AlertDialogContent>
+                                                <AlertDialogTitle className="w-full h-fit p-4 bg-white rounded-lg text-black">
+                                                  Muuda sissekannet
+                                                </AlertDialogTitle>
+                                                <Popover className="flex w-fit bg-white">
+                                                  <PopoverTrigger asChild>
+                                                    <Button
+                                                      variant={"secondary"}
+                                                      className={cn(
+                                                        "w-full h-fit p-4 px-1 justify-start text-left font-normal bg-white hover:bg-gray-100",
+                                                        !date &&
+                                                          "text-muted-foreground"
+                                                      )}
+                                                    >
+                                                      <CalendarIcon className="mr-2 h-4 w-4" />
+                                                      {date ? (
+                                                        format(date, "PPP")
+                                                      ) : (
+                                                        <span>Pick a date</span>
+                                                      )}
+                                                    </Button>
+                                                  </PopoverTrigger>
+                                                  <PopoverContent className="w-auto p-0">
+                                                    <Calendar
+                                                      mode="single"
+                                                      selected={date}
+                                                      onSelect={setDate}
+                                                      initialFocus
+                                                    />
+                                                  </PopoverContent>
+                                                </Popover>
+                                                <Input
+                                                  className="flex w-full h-fit bg-white p-4"
+                                                  type="number"
+                                                  placeholder="Tunnid"
+                                                  step="0.5"
+                                                  value={time}
+                                                  onChange={(e) => {
+                                                    setTime(e.target.value);
+                                                  }}
+                                                />
+                                                <Input
+                                                  className="flex w-full h-fit bg-white p-4"
+                                                  type="text"
+                                                  placeholder="Asukoht"
+                                                  value={location}
+                                                  onChange={(e) => {
+                                                    setLocation(e.target.value);
+                                                  }}
+                                                />
+                                                <AlertDialogFooter>
+                                                  {/* ... (other JSX) */}
+                                                  <AlertDialogAction
+                                                    className="w-full bg-white hover:bg-gray-100"
+                                                    type="submit"
+                                                    onClick={() => {
+                                                      updateTableContent(
+                                                        data.id
+                                                      );
+                                                    }}
+                                                  >
+                                                    Uuenda
+                                                  </AlertDialogAction>
+                                                  <AlertDialogCancel
+                                                    className="w-full bg-[#FF0000]/60 hover:bg-red-600"
+                                                    onClick={() => {
+                                                      setTime("");
+                                                      setLocation("");
+                                                      setDate(null);
+                                                    }}
+                                                  >
+                                                    Katkesta
+                                                  </AlertDialogCancel>
+                                                </AlertDialogFooter>
+                                              </AlertDialogContent>
+                                            </form>
+                                          </AlertDialog>
+                                          <AlertDialog>
+                                            <AlertDialogTrigger asChild>
+                                              <Button
+                                                variant="destructive"
+                                                className="hover:bg-red-600"
+                                              >
+                                                <Trash2 className="size-4" />
+                                              </Button>
+                                            </AlertDialogTrigger>
                                             <AlertDialogContent>
-                                              <AlertDialogTitle>
-                                                Change entry's data
-                                              </AlertDialogTitle>
-                                              <Popover className="flex w-fit">
-                                                <PopoverTrigger asChild>
-                                                  <Button variant={"secondary"}>
-                                                    <CalendarIcon className="mr-2 h-4 w-4" />
-                                                  </Button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="w-auto p-0">
-                                                  <Calendar
-                                                    mode="single"
-                                                    initialFocus
-                                                  />
-                                                </PopoverContent>
-                                              </Popover>
-                                              <Input
-                                                className="flex w-full"
-                                                type="number"
-                                                placeholder="Hours"
-                                              />
-                                              <Input
-                                                className="flex w-full"
-                                                type="text"
-                                                placeholder="Object"
-                                              />
+                                              <AlertDialogHeader>
+                                                Kas soovite kustutada
+                                                sissekande? <br />{" "}
+                                                {format(data?.date, "PPP")} |{" "}
+                                                {data.time}h |{" "}
+                                                {data?.location || "-"}
+                                              </AlertDialogHeader>
                                               <AlertDialogFooter>
-                                                <AlertDialogCancel>
-                                                  Cancel
+                                                <AlertDialogCancel className="w-full bg-white hover:bg-gray-100 text-black">
+                                                  Katkesta
                                                 </AlertDialogCancel>
-                                                <AlertDialogAction type="submit">
-                                                  Update
+                                                <AlertDialogAction
+                                                  className="w-full bg-[#FF0000]/60 text-white hover:bg-red-600"
+                                                  onClick={() => {
+                                                    deleteTableContent(data.id);
+                                                  }}
+                                                >
+                                                  Kustuta
                                                 </AlertDialogAction>
                                               </AlertDialogFooter>
                                             </AlertDialogContent>
                                           </AlertDialog>
-                                        </TableCell>
-                                        <TableCell className="w-1/3">
-                                          <Button
-                                            className="w-fit"
-                                            variant="destructive"
-                                          >
-                                            <Trash className="size-4" />
-                                          </Button>
                                         </TableCell>
                                       </TableRow>
                                     )
