@@ -9,12 +9,13 @@ import Faq from "../components/elements/Faq";
 
 
 
+
 function Welcome() {
 
   return (
     <>
       <Navbar />
-      
+
       <section id="hero-banner" className="h-screen relative mb-8">
         <img
           className="h-full w-full absolute inset-0 object-cover blur-sm brightness-50"

@@ -1,4 +1,3 @@
-import React from 'react';
 import Navbar from '../components/elements/WelcomeNavbar';
 import contact_img from "../assets/contact_img.png";
 import { Button } from "@/components/ui/button";
@@ -8,7 +7,6 @@ import { IoLocationOutline } from "react-icons/io5";
 import ContactForm from '../components/elements/ContactForm';
 import contactform from '../assets/contactform.png';
 import Faq from '../components/elements/Faq';
-import { Link } from 'react-router-dom';
 import Footer from '../components/elements/Footer';
 
 function Contact() {

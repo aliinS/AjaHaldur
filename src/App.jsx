@@ -7,6 +7,8 @@ import SingleGroup from "@/pages/SingleGroup";
 import NotFound from "@/pages/NotFound";
 import Contact from "./pages/Contact";
 import ScrollToTop from "./components/ui/scroll-to-top";
+import Features from "./pages/Features";
+
 
 export default function App() {
 
@@ -34,6 +36,7 @@ export default function App() {
         <ScrollToTop />
           <Routes>
             <Route path="contact" element={<Contact />} />
+            <Route path="about" element={<Features />} />
             <Route path="/" element={<Welcome />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      brightness: {
+        25: '.25',
+      },
       keyframes: {
         'accordion-down': {
           from: { height: '0' },

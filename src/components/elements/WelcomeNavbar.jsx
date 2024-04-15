@@ -23,6 +23,7 @@ import { Link } from 'react-router-dom';
 import { Checkbox } from "@/components/ui/checkbox";
 
 
+
 function RegistrationModal({ onClose, activeTab }) {
 
 
@@ -177,7 +178,7 @@ function Navbar() {
                 </Link>
                 <div className="hidden md:flex gap-6 h-full items-center">
                     <Link to="/"><button className="text-textInDark">Pealeht</button></Link>
-                    <button className="text-textInDark">Tutvustus</button>
+                    <Link to="about"><button className="text-textInDark">Tutvustus</button></Link>
                     <button className="text-textInDark">Hinnakiri</button>
                     <Link to="/contact"><button className="text-textInDark">Kontakt</button></Link>
                 </div>

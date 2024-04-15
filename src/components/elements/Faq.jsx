@@ -5,7 +5,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 
 
 function Faq() {
