@@ -483,7 +483,7 @@ export default function SingleGroup() {
                               Töötunnid
                             </Button>
                           </AlertDialogTriggerDesc>
-                          <AlertDialogContentDesc className="items-center flex flex-col w-full">
+                          <AlertDialogContentDesc className="items-center flex flex-col w-full max-h-screen overflow-auto">
                             <AlertDialogHeaderDesc className="flex w-full">
                               <AlertDialogTitleDesc className="text-black bg-white flex w-full h-fit p-4 rounded-lg">
                                 Töötunnid
@@ -659,7 +659,7 @@ export default function SingleGroup() {
                                   Taasta filter
                                 </Button>
                               </div>
-                            <div className="max-h-72 h-fit overflow-y-auto p-2 min-w-64 w-full rounded-lg bg-white overflow-x-auto lg:w-full lg:max-w-full">
+                            <div className="max-h-72 min-h-48 h-fit overflow-y-auto p-2 min-w-64 w-full rounded-lg bg-white overflow-x-auto lg:w-full lg:max-w-full">
                               <Table className=" bg-[#EFEFEF] rounded-lg">
                                 <TableHeader>
                                   <TableRow>
