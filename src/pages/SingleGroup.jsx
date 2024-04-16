@@ -861,7 +861,7 @@ export default function SingleGroup() {
                                   ({user.name}).
                                 </AlertDialogTitle>
                               </AlertDialogHeader>
-                              <AlertDialogFooter className="flex flex-col">
+                              <AlertDialogFooter className="flex flex-col-reverse">
                                 <AlertDialogCancel className="bg-white w-full hover:bg-gray-100 text-black">
                                   Katkesta
                                 </AlertDialogCancel>

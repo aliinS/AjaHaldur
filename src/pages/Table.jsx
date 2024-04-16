@@ -595,7 +595,7 @@ export default function SingleTable() {
                                   setLocation(e.target.value);
                                 }}
                               />
-                              <AlertDialogFooter>
+                              <AlertDialogFooter className="flex flex-col">
                                 {/* ... (other JSX) */}
                                 <AlertDialogAction
                                   className="w-full bg-white hover:bg-gray-100"
