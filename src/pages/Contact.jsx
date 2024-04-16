@@ -1,3 +1,4 @@
+import { Link as ScrollLink } from 'react-scroll';
 import Navbar from '../components/elements/WelcomeNavbar';
 import contact_img from "../assets/contact_img.png";
 import { Button } from "@/components/ui/button";

@@ -178,12 +178,12 @@ function Navbar() {
                 </Link>
                 <div className="hidden md:flex gap-6 h-full items-center">
                     <Link to="/"><button className="text-textInDark">Pealeht</button></Link>
-                    <Link to="about"><button className="text-textInDark">Tutvustus</button></Link>
+                    <Link to="/about"><button className="text-textInDark">Tutvustus</button></Link>
                     <button className="text-textInDark">Hinnakiri</button>
                     <Link to="/contact"><button className="text-textInDark">Kontakt</button></Link>
                 </div>
             </div>
-            <div className='hidden md:flex gap-4 h-full items-center'>
+            <div className='hidden md:flex gap-4 h-full items-center ml-auto'>
                 <button className="text-textInLight bg-buttonLight rounded-none px-6 py-2" onClick={handleRegistrationClick}>Registreeri</button>
                 <button className="text-buttonLight border border-buttonLight rounded-none px-6 py-2" onClick={handleLoginClick}>Logi sisse</button>
             </div>
@@ -193,7 +193,7 @@ function Navbar() {
                 <div className="fixed md:hidden z-10 top-0">
                     <img src={logo} alt="Logo" className='h-[80px]' />
                 </div>
-                </Link>
+            </Link>
             <button
                 className="md:hidden text-white fixed top-8 right-8 z-10"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -204,7 +204,7 @@ function Navbar() {
             {isMenuOpen && (
                 <div id="mobile-menu" className="z-10 md:hidden absolute top-20 left-0 right-0 bg-footer bg-opacity-80 text-textInDark flex flex-col items-center gap-4 px-8 py-4">
                     <Link to="/"><button className="text-textInDark">Pealeht</button></Link>
-                    <button className="text-textInDark">Tutvustus</button>
+                    <Link to="/about"><button className="text-textInDark">Tutvustus</button></Link>
                     <button className="text-textInDark">Hinnakiri</button>
                     <Link to="/contact"><button className="text-textInDark">Kontakt</button></Link>
 

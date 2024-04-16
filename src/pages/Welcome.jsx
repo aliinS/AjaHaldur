@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "../components/elements/WelcomeNavbar";
 import Footer from "../components/elements/Footer";
 import Faq from "../components/elements/Faq";
+import { Link } from "react-router-dom";
 
 
 
@@ -35,7 +36,9 @@ function Welcome() {
             </p>
             <div className="flex gap-2">
               <Button className="rounded-none bg-footer">Alusta siit!</Button>
-              <Button variant="outline" className="bg-transparent rounded-none border-buttonLight text-textInDark" >Rohkem infot ...</Button>
+              <Link to="/about">
+                <Button variant="outline" className="bg-transparent rounded-none border-buttonLight text-textInDark" >Rohkem infot ...</Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -61,9 +64,11 @@ function Welcome() {
             </div>
           </div>
           <div className="flex gap-2 md:justify-start justify-center pb-2 pt-5">
+          <Link to="/about">
             <Button variant="outline" className="bg-transparent border-black rounded-none">
               Loe lähemalt...
             </Button>
+           </Link> 
             <Button variant="link" className="bg-transparent border-white gap-1 ">
               Registreeri <Boxes />
             </Button>
@@ -74,7 +79,7 @@ function Welcome() {
         </div>
       </section>
 
-      <section id="third-pricing" className="bg-bgLight pt-20 pb-20">
+      <section id="third-pricing" className="bg-gradient-to-r from-bgLight pt-20 pb-20">
         <div className="container mx-auto max-w-sm md:max-w-4xl">
           <div className="gap-2 mb-5">
             <h1 className="font-bold text-3xl text-center">Hinnaplaan</h1>

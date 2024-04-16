@@ -12,7 +12,7 @@ function Faq() {
 
   return (
     <>
-      <section id="fourth-faq" className="flex px-16 py-20 bg-bgMid w-full">
+      <section id="fourth-faq" className="flex px-16 py-20 bg-gradient-to-r from-bgMid w-full">
         <div className="w-full">
           <h1 className="font-bold text-3xl">Korduma kippuvad küsimused</h1>
           <p className="pt-3 mb-10">Siit leiad vastused enamlevinud küsimustele meie rakenduse kohta.</p>
