@@ -68,13 +68,11 @@ export default function SingleGroup() {
   const [name, setName] = useState();
   const [inviteEmail, setInviteEmail] = useState();
   const [selectedTableData, setSelectedTableData] = useState();
-  
+
   const [filtered, setFiltered] = useState(false);
   const [selectedFilterDate1, setSelectedFilterDate1] = useState(null);
   const [selectedFilterDate2, setSelectedFilterDate2] = useState(null);
   const [diplayFilteredDate, setDisplayFilteredDate] = useState("");
-  const [hours, setHours] = useState("");
-  const [unfilteredData, setUnfilteredData] = useState([]);
 
   const [date, setDate] = useState();
   const [time, setTime] = useState();
@@ -89,8 +87,6 @@ export default function SingleGroup() {
         .get(`api/groups/show/${id}`)
         .then((response) => {
           setData(response.data.group);
-          setUnfilteredData(response.data.group.users);
-          setHours(response.data.group.hours);
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -223,6 +219,57 @@ export default function SingleGroup() {
     });
   }
 
+  function filterData() {
+    let message = "";
+    axios.get("/sanctum/csrf-cookie").then(() => {
+      axios
+        .get(
+          `api/tables/content/filter/${
+            selectedTableData?.table?.id
+          }?from=${format(selectedFilterDate1, "yyyy-MM-dd")}&to=${format(
+            selectedFilterDate2,
+            "yyyy-MM-dd"
+          )}`,
+          {
+            group_id: data.id,
+            date1: format(selectedFilterDate1, "yyyy-MM-dd"),
+            date2: format(selectedFilterDate2, "yyyy-MM-dd"),
+          }
+        )
+        .then((response) => {
+          setFiltered(true);
+          setDisplayFilteredDate(
+            `${format(selectedFilterDate1, "PPP")} - ${format(
+              selectedFilterDate2,
+              "PPP"
+            )}`
+          );
+
+          const newData = {
+            ...selectedTableData,
+            tableContent: response.data.content,
+            hours: response.data.hours,
+          };
+
+          setSelectedTableData(newData);
+
+          message = response.data.message;
+        })
+        .catch((error) => {
+          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
+        });
+    });
+  }
+
+  function resetFilter(id) {
+    setFiltered(false);
+    setDisplayFilteredDate("");
+    setSelectedFilterDate1(null);
+    setSelectedFilterDate2(null);
+    fetchTableInfo(id);
+  }
+
   useEffect(() => {
     fetchGroupInfo();
   }, []);
@@ -237,7 +284,6 @@ export default function SingleGroup() {
         })
         .then((response) => {
           // fetchData();
-          console.log(response.data);
           fetchGroupInfo();
           message = response.data.message;
         })
@@ -553,112 +599,110 @@ export default function SingleGroup() {
                             />
                             <Separator className="flex lg:hidden" />
 
-                              <div className="flex gap-4 p-2 bg-white w-full rounded-md">
-                                <div className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md ">
-                                  Tunnid: {selectedTableData?.hours}
-                                </div>
-
-                                <AlertDialog>
-                                  <AlertDialogTrigger>
-                                    <button className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md hover:bg-gray-100">
-                                      Filtrid
-                                    </button>
-                                  </AlertDialogTrigger>
-                                  <AlertDialogContent>
-                                    <AlertDialogHeader>
-                                      <span
-                                        className={
-                                          filtered
-                                            ? "block font-bold"
-                                            : "hidden"
-                                        }
-                                      >
-                                        {diplayFilteredDate}
-                                      </span>
-                                    </AlertDialogHeader>
-                                    <AlertDialogDescription className="flex text-black gap-1">
-                                      <Popover>
-                                        <PopoverTrigger asChild>
-                                          <Button
-                                            variant={"outline"}
-                                            className={cn(
-                                              "w-full justify-start text-left font-normal",
-                                              !selectedFilterDate1 &&
-                                                "text-muted-foreground"
-                                            )}
-                                          >
-                                            <CalendarIcon className="mr-2 h-4 w-4" />
-                                            {selectedFilterDate1 ? (
-                                              format(selectedFilterDate1, "PPP")
-                                            ) : (
-                                              <span>Pick a date</span>
-                                            )}
-                                          </Button>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="w-auto p-0">
-                                          <Calendar
-                                            mode="single"
-                                            selected={selectedFilterDate1}
-                                            onSelect={setSelectedFilterDate1}
-                                            initialFocus
-                                          />
-                                        </PopoverContent>
-                                      </Popover>
-                                      <p className="text-2xl">-</p>
-                                      <Popover>
-                                        <PopoverTrigger asChild>
-                                          <Button
-                                            variant={"outline"}
-                                            className={cn(
-                                              "w-full justify-start text-left font-normal",
-                                              !selectedFilterDate2 &&
-                                                "text-muted-foreground"
-                                            )}
-                                          >
-                                            <CalendarIcon className="mr-2 h-4 w-4" />
-                                            {selectedFilterDate2 ? (
-                                              format(selectedFilterDate2, "PPP")
-                                            ) : (
-                                              <span>Pick a date</span>
-                                            )}
-                                          </Button>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="w-auto p-0">
-                                          <Calendar
-                                            mode="single"
-                                            selected={selectedFilterDate2}
-                                            onSelect={setSelectedFilterDate2}
-                                            initialFocus
-                                          />
-                                        </PopoverContent>
-                                      </Popover>
-                                    </AlertDialogDescription>
-                                    <AlertDialogFooter>
-                                      <AlertDialogCancel className="w-full">
-                                        Katkesta
-                                      </AlertDialogCancel>
-                                      <AlertDialogAction
-                                        className="w-full"
-                                        // onClick={filterData}
-                                      >
-                                        Filtreeri
-                                      </AlertDialogAction>
-                                    </AlertDialogFooter>
-                                  </AlertDialogContent>
-                                </AlertDialog>
-
-                                <Button
-                                  className={
-                                    filtered ? "h-full bg-[#EFEFEF]" : "hidden"
-                                  }
-                                  variant="secondary"
-                                  onClick={() => {
-                                    resetFilter();
-                                  }}
-                                >
-                                  Taasta filter
-                                </Button>
+                            <div className="flex gap-4 p-2 bg-white w-full rounded-md">
+                              <div className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md ">
+                                Tunnid: {selectedTableData?.hours}
                               </div>
+
+                              <AlertDialog>
+                                <AlertDialogTrigger>
+                                  <button className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md hover:bg-gray-100">
+                                    Filtrid
+                                  </button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <span
+                                      className={
+                                        filtered ? "block font-bold" : "hidden"
+                                      }
+                                    >
+                                      {diplayFilteredDate}
+                                    </span>
+                                  </AlertDialogHeader>
+                                  <AlertDialogDescription className="flex text-black gap-1">
+                                    <Popover>
+                                      <PopoverTrigger asChild>
+                                        <Button
+                                          variant={"outline"}
+                                          className={cn(
+                                            "w-full justify-start text-left font-normal",
+                                            !selectedFilterDate1 &&
+                                              "text-muted-foreground"
+                                          )}
+                                        >
+                                          <CalendarIcon className="mr-2 h-4 w-4" />
+                                          {selectedFilterDate1 ? (
+                                            format(selectedFilterDate1, "PPP")
+                                          ) : (
+                                            <span>Pick a date</span>
+                                          )}
+                                        </Button>
+                                      </PopoverTrigger>
+                                      <PopoverContent className="w-auto p-0">
+                                        <Calendar
+                                          mode="single"
+                                          selected={selectedFilterDate1}
+                                          onSelect={setSelectedFilterDate1}
+                                          initialFocus
+                                        />
+                                      </PopoverContent>
+                                    </Popover>
+                                    <p className="text-2xl">-</p>
+                                    <Popover>
+                                      <PopoverTrigger asChild>
+                                        <Button
+                                          variant={"outline"}
+                                          className={cn(
+                                            "w-full justify-start text-left font-normal",
+                                            !selectedFilterDate2 &&
+                                              "text-muted-foreground"
+                                          )}
+                                        >
+                                          <CalendarIcon className="mr-2 h-4 w-4" />
+                                          {selectedFilterDate2 ? (
+                                            format(selectedFilterDate2, "PPP")
+                                          ) : (
+                                            <span>Pick a date</span>
+                                          )}
+                                        </Button>
+                                      </PopoverTrigger>
+                                      <PopoverContent className="w-auto p-0">
+                                        <Calendar
+                                          mode="single"
+                                          selected={selectedFilterDate2}
+                                          onSelect={setSelectedFilterDate2}
+                                          initialFocus
+                                        />
+                                      </PopoverContent>
+                                    </Popover>
+                                  </AlertDialogDescription>
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel className="w-full">
+                                      Katkesta
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction
+                                      className="w-full"
+                                      onClick={filterData}
+                                    >
+                                      Filtreeri
+                                    </AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
+
+                              <Button
+                                className={
+                                  filtered ? "h-full bg-[#EFEFEF]" : "hidden"
+                                }
+                                variant="secondary"
+                                onClick={() => {
+                                  resetFilter(user.id);
+                                }}
+                              >
+                                Taasta filter
+                              </Button>
+                            </div>
                             <div className="max-h-72 h-fit overflow-y-auto p-2 min-w-64 w-full rounded-lg bg-white overflow-x-auto lg:w-full lg:max-w-full">
                               <Table className=" bg-[#EFEFEF] rounded-lg">
                                 <TableHeader>
