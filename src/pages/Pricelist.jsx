@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Faq from "../components/elements/Faq";
 import Footer from "../components/elements/Footer";
 import { Check } from 'lucide-react';
+import ContactWays from "../components/elements/ContactWays";
 
 
 function Pricelist() {
@@ -106,6 +107,8 @@ function Pricelist() {
             </section>
 
             <Faq />
+
+            <ContactWays />
 
             <Footer />
         </>

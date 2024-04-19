@@ -55,7 +55,7 @@ const Footer = () => {
             <div className="mt-10 mb-10 flex flex-col border-t md:items-center justify-between w-full md:px-3">
                 <div className="flex flex-col md:flex-row-reverse md:justify-between gap-4 md:gap-0 md:items-center mt-3 md:w-full">
                     <div className="flex flex-col md:flex-row gap-4 underline underline-offset-4 md:w-full md:justify-end">
-                        <a href="#" className="hover:text-gray-400">Privaatsusteave</a>
+                        <a id='priv-policy' href="#" className="hover:text-gray-400">Privaatsusteave</a>
                         <a href="#" className="hover:text-gray-400">Kasutustingimused</a>
                         <a href="#" className="hover:text-gray-400">Küpsiste sätted</a>
                     </div>

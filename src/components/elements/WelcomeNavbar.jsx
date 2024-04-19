@@ -60,7 +60,7 @@ function RegistrationModal({ onClose, activeTab }) {
 
     return (
         <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-footer bg-opacity-50 z-10">
-            <div className="bg-bgDark p-8 rounded-lg md:h-[500px] max-w-[350px] md:max-w-[500px] h-[530px]">
+            <div className="bg-bgMid p-8 rounded-lg md:h-[500px] max-w-[350px] md:max-w-[500px] h-[530px]">
 
                 {/* REGISTRATION FORM */}
                 <Tabs defaultValue={activeTab} className="md:w-[400px] w-[300px]">
@@ -72,8 +72,8 @@ function RegistrationModal({ onClose, activeTab }) {
                         <Card>
                             <CardHeader>
                                 <CardTitle>Registreeri</CardTitle>
-                                <CardDescription className="flex flex-row gap-2 items-center">
-                                    <Checkbox /> Konto registreerimisel nõustud meie privaatsuspoliitika ja muude tingimustega.
+                                <CardDescription className="flex flex-row gap-2 items-center flex-wrap md:gap-0">
+                                    <Checkbox className="mr-1"/> Konto registreerimisel nõustud meie <a className='underline pr-1' href="#">privaatsuspoliitika</a>ja muude tingimustega.
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-2">
