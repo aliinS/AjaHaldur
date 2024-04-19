@@ -1,8 +1,6 @@
 import Navbar from "../components/elements/WelcomeNavbar";
-import contact_img from "../assets/contact_img.png";
+import pricing_img from "../assets/pricelist_img.png";
 import { Button } from "@/components/ui/button";
-import ContactForm from "../components/elements/ContactForm";
-import contactform from "../assets/contactform.png";
 import Faq from "../components/elements/Faq";
 import Footer from "../components/elements/Footer";
 import { Check } from 'lucide-react';
@@ -16,7 +14,7 @@ function Pricelist() {
             <section id="pricelist-banner" className="h-screen relative">
                 <img
                     className="h-full w-full absolute inset-0 object-cover blur-sm brightness-50"
-                    src={contact_img}
+                    src={pricing_img}
                     alt="Happy workers behind computers"
                 />
 
