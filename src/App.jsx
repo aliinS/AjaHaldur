@@ -8,6 +8,7 @@ import NotFound from "@/pages/NotFound";
 import Contact from "./pages/Contact";
 import ScrollToTop from "./components/ui/scroll-to-top";
 import Features from "./pages/Features";
+import Pricelist from "./pages/Pricelist";
 
 
 export default function App() {
@@ -35,9 +36,10 @@ export default function App() {
         <BrowserRouter>
         <ScrollToTop />
           <Routes>
-            <Route path="contact" element={<Contact />} />
-            <Route path="about" element={<Features />} />
             <Route path="/" element={<Welcome />} />
+            <Route path="about" element={<Features />} />
+            <Route path="pricelist" element={<Pricelist />} />
+            <Route path="contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

@@ -1,7 +1,5 @@
 import "@/App.css";
 import { AlertTriangle } from "lucide-react";
-import logo from "@/assets/ajahaldur_logo_white.png";
-import { Navigation } from "@/components/elements/navigation";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Link, useLocation } from "react-router-dom";

@@ -179,7 +179,7 @@ function Navbar() {
                 <div className="hidden md:flex gap-6 h-full items-center">
                     <Link to="/"><button className="text-textInDark">Pealeht</button></Link>
                     <Link to="/about"><button className="text-textInDark">Tutvustus</button></Link>
-                    <button className="text-textInDark">Hinnakiri</button>
+                    <Link to="/pricelist"><button className="text-textInDark">Hinnakiri</button></Link>
                     <Link to="/contact"><button className="text-textInDark">Kontakt</button></Link>
                 </div>
             </div>
@@ -205,7 +205,7 @@ function Navbar() {
                 <div id="mobile-menu" className="z-10 md:hidden absolute top-20 left-0 right-0 bg-footer bg-opacity-80 text-textInDark flex flex-col items-center gap-4 px-8 py-4">
                     <Link to="/"><button className="text-textInDark">Pealeht</button></Link>
                     <Link to="/about"><button className="text-textInDark">Tutvustus</button></Link>
-                    <button className="text-textInDark">Hinnakiri</button>
+                    <Link to="/pricelist"><button className="text-textInDark">Hinnakiri</button></Link>
                     <Link to="/contact"><button className="text-textInDark">Kontakt</button></Link>
 
                     <div className='flex flex-col gap-4 pt-2 w-48'>
