@@ -282,7 +282,6 @@ export default function SingleTable() {
   // filter reset
   function resetFilter() {
     setFiltered(false);
-    //remove from and to from the URL
     navigate("");
     fetchData();
   }

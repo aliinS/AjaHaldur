@@ -6,7 +6,7 @@ export default function Sidebar({ children }) {
   return (
     <>
       {/* Desktop Sidebar */}
-      <nav className="hidden md:flex md:flex-col md:h-screen md:shadow-sm md:bg-[#E4E4E4] md:w-20 md:sticky md:top-0">
+      <nav className="hidden md:flex md:flex-col md:h-screen md:min-w-20 md:shadow-sm md:bg-[#E4E4E4] md:w-20 md:fixed top-0 bottom-0 left-0 md:top-0">
         <div className="p-2">
           <Link to="/" className="flex justify-center items-center">
             <img src={logo} alt="Logo" className="w-16"/>
