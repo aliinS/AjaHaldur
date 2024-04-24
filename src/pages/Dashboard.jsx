@@ -201,7 +201,7 @@ export default function Dashboard() {
   return (
     <AppLayout>
       <div className="flex">
-        <div className="text-[#c2c2c2] font-thin p-2 w-full">
+        <div className="text-[#c2c2c2] font-thin  w-full">
           <div
             id="PersonalTables"
             className="w-full h-fit p-4 flex flex-col gap-4"

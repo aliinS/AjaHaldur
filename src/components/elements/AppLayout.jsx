@@ -18,7 +18,7 @@ export default function AppLayout({ children }) {
     <div className="flex">
       {/* Desktop Sidebar */}
       <Sidebar>
-        <div className="flex flex-col justify-between h-full ">
+        <div className="flex flex-col justify-between items-center h-full">
           <div className="flex flex-col gap-4">
             <button onClick={() => navigate("/dashboard")} className="w-fit">
               <SidebarItem
@@ -74,22 +74,6 @@ export default function AppLayout({ children }) {
           />
         </button>
 
-        {/* <button onClick={() => navigate("/dashboard")} className="flex items-center justify-center h-fit w-fit">
-          <SidenavMobileItem
-            icon={<Boxes size={20} color="black" />}
-            // text="Groups"
-            active={isActive("/xxx")}
-          />
-        </button>
-
-        <button onClick={() => navigate("/dashboard")} className="flex items-center justify-center h-fit w-fit">
-          <SidenavMobileItem
-            icon={<BarChart3 size={20} color="black" />}
-            // text="Tables"
-            active={isActive("/xxx")}
-          />
-        </button> */}
-
         <button onClick={() => navigate("/settingsTable")} className="flex items-center justify-center h-fit w-full">
           <SidenavMobileItem
             icon={<Settings size={20} color="black" />}
@@ -107,7 +91,7 @@ export default function AppLayout({ children }) {
       </SidenavMobile>
 
       {/* Main Content */}
-      <div className="text-[#c2c2c2] font-thin p-2 w-full mb-16 md:mb-0">{children}</div>
+      <div className="text-[#c2c2c2] font-thin p-2 w-full md:pl-[88px] mb-16 md:mb-0">{children}</div>
     </div>
   );
 }
