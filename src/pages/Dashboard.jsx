@@ -1,4 +1,4 @@
-import { RefreshCw } from "lucide-react";
+import { PlusCircle, RefreshCw } from "lucide-react";
 import GroupBox from "@/components/elements/GroupBox";
 import TableBox from "@/components/elements/TableBox";
 import { Link, useNavigate } from "react-router-dom";
@@ -209,8 +209,8 @@ export default function Dashboard() {
             <div className="flex fle-row w-full h-fit justify-between bg-white rounded-lg p-2 text-black">
               <h1 className="text-2xl font-bold">Personaal tabelid:</h1>
               <AlertDialog>
-                <AlertDialogTrigger className="text-3xl font-bold flex h-fit w-fit px-6">
-                  +
+                <AlertDialogTrigger className="flex h-fit py-1 w-fit  px-6">
+                  <PlusCircle size={24} />
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
@@ -292,8 +292,8 @@ export default function Dashboard() {
             <div className="flex fle-row w-full h-fit justify-between bg-white rounded-lg p-2 text-black">
               <h1 className="text-2xl font-bold">Minu grupid:</h1>
               <AlertDialog>
-                <AlertDialogTrigger className="text-3xl font-bold flex h-fit w-fit px-6">
-                  +
+                <AlertDialogTrigger className="flex h-fit py-1 w-fit  px-6">
+                  <PlusCircle size={24} />
                 </AlertDialogTrigger>
                 <AlertDialogContent className="">
                   <AlertDialogHeader>

@@ -8,6 +8,8 @@ import {
   Trash2,
   Settings,
   Trash,
+  PlusCircle,
+  Plus,
 } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -535,7 +537,9 @@ export default function SingleGroup() {
                                 <h1>Töötunnid - {user.name}</h1>
                                 <AlertDialog>
                                   <AlertDialogTrigger asChild>
-                                    <Button variant="outline">+</Button>
+                                    <Button variant="ghost">
+                                      <PlusCircle className="size-6" />
+                                    </Button>
                                   </AlertDialogTrigger>
                                   <AlertDialogContent>
                                     <AlertDialogHeader className="text-black bg-white flex w-full justify-between h-fit p-4 rounded-lg font-bold">

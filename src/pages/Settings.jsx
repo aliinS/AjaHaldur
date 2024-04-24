@@ -1,6 +1,7 @@
 import AppLayout from "../components/elements/AppLayout";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Save } from "lucide-react";
 
 export default function SettingsTable() {
   const [name, setName] = useState("");
@@ -104,13 +105,13 @@ export default function SettingsTable() {
                 onChange={(e) => {
                   setName(e.target.value);
                 }}
-                className="flex w-96 rounded h-fit bg-gray-200 p-2"
+                className="flex w-full lg:w-96 rounded h-fit bg-gray-200 p-2"
               />
               <button
                 type="submit"
-                className="max-w-xl bg-gray-200 py-2 px-4 rounded"
+                className="max-w-xl bg-gray-200 py-2 px-2 rounded"
               >
-                Save
+                <Save size={24} />
               </button>
             </div>
           </form>
@@ -134,13 +135,13 @@ export default function SettingsTable() {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-                className="flex w-96 rounded h-fit bg-gray-200 p-2"
+                className="flex w-full lg:w-96 rounded h-fit bg-gray-200 p-2"
               />
               <button
                 type="submit"
-                className="max-w-xl bg-gray-200 py-2 px-4 rounded"
+                className="max-w-xl bg-gray-200 py-2 px-2 rounded"
               >
-                Save
+                <Save size={24} />
               </button>
             </div>
           </form>
@@ -164,13 +165,13 @@ export default function SettingsTable() {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-                className="flex w-96 rounded h-fit bg-gray-200 p-2"
+                className="flex w-full lg:w-96 rounded h-fit bg-gray-200 p-2"
               />
               <button
                 type="submit"
-                className="max-w-xl bg-gray-200 py-2 px-4 rounded"
+                className="max-w-xl bg-gray-200 py-2 px-2 rounded"
               >
-                Save
+                <Save size={24} />
               </button>
             </div>
           </form>
