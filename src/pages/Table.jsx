@@ -481,16 +481,16 @@ export default function SingleTable() {
                         </PopoverContent>
                       </Popover>
                     </AlertDialogDescription>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel className="w-full">
-                        Katkesta
-                      </AlertDialogCancel>
+                    <AlertDialogFooter className="flex flex-col">
                       <AlertDialogAction
-                        className="w-full"
+                        className="w-full bg-white hover:bg-gray-100 text-black"
                         onClick={filterData}
                       >
                         Filtreeri
                       </AlertDialogAction>
+                      <AlertDialogCancel className="w-full bg-[#FF0000]/60 hover:bg-red-600 text-white">
+                        Katkesta
+                      </AlertDialogCancel>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
