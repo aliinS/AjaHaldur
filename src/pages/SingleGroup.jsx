@@ -717,7 +717,7 @@ export default function SingleGroup() {
                                 Taasta filter
                               </Button>
                             </div>
-                            <div className="max-h-[450px] lg:max-h-[550px] h-fit overflow-y-auto p-2 min-w-64 w-full rounded-lg bg-white overflow-x-auto lg:w-full lg:max-w-full">
+                            <div className="max-h-96 lg:max-h-[550px] h-fit overflow-y-auto p-2 min-w-64 w-full rounded-lg bg-white overflow-x-auto lg:w-full lg:max-w-full">
                               <Table className=" bg-[#EFEFEF] rounded-lg">
                                 <TableHeader>
                                   <TableRow>
