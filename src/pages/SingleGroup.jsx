@@ -531,74 +531,88 @@ export default function SingleGroup() {
                           </AlertDialogTriggerDesc>
                           <AlertDialogContentDesc className="items-center flex flex-col w-full max-h-screen overflow-auto">
                             <AlertDialogHeaderDesc className="flex w-full">
-                              <AlertDialogTitleDesc className="text-black bg-white flex w-full h-fit p-4 rounded-lg">
-                                Töötunnid
+                              <AlertDialogTitleDesc className="text-black bg-white flex w-full justify-between h-fit p-4 rounded-lg items-center">
+                                <h1>Töötunnid - {user.name}</h1>
+                                <AlertDialog>
+                                  <AlertDialogTrigger asChild>
+                                    <Button variant="outline">+</Button>
+                                  </AlertDialogTrigger>
+                                  <AlertDialogContent>
+                                    <AlertDialogHeader className="text-black bg-white flex w-full justify-between h-fit p-4 rounded-lg font-bold">
+                                      Sisesta uus töötund
+                                      </AlertDialogHeader>
+                                    <Popover className="flex w-full">
+                                      <PopoverTrigger asChild>
+                                        <Button
+                                          variant={"outline"}
+                                          className={cn(
+                                            "w-full h-fit p-4 justify-start text-left font-normal bg-white hover:bg-gray-100",
+                                            !date && "text-muted-foreground"
+                                          )}
+                                        >
+                                          <CalendarIcon className="mr-2 h-4 w-4" />
+                                          {date ? (
+                                            format(date, "PPP")
+                                          ) : (
+                                            <span>Vali kuupäev</span>
+                                          )}
+                                        </Button>
+                                      </PopoverTrigger>
+                                      <PopoverContent className="w-auto p-0">
+                                        <Calendar
+                                          mode="single"
+                                          selected={date}
+                                          onSelect={setDate}
+                                          className="rounded-md border"
+                                        />
+                                      </PopoverContent>
+                                    </Popover>
+                                    <Input
+                                      className="flex w-full text-black h-fit p-4 bg-white"
+                                      type="number"
+                                      placeholder="Tunnid"
+                                      step="0.5"
+                                      value={time}
+                                      onChange={(e) => {
+                                        setTime(e.target.value);
+                                      }}
+                                    />
+                                    <Input
+                                      className="flex w-full text-black h-fit p-4 bg-white"
+                                      type="text"
+                                      placeholder="Asukoht"
+                                      value={location}
+                                      onChange={(e) => {
+                                        setLocation(e.target.value);
+                                      }}
+                                    />
+                                    <AlertDialogFooter className="flex flex-col">
+                                      <AlertDialogAction
+                                        className="flex w-full text-black h-fit bg-white hover:bg-gray-100"
+                                        type="submit"
+                                        variant="secondary"
+                                        onClick={() => {
+                                          storeTableContent(
+                                            selectedTableData.table.id,
+                                            user.id
+                                          );
+                                        }}
+                                      >
+                                        Lisa uus
+                                      </AlertDialogAction>
+                                      <AlertDialogCancel className="flex w-full bg-[#FF0000]/60 hover:bg-red-600">
+                                        Katkesta
+                                      </AlertDialogCancel>
+                                    </AlertDialogFooter>
+                                  </AlertDialogContent>
+                                </AlertDialog>
                               </AlertDialogTitleDesc>
                             </AlertDialogHeaderDesc>
-                            <Popover className="flex w-full">
-                              <PopoverTrigger asChild>
-                                <Button
-                                  variant={"outline"}
-                                  className={cn(
-                                    "w-full h-fit p-4 justify-start text-left font-normal bg-white hover:bg-gray-100",
-                                    !date && "text-muted-foreground"
-                                  )}
-                                >
-                                  <CalendarIcon className="mr-2 h-4 w-4" />
-                                  {date ? (
-                                    format(date, "PPP")
-                                  ) : (
-                                    <span>Vali kuupäev</span>
-                                  )}
-                                </Button>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-auto p-0">
-                                <Calendar
-                                  mode="single"
-                                  selected={date}
-                                  onSelect={setDate}
-                                  className="rounded-md border"
-                                />
-                              </PopoverContent>
-                            </Popover>
-                            <Input
-                              className="flex w-full text-black h-fit p-4 bg-white"
-                              type="number"
-                              placeholder="Tunnid"
-                              step="0.5"
-                              value={time}
-                              onChange={(e) => {
-                                setTime(e.target.value);
-                              }}
-                            />
-                            <Input
-                              className="flex w-full text-black h-fit p-4 bg-white"
-                              type="text"
-                              placeholder="Asukoht"
-                              value={location}
-                              onChange={(e) => {
-                                setLocation(e.target.value);
-                              }}
-                            />
-                            <Button
-                              className="flex w-full text-black h-fit bg-white hover:bg-gray-100"
-                              type="submit"
-                              variant="secondary"
-                              onClick={() => {
-                                storeTableContent(
-                                  selectedTableData.table.id,
-                                  user.id
-                                );
-                              }}
-                            >
-                              Sisesta
-                            </Button>
+
                             <Separator
                               orientation="vertical"
                               className="hidden lg:flex"
                             />
-                            <Separator className="flex lg:hidden" />
-
                             <div className="flex gap-4 p-2 bg-white w-full rounded-md">
                               <div className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md ">
                                 Tunnid: {selectedTableData?.hours}
@@ -677,16 +691,16 @@ export default function SingleGroup() {
                                       </PopoverContent>
                                     </Popover>
                                   </AlertDialogDescription>
-                                  <AlertDialogFooter>
-                                    <AlertDialogCancel className="w-full">
-                                      Katkesta
-                                    </AlertDialogCancel>
+                                  <AlertDialogFooter className="flex flex-col">
                                     <AlertDialogAction
-                                      className="w-full"
+                                      className="w-full bg-white hover:bg-gray-100"
                                       onClick={filterData}
                                     >
                                       Filtreeri
                                     </AlertDialogAction>
+                                    <AlertDialogCancel className="w-full bg-[#FF0000]/60 hover:bg-red-600">
+                                      Katkesta
+                                    </AlertDialogCancel>
                                   </AlertDialogFooter>
                                 </AlertDialogContent>
                               </AlertDialog>
@@ -703,7 +717,7 @@ export default function SingleGroup() {
                                 Taasta filter
                               </Button>
                             </div>
-                            <div className="max-h-72 h-fit overflow-y-auto p-2 min-w-64 w-full rounded-lg bg-white overflow-x-auto lg:w-full lg:max-w-full">
+                            <div className="max-h-[450px] lg:max-h-[550px] h-fit overflow-y-auto p-2 min-w-64 w-full rounded-lg bg-white overflow-x-auto lg:w-full lg:max-w-full">
                               <Table className=" bg-[#EFEFEF] rounded-lg">
                                 <TableHeader>
                                   <TableRow>
