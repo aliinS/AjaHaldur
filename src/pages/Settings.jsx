@@ -93,24 +93,26 @@ export default function SettingsTable() {
             }}
             className="w-full h-fit bg-white rounded p-2 text-black flex flex-col gap-2"
           >
-            <h1 className="text-xl">Update name</h1>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-              className="max-w-xl p-2 bg-gray-200 rounded-sm"
-            />
-            <button
-              type="submit"
-              className="max-w-xl bg-gray-200 p-2 rounded-sm"
-            >
-              Save
-            </button>
+            <h1 className="text-xl">Muuda nime</h1>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+                className="flex w-96 rounded h-fit bg-gray-200 p-2"
+              />
+              <button
+                type="submit"
+                className="max-w-xl bg-gray-200 py-2 px-4 rounded"
+              >
+                Save
+              </button>
+            </div>
           </form>
 
           {/* Email settings */}
@@ -121,24 +123,26 @@ export default function SettingsTable() {
             }}
             className="w-full h-fit bg-white rounded p-2 text-black flex flex-col gap-2"
           >
-            <h1 className="text-xl">Update email</h1>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              className="max-w-xl p-2 bg-gray-200 rounded-sm"
-            />
-            <button
-              type="submit"
-              className="max-w-xl bg-gray-200 p-2 rounded-sm"
-            >
-              Save
-            </button>
+            <h1 className="text-xl">Muuda E-maili</h1>
+            <div className="flex gap-2">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                className="flex w-96 rounded h-fit bg-gray-200 p-2"
+              />
+              <button
+                type="submit"
+                className="max-w-xl bg-gray-200 py-2 px-4 rounded"
+              >
+                Save
+              </button>
+            </div>
           </form>
 
           {/* Password settings */}
@@ -149,24 +153,26 @@ export default function SettingsTable() {
             }}
             className="w-full h-fit bg-white rounded p-2 text-black flex flex-col gap-2"
           >
-            <h1 className="text-xl">Change password</h1>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              className="max-w-xl p-2 bg-gray-200 rounded-sm"
-            />
-            <button
-              type="submit"
-              className="max-w-xl bg-gray-200 p-2 rounded-sm"
-            >
-              Save
-            </button>
+            <h1 className="text-xl">Muuda parooli</h1>
+            <div className="flex gap-2">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                className="flex w-96 rounded h-fit bg-gray-200 p-2"
+              />
+              <button
+                type="submit"
+                className="max-w-xl bg-gray-200 py-2 px-4 rounded"
+              >
+                Save
+              </button>
+            </div>
           </form>
         </div>
       </div>
