@@ -63,6 +63,7 @@ import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { set } from "date-fns";
 import AppLayout from "../components/elements/AppLayout";
+import { Tab } from "@mui/material";
 
 export default function SingleGroup() {
   const { id } = useParams();
@@ -544,7 +545,7 @@ export default function SingleGroup() {
                                   <AlertDialogContent>
                                     <AlertDialogHeader className="text-black bg-white flex w-full justify-between h-fit p-4 rounded-lg font-bold">
                                       Sisesta uus töötund
-                                      </AlertDialogHeader>
+                                    </AlertDialogHeader>
                                     <Popover className="flex w-full">
                                       <PopoverTrigger asChild>
                                         <Button
@@ -894,16 +895,14 @@ export default function SingleGroup() {
                         </AlertDialogDesc>
                       </TableCell>
 
-                      {data?.isOwner && (
-                        <TableCell className="w-full lg:w-fit">
-                          <Button
-                            variant="secondary"
-                            className="w-full bg-white text-black hover:bg-gray-100 lg:w-fit"
-                          >
-                            Õigused
-                          </Button>
-                        </TableCell>
-                      )}
+                      <TableCell className="w-full lg:w-fit">
+                        <Button
+                          variant="secondary"
+                          className="w-full bg-white text-black hover:bg-gray-100 lg:w-fit"
+                        >
+                          Vahetused
+                        </Button>
+                      </TableCell>
 
                       {data?.isOwner && (
                         <TableCell className="w-full lg:w-fit">
@@ -946,6 +945,41 @@ export default function SingleGroup() {
               </TableBody>
             </Table>
           </div>
+
+          {data?.isOwner && (
+          <div className="flex bg-white w-full h-fit p-4 justify-around rounded-lg gap-4 flex-col lg:flex-row lg:justify-start">
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button className="w-fit text-black bg-[#EFEFEF] hover:bg-gray-100">
+                  Loo uus vahetus
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle className="text-black bg-white p-4 rounded-md">
+                    Loo uus vahetus
+                  </AlertDialogTitle>
+                </AlertDialogHeader>
+                <div>
+                  <Input
+                    className="w-full h-fit p-4 bg-white rounded-md"
+                    type="text"
+                    placeholder="Vahetuse nimi"
+                  />
+                </div>
+                <AlertDialogFooter>
+                  <AlertDialogCancel className="w-full">
+                    Katkesta
+                  </AlertDialogCancel>
+                  <AlertDialogAction className="w-full">
+                    Edasi
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+          )}
+
         </div>
       </div>
     </AppLayout>
