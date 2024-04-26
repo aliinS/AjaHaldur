@@ -77,6 +77,8 @@ export default function SingleGroup() {
   const [selectedFilterDate2, setSelectedFilterDate2] = useState(null);
   const [diplayFilteredDate, setDisplayFilteredDate] = useState("");
 
+  const [page, setPage] = useState(0);
+
   const [date, setDate] = useState();
   const [time, setTime] = useState();
   const [location, setLocation] = useState();
@@ -353,6 +355,12 @@ export default function SingleGroup() {
       });
     });
   }
+
+  function addPage() {
+    setPage(page + 1);
+  }
+
+  console.log(page);
 
   return (
     <AppLayout>
@@ -947,39 +955,58 @@ export default function SingleGroup() {
           </div>
 
           {data?.isOwner && (
-          <div className="flex bg-white w-full h-fit p-4 justify-around rounded-lg gap-4 flex-col lg:flex-row lg:justify-start">
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button className="w-fit text-black bg-[#EFEFEF] hover:bg-gray-100">
-                  Loo uus vahetus
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle className="text-black bg-white p-4 rounded-md">
+            <div className="flex bg-white w-full h-fit p-4 justify-around rounded-lg gap-4 flex-col lg:flex-row lg:justify-start">
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button className="w-fit text-black bg-[#EFEFEF] hover:bg-gray-100">
                     Loo uus vahetus
-                  </AlertDialogTitle>
-                </AlertDialogHeader>
-                <div>
-                  <Input
-                    className="w-full h-fit p-4 bg-white rounded-md"
-                    type="text"
-                    placeholder="Vahetuse nimi"
-                  />
-                </div>
-                <AlertDialogFooter>
-                  <AlertDialogCancel className="w-full">
-                    Katkesta
-                  </AlertDialogCancel>
-                  <AlertDialogAction className="w-full">
-                    Edasi
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </div>
-          )}
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="text-black bg-white p-4 rounded-md">
+                      Loo uus vahetus
+                    </AlertDialogTitle>
+                  </AlertDialogHeader>
+                  {page === 0 && (
+                    <div page="0">
+                      <Input
+                        className="w-full h-fit p-4 bg-white rounded-md"
+                        type="text"
+                        placeholder="Vahetuse nimi"
+                      />
+                    </div>
+                  )}
 
+                  {page === 1 && (
+                    <div page="1">
+                      <Input
+                        className="w-full h-fit p-4 bg-white rounded-md"
+                        type="text"
+                        placeholder="Vahetuse Aeg"
+                      />
+                    </div>
+                  )}
+                  <AlertDialogFooter>
+                    <AlertDialogCancel className="w-full"
+                    onClick={() => {
+                      setPage(0);
+                    }}
+                    >
+                      Katkesta
+                    </AlertDialogCancel>
+                    <Button
+                    className="w-full" 
+                    onClick={() => {
+                      addPage();
+                    }}>
+                      +
+                    </Button>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
+          )}
         </div>
       </div>
     </AppLayout>
