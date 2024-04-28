@@ -2,7 +2,7 @@ import Navbar from '../components/elements/WelcomeNavbar';
 import Footer from '../components/elements/Footer';
 import { Button } from "@/components/ui/button";
 import featureimage from "../assets/features_img.png"
-import { Boxes, LucideBox } from 'lucide-react';
+import { LucideBox } from 'lucide-react';
 import registration from "../assets/registration.png";
 import users from "../assets/usersimg.png"
 import placeholder from "../assets/placeholder.svg"
@@ -29,10 +29,10 @@ function Features() {
                         </p>
                         <div className="flex gap-2">
                             <a href="">
-                                <Button className="rounded-none bg-buttonLight text-textInLight hover:bg-footer hover:text-textInDark">Alusta!</Button>
+                                <Button className=" bg-buttonLight text-textInLight hover:bg-footer hover:text-textInDark">Alusta!</Button>
                             </a>
                             <a href="#second-info">
-                                <Button variant="outline" className="bg-transparent rounded-none border-buttonLight text-textInDark" >Loe edasi...</Button>
+                                <Button variant="outline" className="bg-transparent border-buttonLight text-textInDark" >Loe edasi...</Button>
                             </a>
                         </div>
                     </div>

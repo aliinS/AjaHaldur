@@ -1,9 +1,7 @@
-import React from 'react';
 import logo from "@/assets/ajahaldur_logo_white.png";
 import { Button } from "@/components/ui/button";
-import { InstagramLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
-import { BsFacebook } from "react-icons/bs";
 import { Link } from 'react-router-dom';
+import { Facebook, Instagram, Linkedin } from 'lucide-react';
 
 
 
@@ -20,7 +18,7 @@ const Footer = () => {
                     <p className='pb-3 font-normal'>Saa meilt uuenduste teavitusi ja nippe rakenduse kasutamiseks.</p>
                     <div className="flex flex-col items-center gap-2 md:flex-row">
                         <input type="email" placeholder="example@gmail.com" className="md:max-w-96 px-2 py-1 w-full text-start border-2 border-white text-textInLight" />
-                        <Button variant="outline" className="bg-buttonLight rounded-none w-full text-textInLight md:max-w-28 hover:bg-bgMid">Jälgi!</Button>
+                        <Button variant="outline" className="bg-buttonLight w-full text-textInLight md:max-w-28 hover:bg-bgMid">Jälgi!</Button>
                     </div>
                     <p className='font-thin'>* Jälgides nõustute meie privaatsuspoliitikaga ning annate nõusoleku saada uuendusi meie ettevõttelt.</p>
                 </div>
@@ -36,15 +34,15 @@ const Footer = () => {
                     <div className="flex flex-col items-start gap-4">
                         <p className="text-xl font-normal">Jälgi meid</p>
                         <a href="#" className="hover:text-gray-400 flex items-center gap-2">
-                            <BsFacebook className="flex-shrink-0 size-7" />
+                            <Facebook className="flex-shrink-0 size-7" />
                             <span>Facebook</span>
                         </a>
                         <a href="#" className="hover:text-gray-400 flex items-center gap-2">
-                            <InstagramLogoIcon className="flex-shrink-0 size-7" />
+                            <Instagram className="flex-shrink-0 size-7" />
                             <span>Instagram</span>
                         </a>
                         <a href="#" className="hover:text-gray-400 flex items-center gap-2">
-                            <LinkedInLogoIcon className="flex-shrink-0 size-7" />
+                            <Linkedin className="flex-shrink-0 size-7" />
                             <span>LinkedIn</span>
                         </a>
                     </div>

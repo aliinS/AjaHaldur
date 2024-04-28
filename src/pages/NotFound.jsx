@@ -30,7 +30,7 @@ function Welcome() {
         <div className="flex flex-col gap-4">
           <h1 className="text-6xl text-textInLight">404 <span className="text-2xl text-textInLight"> - Page `{location.pathname}` not found</span></h1>
         </div>
-        <Link to="/"><Button variant='secondary' className='w-fit bg-buttonLight rounded-none text-textInLight'>Return to Homepage</Button></Link>
+        <Link to="/"><Button variant='secondary' className='w-fit bg-buttonLight text-textInLight'>Return to Homepage</Button></Link>
       </div>
 
 

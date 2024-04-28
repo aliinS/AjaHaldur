@@ -1,10 +1,6 @@
-import { Link as ScrollLink } from "react-scroll";
 import Navbar from "../components/elements/WelcomeNavbar";
 import contact_img from "../assets/contact_img.png";
 import { Button } from "@/components/ui/button";
-import { AiOutlineMail } from "react-icons/ai";
-import { BsTelephone } from "react-icons/bs";
-import { IoLocationOutline } from "react-icons/io5";
 import ContactForm from "../components/elements/ContactForm";
 import contactform from "../assets/contactform.png";
 import Faq from "../components/elements/Faq";
@@ -34,14 +30,14 @@ function Contact() {
             </p>
             <div className="flex gap-2">
               <a href="#contact-form">
-                <Button className="rounded-none bg-buttonLight text-textInLight hover:bg-footer hover:text-textInDark">
+                <Button className=" bg-buttonLight text-textInLight hover:bg-footer hover:text-textInDark">
                   Kirjuta meile!
                 </Button>
               </a>
               <a href="#contact-ways">
                 <Button
                   variant="outline"
-                  className="bg-transparent rounded-none border-buttonLight text-textInDark"
+                  className="bg-transparent border-buttonLight text-textInDark"
                 >
                   Veel...
                 </Button>

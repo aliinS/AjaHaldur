@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import logo from "@/assets/ajahaldur_logo_white.png";
 import { X } from 'lucide-react';
 import { Menu } from 'lucide-react';
@@ -60,10 +60,10 @@ function RegistrationModal({ onClose, activeTab }) {
 
     return (
         <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-footer bg-opacity-50 z-10">
-            <div className="bg-bgMid p-8 rounded-lg md:h-[500px] max-w-[350px] md:max-w-[500px] h-[530px]">
+            <div className="bg-bgMid p-8 md:min-w-[500px] rounded-lg ">
 
                 {/* REGISTRATION FORM */}
-                <Tabs defaultValue={activeTab} className="md:w-[400px] w-[300px]">
+                <Tabs defaultValue={activeTab} className="">
                     <TabsList className="grid w-full grid-cols-2">
                         <TabsTrigger value="register" id="register">Registreeri</TabsTrigger>
                         <TabsTrigger value="login" id="login">Logi sisse</TabsTrigger>
@@ -72,9 +72,6 @@ function RegistrationModal({ onClose, activeTab }) {
                         <Card>
                             <CardHeader>
                                 <CardTitle>Registreeri</CardTitle>
-                                <CardDescription className="flex flex-row gap-2 items-center flex-wrap md:gap-0">
-                                    <Checkbox className="mr-1"/> Konto registreerimisel nõustud meie <a className='underline pr-1' href="#">privaatsuspoliitika</a>ja muude tingimustega.
-                                </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-2">
                                 <div className="space-y-1">
@@ -90,6 +87,9 @@ function RegistrationModal({ onClose, activeTab }) {
                                     <Input id="password" placeholder="parool" />
                                 </div>
                             </CardContent>
+                                <CardDescription className="flex flex-row gap-2 items-center flex-wrap md:gap-0">
+                                    <Checkbox className="ml-7"/> <p className='md:pl-2 pr-2 leading-snug pb-3'>Konto registreerimisel nõustud meie <br /><a className='underline pr-1' href="#">privaatsuspoliitika</a>ja muude tingimustega.</p>
+                                </CardDescription>
                             <CardFooter>
                                 <Button>Registreeri</Button>
                             </CardFooter>
@@ -97,7 +97,7 @@ function RegistrationModal({ onClose, activeTab }) {
                     </TabsContent>
 
                     {/* LOGIN FORM */}
-                    <TabsContent value="login" id="login">
+                    <TabsContent value="login" id="login" className="">
                         <Card>
                             <CardHeader>
                                 <CardTitle>Logi sisse</CardTitle>
@@ -118,7 +118,7 @@ function RegistrationModal({ onClose, activeTab }) {
                         </Card>
                     </TabsContent>
                 </Tabs>
-                <button onClick={onClose} className="absolute top-0 right-0 p-2 text-">
+                <button onClick={onClose} className="absolute top-0 right-0 p-2">
                     <X size={24} />
                 </button>
             </div>
@@ -184,8 +184,8 @@ function Navbar() {
                 </div>
             </div>
             <div className='hidden md:flex gap-4 h-full items-center ml-auto'>
-                <button className="text-textInLight bg-buttonLight rounded-none px-6 py-2" onClick={handleRegistrationClick}>Registreeri</button>
-                <button className="text-buttonLight border border-buttonLight rounded-none px-6 py-2" onClick={handleLoginClick}>Logi sisse</button>
+                <button className="text-textInLight bg-buttonLight px-6 py-2 rounded-md" onClick={handleRegistrationClick}>Registreeri</button>
+                <button className="text-buttonLight border border-buttonLight px-6 py-2 rounded-md" onClick={handleLoginClick}>Logi sisse</button>
             </div>
             
             {/* Burger menu button for mobile */}
@@ -209,8 +209,8 @@ function Navbar() {
                     <Link to="/contact"><button className="text-textInDark">Kontakt</button></Link>
 
                     <div className='flex flex-col gap-4 pt-2 w-48'>
-                        <button className="text-textInLight bg-buttonLight rounded-none px-6 py-2" onClick={handleRegistrationClick}>Registreeri</button>
-                        <button className="text-buttonLight border bg-footer border-buttonLight rounded-none px-6 py-2" onClick={handleLoginClick}>Logi sisse</button>
+                        <button className="text-textInLight bg-buttonLight rounded-md px-6 py-2" onClick={handleRegistrationClick}>Registreeri</button>
+                        <button className="text-buttonLight border bg-footer rounded-md border-buttonLight px-6 py-2" onClick={handleLoginClick}>Logi sisse</button>
                     </div>
                 </div>
             )}

@@ -35,9 +35,9 @@ function Welcome() {
               graafikute koostamise platvormi!
             </p>
             <div className="flex gap-2">
-              <Button className="rounded-none bg-footer">Alusta siit!</Button>
+              <Button className=" bg-footer">Alusta siit!</Button>
               <Link to="/about">
-                <Button variant="outline" className="bg-transparent rounded-none border-buttonLight text-textInDark" >Rohkem infot ...</Button>
+                <Button variant="outline" className="bg-transparent border-buttonLight text-textInDark" >Rohkem infot ...</Button>
               </Link>
             </div>
           </div>
@@ -65,10 +65,10 @@ function Welcome() {
           </div>
           <div className="flex gap-2 md:justify-start justify-center pb-2 pt-5">
           <Link to="/about">
-            <Button variant="outline" className="bg-transparent border-black rounded-none">
+            <Button variant="outline" className="bg-transparent border-black">
               Loe lähemalt...
             </Button>
-           </Link> 
+          </Link> 
             <Button variant="link" className="bg-transparent border-white gap-1 ">
               Registreeri <Boxes />
             </Button>
@@ -87,9 +87,9 @@ function Welcome() {
           </div>
 
           <div className="flex flex-col md:flex-row gap-3 justify-center">
-            <div className="border border-black flex flex-col text-start p-8 md:w-1/2 gap-3">
+            <div className="border rounded-md border-black flex flex-col text-start p-8 md:w-1/2 gap-3">
               <div className="flex justify-end"><LucideBox size={42} /></div>
-              <p className="font-bold"><i>Initial</i></p>
+              <p className="font-bold"><i>Basic</i></p>
               <h2 className="font-bold text-4xl">TASUTA</h2>
               <div className="border-t border-gray-500 my-4"></div>
               <p>Sisaldab:</p>
@@ -99,13 +99,13 @@ function Welcome() {
               <p className="flex gap-3"><Check /> Tabelite eksport PDF-na</p>
               <p className="flex gap-3"><Check className="text-transparent" /></p>
               <div className="flex py-4">
-                <button className="bg-footer text-textInDark py-2 w-full">Vali plaan</button>
+                <button className="bg-footer text-textInDark py-2 w-full rounded-md">Vali plaan</button>
               </div>
             </div>
 
-            <div className="border border-black flex flex-col text-start p-8 md:w-1/2 gap-3">
+            <div className="border rounded-md border-black flex flex-col text-start p-8 md:w-1/2 gap-3">
               <div className="flex justify-end"><LucideBox size={42} /></div>
-              <p className="font-bold"><i>Business</i></p>
+              <p className="font-bold"><i>Advanced</i></p>
               <h2 className="font-bold text-4xl">XX eur kuus</h2>
               <div className="border-t border-gray-500 my-4"></div>
               <p>Sisaldab:</p>
@@ -113,9 +113,9 @@ function Welcome() {
               <p className="flex gap-3"><Check /> Kuni X grupi loomist</p>
               <p className="flex gap-3"><Check /> Tundide haldust</p>
               <p className="flex gap-3"><Check /> Tabelite eksport PDF-na</p>
-              <p className="flex gap-3"><Check /> 24/7 klienditugi</p>
+              <p className="flex gap-3"><Check /> jpm</p>
               <div className="flex py-4">
-                <button className="bg-footer text-textInDark py-2 w-full">Vali plaan</button>
+                <button className="bg-footer text-textInDark py-2 w-full rounded-md">Vali plaan</button>
               </div>
             </div>
           </div>

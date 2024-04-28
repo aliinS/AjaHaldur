@@ -72,7 +72,7 @@ function ContactForm() {
         </div>
         <button
           type="submit"
-          className="bg-footer hover:bg-bgDark hover:text-textInLight text-textInDark font-bold py-2 px-4 "
+          className="bg-footer hover:bg-bgDark hover:text-textInLight text-textInDark font-bold py-2 px-4 rounded-md"
         >
           Saada
         </button>

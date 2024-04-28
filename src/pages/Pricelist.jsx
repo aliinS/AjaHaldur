@@ -29,14 +29,14 @@ function Pricelist() {
                         </p>
                         <div className="flex gap-2">
                             <a href="#pricelist">
-                                <Button className="rounded-none bg-buttonLight text-textInLight hover:bg-footer hover:text-textInDark">
+                                <Button className="bg-buttonLight text-textInLight hover:bg-footer hover:text-textInDark">
                                     Vaata lähemalt...
                                 </Button>
                             </a>
                             <a href="/contact">
                                 <Button
                                     variant="outline"
-                                    className="bg-transparent rounded-none border-buttonLight text-textInDark"
+                                    className="bg-transparent border-buttonLight text-textInDark"
                                 >
                                     Võta ühendust
                                 </Button>
@@ -52,10 +52,10 @@ function Pricelist() {
                     <p className="pt-3 mb-10 md:mb-20">Tee sobiv valik lähtudes oma vajadustest.</p>
                 </div>
                 <div className="flex flex-col gap-6 md:flex-row md:justify-evenly">
-                    <div className="border border-black p-10 flex flex-col gap-3 items-center w-fit">
+                    <div className="border rounded-md border-black p-10 flex flex-col gap-3 items-center w-fit">
                         <h2 className="font-bold text-2xl">BASIC</h2>
                         <h2 className="text-xl">Hind: <b>0€</b></h2>
-                        <Button className="rounded-none bg-black text-textInDark w-[200px] m-4">Vali</Button>
+                        <Button className="bg-black text-textInDark w-[200px] m-4">Vali</Button>
                         <p>Pakett sisaldab:</p>
                         <div className="flex flex-col-2">
                             <ul className="divide-y divide-black border-e border-black text-start">
@@ -77,10 +77,10 @@ function Pricelist() {
                         </div>
                     </div>
 
-                    <div className="border border-black p-10 flex flex-col gap-3 items-center w-fit">
+                    <div className="border rounded-md border-black p-10 flex flex-col gap-3 items-center w-fit">
                         <h2 className="font-bold text-2xl">ADVANCED</h2>
                         <h2 className="text-xl">Hind: <b>X€</b></h2>
-                        <Button className="rounded-none bg-black text-textInDark w-[200px] m-4">Vali</Button>
+                        <Button className=" bg-black text-textInDark w-[200px] m-4">Vali</Button>
                         <p>Pakett sisaldab:</p>
                         <div className="flex flex-col-2">
                             <ul className="divide-y divide-black border-e border-black text-start">
