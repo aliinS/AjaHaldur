@@ -21,10 +21,16 @@ import {
 } from "@/components/ui/tabs"
 import { Link } from 'react-router-dom';
 import { Checkbox } from "@/components/ui/checkbox";
+import { login, logout, register } from "@/api/auth";
 
 
 
 function RegistrationModal({ onClose, activeTab }) {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const userData = JSON.parse(localStorage.getItem("user"));
 
 
     //PRESS ESC TO CLOSE THE MODAL
@@ -69,53 +75,101 @@ function RegistrationModal({ onClose, activeTab }) {
                         <TabsTrigger value="login" id="login">Logi sisse</TabsTrigger>
                     </TabsList>
                     <TabsContent value="register" id="register">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Registreeri</CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-2">
-                                <div className="space-y-1">
-                                    <Label htmlFor="name">Nimi</Label>
-                                    <Input id="name" placeholder="Nimi" autoComplete="name" />
-                                </div>
-                                <div className="space-y-1">
-                                    <Label htmlFor="email">E-mail</Label>
-                                    <Input id="email" placeholder="example@gmail.com" autoComplete="email" />
-                                </div>
-                                <div className="space-y-1">
-                                    <Label htmlFor="password">Parool</Label>
-                                    <Input id="password" placeholder="parool" />
-                                </div>
-                            </CardContent>
-                                <CardDescription className="flex flex-row gap-2 items-center flex-wrap md:gap-0">
-                                    <Checkbox className="ml-7"/> <p className='md:pl-2 pr-2 leading-snug pb-3'>Konto registreerimisel nõustud meie <br /><a className='underline pr-1' href="#">privaatsuspoliitika</a>ja muude tingimustega.</p>
-                                </CardDescription>
-                            <CardFooter>
-                                <Button>Registreeri</Button>
-                            </CardFooter>
-                        </Card>
+                        <form
+                            onSubmit={(event) => {
+                                event.preventDefault();
+                                register(name, email, password);
+                            }}
+                        >
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Sign up</CardTitle>
+                                </CardHeader>
+                                <CardContent className="flex flex-col gap-2">
+                                    <Input
+                                        placeholder="Username"
+                                        type="name"
+                                        value={name}
+                                        onChange={(e) => {
+                                            setName(e.target.value);
+                                        }}
+                                    />
+                                    <Input
+                                        placeholder="Email"
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => {
+                                            setEmail(e.target.value);
+                                        }}
+                                    />
+                                    <Input
+                                        placeholder="Password"
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) => {
+                                            setPassword(e.target.value);
+                                        }}
+                                    />
+                                </CardContent>
+                                <CardFooter>
+                                    <Button
+                                        className="w-full"
+                                    // onClick={() => {
+                                    //   register(name, email, password);
+                                    // }}
+                                    >
+                                        Register
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                        </form>
                     </TabsContent>
 
                     {/* LOGIN FORM */}
                     <TabsContent value="login" id="login" className="">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Logi sisse</CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-2">
-                                <div className="space-y-1">
-                                    <Label htmlFor="email">Email</Label>
-                                    <Input id="email" type="email" placeholder="example@gmail.com" autoComplete="email" />
-                                </div>
-                                <div className="space-y-1">
-                                    <Label htmlFor="password">Parool</Label>
-                                    <Input id="password" type="password" placeholder="parool" autoComplete="current-password" />
-                                </div>
-                            </CardContent>
-                            <CardFooter>
-                                <Button>Logi sisse</Button>
-                            </CardFooter>
-                        </Card>
+                        <form
+                            onSubmit={(event) => {
+                                event.preventDefault();
+                                login(email, password);
+                            }}
+                        >
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Log in</CardTitle>
+                                </CardHeader>
+                                <CardContent className="flex flex-col gap-2">
+                                    <Input
+                                        placeholder="Email"
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => {
+                                            setEmail(e.target.value);
+                                        }}
+                                    />
+                                    <Input
+                                        placeholder="Password"
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) => {
+                                            setPassword(e.target.value);
+                                        }}
+                                    />
+                                </CardContent>
+                                <CardFooter className="flex flex-col">
+                                    <Button
+                                        className="w-full"
+                                    // onClick={() => {
+                                    //   login(email, password);
+                                    // }}
+                                    >
+                                        Log in
+                                    </Button>
+                                    <Button disabled variant="link" className=" mt-2">
+                                        Forgot Password?
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                        </form>
                     </TabsContent>
                 </Tabs>
                 <button onClick={onClose} className="absolute top-0 right-0 p-2">
@@ -187,7 +241,7 @@ function Navbar() {
                 <button className="text-textInLight bg-buttonLight px-6 py-2 rounded-md" onClick={handleRegistrationClick}>Registreeri</button>
                 <button className="text-buttonLight border border-buttonLight px-6 py-2 rounded-md" onClick={handleLoginClick}>Logi sisse</button>
             </div>
-            
+
             {/* Burger menu button for mobile */}
             <Link to="/">
                 <div className="fixed md:hidden z-10 top-0">
