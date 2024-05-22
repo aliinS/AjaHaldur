@@ -902,6 +902,7 @@ export default function SingleGroup() {
                           >
                             Õigused
                           </Button>
+
                         </TableCell>
                       )}
 
@@ -946,6 +947,7 @@ export default function SingleGroup() {
               </TableBody>
             </Table>
           </div>
+
         </div>
       </div>
     </AppLayout>

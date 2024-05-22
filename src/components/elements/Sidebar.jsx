@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import logo from "@/assets/ajahaldur_logo_white.png";
 import { Separator } from "@/components/ui/separator";
 import logo from "@/assets/ajahaldur_logo_white.png"
 

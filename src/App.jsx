@@ -5,6 +5,11 @@ import Table from "@/pages/Table";
 import Settings from "@/pages/Settings";
 import SingleGroup from "@/pages/SingleGroup";
 import NotFound from "@/pages/NotFound";
+import Contact from "./pages/Contact";
+import ScrollToTop from "./components/ui/scroll-to-top";
+import Features from "./pages/Features";
+import Pricelist from "./pages/Pricelist";
+
 
 export default function App() {
 
@@ -20,6 +25,7 @@ export default function App() {
             <Route path="settingsTable" element={<Settings />} />
             <Route path="group/:id" element={<SingleGroup />} />
             <Route path="*" element={<NotFound />} />
+
           </Routes>
         </BrowserRouter>
       </>
@@ -28,8 +34,12 @@ export default function App() {
     return (
       <>
         <BrowserRouter>
+        <ScrollToTop />
           <Routes>
             <Route path="/" element={<Welcome />} />
+            <Route path="about" element={<Features />} />
+            <Route path="pricelist" element={<Pricelist />} />
+            <Route path="contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
