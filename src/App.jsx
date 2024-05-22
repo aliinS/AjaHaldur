@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "@/pages/Dashboard";
+import FeedbackHub from "@/pages/FeedbackHub";
 import Welcome from "@/pages/Welcome";
 import Table from "@/pages/Table";
 import Settings from "@/pages/Settings";
@@ -16,6 +17,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="feedback-hub" element={<FeedbackHub />} />
             <Route path="table/:id" element={<Table />} />
             <Route path="settingsTable" element={<Settings />} />
             <Route path="group/:id" element={<SingleGroup />} />

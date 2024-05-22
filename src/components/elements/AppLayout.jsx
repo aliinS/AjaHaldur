@@ -5,7 +5,7 @@ import Sidebar, {
   SidenavMobile,
   SidenavMobileItem,
 } from "./Sidebar";
-import { BarChart3, Boxes, LogOut, LucideLayoutDashboard, Package, Settings } from "lucide-react";
+import { BarChart3, Boxes, LogOut, LucideLayoutDashboard, MessageSquareX, Package, Settings } from "lucide-react";
 import { logout } from "@/api/auth";
 
 export default function AppLayout({ children }) {
@@ -23,24 +23,16 @@ export default function AppLayout({ children }) {
             <button onClick={() => navigate("/dashboard")} className="w-fit">
               <SidebarItem
                 icon={<Package size={20} color="black" />}
-                text="Dashboard"
+                text="Töölaud"
                 active={isActive("/dashboard")}
               />
             </button>
 
-            <button onClick={() => navigate("/dashboard")} className="w-fit">
+            <button onClick={() => navigate("/feedback-hub")} className="w-fit">
               <SidebarItem
-                icon={<Boxes size={20} color="black" />}
-                text="Groups"
-                active={isActive("/xxx")}
-              />
-            </button>
-
-            <button onClick={() => navigate("/dashboard")} className="w-fit">
-              <SidebarItem
-                icon={<BarChart3 size={20} color="black" />}
-                text="Tables"
-                active={isActive("/xxx")}
+                icon={<MessageSquareX size={20} color="black" />}
+                text="Tagasiside keskus"
+                active={isActive("/feedback-hub")}
               />
             </button>
           </div>
@@ -49,7 +41,7 @@ export default function AppLayout({ children }) {
             <button onClick={() => navigate("/settingsTable")} className="w-fit">
               <SidebarItem
                 icon={<Settings size={20} color="black" />}
-                text="Settings"
+                text="Sätted"
                 active={isActive("/settingsTable")}
               />
             </button>
@@ -57,7 +49,7 @@ export default function AppLayout({ children }) {
             <button onClick={() => logout()} className="w-fit">
               <SidebarItem
                 icon={<LogOut size={20} color="black" />}
-                text="Logout"
+                text="Logi välja"
               />
             </button>
           </div>
