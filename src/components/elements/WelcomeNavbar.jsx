@@ -10,7 +10,7 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card2"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -82,11 +82,12 @@ function RegistrationModal({ onClose, activeTab }) {
                                     <Input id="password" placeholder="parool" />
                                 </div>
                             </CardContent>
-                                <CardDescription className="flex flex-row gap-2 items-center flex-wrap md:gap-0">
-                                    <Checkbox className="ml-7"/> <p className='md:pl-2 pr-2 leading-snug pb-3'>Konto registreerimisel nõustud meie <br /><a className='underline pr-1' href="#">privaatsuspoliitika</a>ja muude tingimustega.</p>
-                                </CardDescription>
+                            <CardDescription className="flex flex-row md:gap-2 items-center flex-wrap">
+                                <Checkbox className="md:ml-7 ml-3" />
+                                 <p className='md:pl-2 leading-snug pb-3 ml-3'>Konto registreerimisel nõustud meie <br /><a className='underline pr-1' href="#">privaatsuspoliitika</a>ja muude tingimustega.</p>
+                            </CardDescription>
                             <CardFooter>
-                                <Button>Registreeri</Button>
+                                <Button className="bg-footer">Registreeri</Button>
                             </CardFooter>
                         </Card>
                     </TabsContent>
@@ -182,7 +183,7 @@ function Navbar() {
                 <button className="text-textInLight bg-buttonLight px-6 py-2 rounded-md" onClick={handleRegistrationClick}>Registreeri</button>
                 <button className="text-buttonLight border border-buttonLight px-6 py-2 rounded-md" onClick={handleLoginClick}>Logi sisse</button>
             </div>
-            
+
             {/* Burger menu button for mobile */}
             <Link to="/">
                 <div className="fixed md:hidden z-10 top-0">
