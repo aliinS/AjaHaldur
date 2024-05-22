@@ -49,7 +49,7 @@ const Navigation = () => {
   if (!userData) {
     return (
       <div>
-        <div className="hidden lg:flex text-white gap-4">
+        <div className="hidden lg:flex text-red-700 gap-4">
           <AlertDialog>
             <AlertDialogTrigger>Log in</AlertDialogTrigger>
             <AlertDialogContent>
