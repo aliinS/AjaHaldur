@@ -84,6 +84,10 @@ export default function SingleGroup() {
   const [location, setLocation] = useState();
   const navigate = useNavigate();
 
+  const [shiftName, setShiftName] = useState("");
+  const [shiftStart, setShiftStart] = useState(null);
+  const [shiftEnd, setShiftEnd] = useState(null);
+
   let promise = null;
 
   function fetchGroupInfo() {
@@ -128,6 +132,34 @@ export default function SingleGroup() {
           return `Group info retrieved successfully`;
         },
         error: "can't retrieve group data",
+      });
+    });
+  }
+
+  function storeShift(table_id, user_id) {
+    let message = "";
+    axios.get("/sanctum/csrf-cookie").then(() => {
+      promise = axios
+        .post(`api/groups/shifts/store`, {
+          group_id: data.id,
+          work_place: shiftName,
+          start_time: shiftStart,
+          end_time: shiftEnd,
+        })
+        .then((response) => {
+          message = response.data.message;
+        })
+        .catch((error) => {
+          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
+        });
+
+      toast.promise(promise, {
+        loading: "Loading...",
+        success: (data) => {
+          return message;
+        },
+        error: message,
       });
     });
   }
@@ -229,8 +261,7 @@ export default function SingleGroup() {
     axios.get("/sanctum/csrf-cookie").then(() => {
       axios
         .get(
-          `api/tables/content/filter/${
-            selectedTableData?.table?.id
+          `api/tables/content/filter/${selectedTableData?.table?.id
           }?from=${format(selectedFilterDate1, "yyyy-MM-dd")}&to=${format(
             selectedFilterDate2,
             "yyyy-MM-dd"
@@ -653,7 +684,7 @@ export default function SingleGroup() {
                                           className={cn(
                                             "w-full justify-start text-left font-normal",
                                             !selectedFilterDate1 &&
-                                              "text-muted-foreground"
+                                            "text-muted-foreground"
                                           )}
                                         >
                                           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -681,7 +712,7 @@ export default function SingleGroup() {
                                           className={cn(
                                             "w-full justify-start text-left font-normal",
                                             !selectedFilterDate2 &&
-                                              "text-muted-foreground"
+                                            "text-muted-foreground"
                                           )}
                                         >
                                           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -789,7 +820,7 @@ export default function SingleGroup() {
                                                       className={cn(
                                                         "w-full h-fit p-4 px-1 justify-start text-left font-normal bg-white hover:bg-gray-100",
                                                         !date &&
-                                                          "text-muted-foreground"
+                                                        "text-muted-foreground"
                                                       )}
                                                     >
                                                       <CalendarIcon className="mr-2 h-4 w-4" />
@@ -971,6 +1002,10 @@ export default function SingleGroup() {
                       <Input
                         className="w-full h-fit p-4 bg-white rounded-md"
                         type="text"
+                        value={shiftName}
+                        onChange={(e) => {
+                          setShiftName(e.target.value);
+                        }}
                         placeholder="Vahetuse nimi"
                       />
 
@@ -979,6 +1014,10 @@ export default function SingleGroup() {
                           <p>Algus</p>
                           <Input
                             className="bg-white p-4 rounded-md w-full"
+                            value={shiftStart}
+                            onChange={(e) => {
+                              setShiftStart(e.target.value);
+                            }}
                             type="datetime-local"
                           />
                         </div>
@@ -987,6 +1026,10 @@ export default function SingleGroup() {
                           <p>Lõpp</p>
                           <Input
                             className="bg-white p-4 rounded-md w-full"
+                            value={shiftEnd}
+                            onChange={(e) => {
+                              setShiftEnd(e.target.value);
+                            }}
                             type="datetime-local"
                           />
                         </div>
@@ -1012,14 +1055,26 @@ export default function SingleGroup() {
                     >
                       Katkesta
                     </AlertDialogCancel>
-                    <Button
-                      className="w-full"
-                      onClick={() => {
-                        addPage();
-                      }}
-                    >
-                      +
-                    </Button>
+                    {page === 0 && (
+                      <Button
+                        className="w-full"
+                        onClick={() => {
+                          addPage();
+                        }}
+                      >
+                        +
+                      </Button>
+                    )}
+                    {page === 1 && (
+                      <AlertDialogAction className="w-full"
+                        onClick={() => {
+                          storeShift()
+                        }
+                        }
+                      >
+                        Salvesta
+                      </AlertDialogAction>
+                    )}
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
