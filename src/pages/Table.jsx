@@ -1,19 +1,7 @@
-import {
-  BarChart3,
-  Binary,
-  Boxes,
-  LogOut,
-  Package,
-  Pencil,
-  Settings,
-  Trash,
-} from "lucide-react";
-import Sidebar, { SidebarItem } from "@/components/elements/Sidebar";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
-import { logout } from "@/api/auth";
 import {
   Card,
   CardContent,
@@ -29,8 +17,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import * as React from "react";
-import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { addDays, format } from "date-fns";
+import { Calendar as CalendarIcon, Pencil, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -55,16 +43,23 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import AppLayout from "../components/elements/AppLayout";
 
 export default function SingleTable() {
   const { id } = useParams();
   const [data, setData] = useState([]);
+  const [unfilteredData, setUnfilteredData] = useState([]);
   const navigate = useNavigate();
-  const [date, setDate] = useState();
-  const [time, setTime] = useState();
-  const [location, setLocation] = useState();
-  const [title, setTitle] = useState();
-  const [hours, setHours] = useState();
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [location, setLocation] = useState("");
+  const [title, setTitle] = useState("");
+  const [hours, setHours] = useState("");
+  const [filtered, setFiltered] = useState(false);
+  const [diplayFilteredDate, setDisplayFilteredDate] = useState("");
+
+  const [selectedFilterDate1, setSelectedFilterDate1] = useState(null);
+  const [selectedFilterDate2, setSelectedFilterDate2] = useState(null);
 
   let promise = null;
 
@@ -75,10 +70,11 @@ export default function SingleTable() {
   }
 
   function storeTableContent() {
+    let message = "";
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/content/store`, {
-          date: date,
+          date: format(date, "yyyy-MM-dd"),
           time: time,
           location: location,
           table_id: data.id,
@@ -87,45 +83,26 @@ export default function SingleTable() {
           fetchData();
           setTime("");
           setLocation("");
-          setDate(null);
+          setDate("");
+          message = response.data.message;
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
         });
 
       toast.promise(promise, {
         loading: "Loading...",
         success: (data) => {
-          return `Table updated successfully`;
+          return message;
         },
-        error: "can't retrieve data",
-      });
-    });
-  }
-
-  function showTableHours() {
-    axios.get("/sanctum/csrf-cookie").then(() => {
-      promise = axios
-        .post(`api/tables/hours/${id}`, {
-        })
-        .then((response) => {
-          setHours(response.data.hours);
-        })
-        .catch((error) => {
-          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-        });
-
-      toast.promise(promise, {
-        loading: "Loading...",
-        success: (data) => {
-          return `Table updated successfully`;
-        },
-        error: "can't retrieve data",
+        error: message,
       });
     });
   }
 
   function updateTableContent(id) {
+    let message = "";
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/content/update/${id}`, {
@@ -139,43 +116,49 @@ export default function SingleTable() {
           setTime("");
           setLocation("");
           setDate(null);
+          message = response.data.message;
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
         });
 
       toast.promise(promise, {
         loading: "Loading...",
         success: (data) => {
-          return `Table updated successfully`;
+          return message;
         },
-        error: "can't retrieve data",
+        error: message,
       });
     });
   }
 
   function deleteTableContent(id) {
+    let message = "";
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/content/delete/${id}`)
+        .delete(`api/tables/content/delete/${id}`)
         .then((response) => {
           fetchData();
+          message = response.data.message;
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
         });
 
       toast.promise(promise, {
         loading: "Loading...",
         success: (data) => {
-          return `Table updated successfully`;
+          return message;
         },
-        error: "can't retrieve data",
+        error: message,
       });
     });
   }
 
   function updateTable(id) {
+    let message = "";
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/update/${id}`, {
@@ -183,40 +166,124 @@ export default function SingleTable() {
         })
         .then((response) => {
           fetchData();
+          message = response.data.message;
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
         });
 
       toast.promise(promise, {
         loading: "Loading...",
         success: (data) => {
-          return `Table updated successfully`;
+          return message;
         },
-        error: "can't retrieve data",
+        error: message,
       });
     });
   }
 
   function fetchData() {
+    let message = "";
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/show/${id}`)
+        .get(`api/tables/show/${id}`)
         .then((response) => {
           setData(response.data.table);
+          setUnfilteredData(response.data.table);
+          setHours(response.data.hours);
+          message = response.data.message;
+
+          // if query params from url have to and from, then filter the content
+          const params = new URLSearchParams(window.location.search);
+          const to = params.get("to");
+          const from = params.get("from");
+          if (to && from) {
+            filterData(from, to);
+          }
+
+          console.log(response.data.table);
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+          message = error.data.message;
         });
 
       toast.promise(promise, {
         loading: "Loading...",
         success: (data) => {
-          return `Table updated successfully`;
+          return message;
         },
-        error: "can't retrieve data",
+        error: message,
       });
     });
+  }
+
+  function filterData(from, to) {
+    let message = "";
+
+    if (selectedFilterDate1 && selectedFilterDate2) {
+      let date1;
+      let date2;
+
+      if (to && from) {
+        date1 = from;
+        date2 = to;
+      } else {
+        date1 = format(selectedFilterDate1, "yyyy-MM-dd");
+        date2 = format(selectedFilterDate2, "yyyy-MM-dd");
+
+        //add date 1 to 'from' and date2 to 'to' query params
+        navigate(`?from=${date1}&to=${date2}`);
+      }
+
+      axios.get("/sanctum/csrf-cookie").then(() => {
+        promise = axios
+          .get(`api/tables/content/filter/${id}?from=${date1}&to=${date2}`)
+          .then((response) => {
+            const newData = {
+              ...data,
+              content: response.data.content,
+              hours: response.data.hours,
+            };
+
+            setDisplayFilteredDate(
+              `${format(selectedFilterDate1, "PPP")} - ${format(
+                selectedFilterDate2,
+                "PPP"
+              )}`
+            );
+
+            setFiltered(true);
+
+            setData(newData);
+            message = response.data.message;
+          })
+          .catch((error) => {
+            console.log(
+              "%cERROR: ",
+              "color: tomato; font-weight: bold;",
+              error
+            );
+            message = error.data.message;
+          });
+
+        toast.promise(promise, {
+          loading: "Loading...",
+          success: (data) => {
+            return message;
+          },
+          error: message,
+        });
+      });
+    }
+  }
+
+  // filter reset
+  function resetFilter() {
+    setFiltered(false);
+    navigate("");
+    fetchData();
   }
 
   useEffect(() => {
@@ -224,210 +291,226 @@ export default function SingleTable() {
   }, []);
 
   return (
-    <>
+    <AppLayout>
       <div className="flex">
-        {/* SIDEBAR */}
-        <div >
-          <Sidebar>
-            <div className="flex flex-col justify-between h-full ">
-              <div className="flex flex-col gap-4">
-                <button
-                  className="w-8 h-8 flex justify-center items-center"
-                  onClick={() => {
-                    navigate("/dashboard");
-                  }}
-                >
-                  <SidebarItem
-                    icon={<Package size={20} color="#c2c2c2" />}
-                    text="Dashboard"
-                    
-                  />
-                </button>
-                <button
-                  className="w-8 h-8 flex justify-center items-center"
-                  // onClick={() => {
-                  //   navigate("/dashboard");
-                  // }}
-                >
-                  <SidebarItem
-                    icon={<Boxes size={20} color="#c2c2c2" />}
-                    text="Groups"
-                  />
-                </button>
-                <button
-                  className="w-8 h-8 flex justify-center items-center"
-                  // onClick={() => {
-                  //   navigate("/dashboard");
-                  // }}
-                >
-                  <SidebarItem
-                    icon={<BarChart3 size={20} color="#c2c2c2" />}
-                    text="Tables"
-                  />
-                </button>
-              </div>
-              
-              <div className="flex flex-col gap-4">
-                <button
-                  className="w-8 h-8 flex justify-center items-center"
-                  onClick={() => {
-                    navigate("/settingsTable");
-                  }}
-                >
-                  <SidebarItem
-                    icon={<Settings size={20} color="#c2c2c2" />}
-                    text="Settings"
-                  />
-                </button>
-                <button
-                  className="w-8 h-8 flex justify-center items-center"
-                  onClick={() => {
-                    logout();
-                  }}
-                >
-                  <SidebarItem
-                    icon={<LogOut size={20} color="#c2c2c2" />}
-                    text="Loguout"
-                  />
-                </button>
-              </div>
-            </div>
-          </Sidebar>
-        </div>
-
         {/* CONTENT */}
-        <div className="text-[#c2c2c2] w-screen flex flex-col p-6 gap-4">
-          <div className="flex gap-2 ">
+        <div className="text-black w-full flex flex-col p-2 gap-4">
+          <div className="w-full flex justify-between gap-4 p-4 bg-white rounded-lg">
             <h1 className="text-2xl">{data?.title}</h1>
-            <AlertDialog>
-              <AlertDialogTrigger
-                onClick={() => {
-                  setTitle(data?.title);
-                }}
-              >
-                {/* <Button
-                  className="w-fit self-start"
-                  variant="destructive"
+            <div className="flex items-center">
+              <AlertDialog>
+                <AlertDialogTrigger
                   onClick={() => {
-                    setTitle(data.title);
+                    setTitle(data?.title);
                   }}
                 >
-                  Edit
-                </Button> */}
-                <Pencil className="size-5" />
-              </AlertDialogTrigger>
-              <form
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  updateTable(data.id);
-                }}
-              >
-                <AlertDialogContent>
-                  <AlertDialogTitle>Change table's name</AlertDialogTitle>
-                  <Input
-                    className="flex w-full "
-                    type="text"
-                    placeholder="Title"
-                    value={title}
-                    onChange={(e) => {
-                      setTitle(e.target.value);
-                    }}
-                  />
-                  <AlertDialogFooter>
-                    <AlertDialogCancel
-                      onClick={() => {
-                        setTitle("");
+                  <Pencil className="size-5" />
+                </AlertDialogTrigger>
+                <form
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    updateTable(data.id);
+                  }}
+                >
+                  <AlertDialogContent>
+                    <AlertDialogTitle className="p-4 bg-white text-black rounded-lg">
+                      Muuda tabeli nime
+                    </AlertDialogTitle>
+                    <Input
+                      className="flex w-full  h-fit bg-white p-4"
+                      type="text"
+                      placeholder="Tabeli nimi"
+                      value={title}
+                      onChange={(e) => {
+                        setTitle(e.target.value);
                       }}
-                    >
-                      Cancel
-                    </AlertDialogCancel>
-                    <AlertDialogAction
-                      type="submit"
-                      onClick={() => {
-                        updateTable(data.id);
-                      }}
-                    >
-                      Update
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </form>
-            </AlertDialog>
+                    />
+                    <AlertDialogFooter className="flex flex-col">
+                      <AlertDialogAction
+                        className="w-full bg-white hover:bg-gray-100"
+                        type="submit"
+                        onClick={() => {
+                          updateTable(data.id);
+                        }}
+                      >
+                        Uuenda
+                      </AlertDialogAction>
+                      <AlertDialogCancel
+                        className="w-full bg-[#FF0000]/60 hover:bg-red-600"
+                        onClick={() => {
+                          setTitle("");
+                        }}
+                      >
+                        Katkesta
+                      </AlertDialogCancel>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </form>
+              </AlertDialog>
+            </div>
           </div>
-          <div className="flex flex-col gap-4">
-            <Card className="flex w-full justify-center ">
-              <form
-                className="flex flex-col w-full"
-                onSubmit={(event) => {
-                  event.preventDefault();
+
+          <div className="flex flex-col gap-4 ">
+            <div className="p-4 bg-white grid xl:grid-cols-4 gap-4 rounded-lg">
+              <Popover className="flex w-full">
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={cn(
+                      "w-full px-1 justify-start text-left font-normal bg-[#EFEFEF] hover:bg-gray-100",
+                      !date && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {date ? format(date, "PPP") : <span>Vali kuupäev</span>}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    className="rounded-md border"
+                  />
+                </PopoverContent>
+              </Popover>
+              <Input
+                className="flex w-full"
+                type="number"
+                placeholder="Tunnid"
+                min="0"
+                max="24"
+                step="0.5"
+                value={time}
+                onChange={(e) => {
+                  setTime(e.target.value);
+                }}
+              />
+              <Input
+                className="flex w-full "
+                type="text"
+                placeholder="Asukoht"
+                value={location}
+                onChange={(e) => {
+                  setLocation(e.target.value);
+                }}
+              />
+              <Button
+                className="flex w-full bg-[#EFEFEF] hover:bg-gray-100"
+                type="submit"
+                variant="secondary"
+                onClick={() => {
                   storeTableContent();
                 }}
               >
-                <CardHeader>
-                  <CardTitle>Create new entry</CardTitle>
-                </CardHeader>
-                <Separator />
-                <CardContent className="flex flex-col w-full lg:h-16 items-center p-4 gap-4 lg:flex-row">
-                  <Popover className="flex w-full">
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-full px-1 justify-start text-left font-normal",
-                          !date && "text-muted-foreground"
-                        )}
+                Salvesta
+              </Button>
+            </div>
+
+            <div className="overflow-x-auto flex flex-col gap-4 p-4 bg-white rounded-lg">
+              <div className="flex gap-4">
+                <div className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md ">
+                  Tunnid: {data.hours}
+                </div>
+
+                <AlertDialog>
+                  <AlertDialogTrigger>
+                    <button className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md hover:bg-gray-100">
+                      Filtrid
+                    </button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <span className={filtered ? "block font-bold" : "hidden"}>
+                        {diplayFilteredDate}
+                      </span>
+                    </AlertDialogHeader>
+                    <AlertDialogDescription className="flex text-black gap-1">
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full justify-start text-left font-normal",
+                              !selectedFilterDate1 && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {selectedFilterDate1 ? (
+                              format(selectedFilterDate1, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={selectedFilterDate1}
+                            onSelect={setSelectedFilterDate1}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <p className="text-2xl">-</p>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full justify-start text-left font-normal",
+                              !selectedFilterDate2 && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {selectedFilterDate2 ? (
+                              format(selectedFilterDate2, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={selectedFilterDate2}
+                            onSelect={setSelectedFilterDate2}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </AlertDialogDescription>
+                    <AlertDialogFooter className="flex flex-col">
+                      <AlertDialogAction
+                        className="w-full bg-white hover:bg-gray-100 text-black"
+                        onClick={filterData}
                       >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {date ? format(date, "PPP") : <span>Pick a date</span>}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                      <Calendar
-                        mode="single"
-                        selected={date}
-                        onSelect={handleSelectedDateChange}
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  <Input
-                    className="flex w-full "
-                    type="number"
-                    placeholder="Hours"
-                    value={time}
-                    onChange={(e) => {
-                      setTime(e.target.value);
-                    }}
-                  />
-                  <Input
-                    className="flex w-full "
-                    type="text"
-                    placeholder="Object"
-                    value={location}
-                    onChange={(e) => {
-                      setLocation(e.target.value);
-                    }}
-                  />
-                  <Separator orientation="vertical" className="hidden lg:flex" />
-                  <Separator className="flex lg:hidden" />
-                  <Button
-                    className="flex w-full"
-                    type="submit"
-                    variant="secondary"
-                  >
-                    Submit
-                  </Button>
-                </CardContent>
-              </form>
-            </Card>
-            <div className="overflow-x-auto">
-              <Table className="">
+                        Filtreeri
+                      </AlertDialogAction>
+                      <AlertDialogCancel className="w-full bg-[#FF0000]/60 hover:bg-red-600 text-white">
+                        Katkesta
+                      </AlertDialogCancel>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+
+                <Button
+                  className={filtered ? "h-full bg-[#EFEFEF]" : "hidden"}
+                  variant="secondary"
+                  onClick={() => {
+                    resetFilter();
+                  }}
+                >
+                  Taasta filter
+                </Button>
+              </div>
+
+              <Table className=" bg-[#EFEFEF] rounded-lg">
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-48">Date</TableHead>
-                    <TableHead className="w-48">Hours</TableHead>
-                    <TableHead className="w-auto">Object</TableHead>
-                    <TableHead className="w-4"></TableHead>
+                    <TableHead className="w-48">Kuupäev</TableHead>
+                    <TableHead className="w-48">Tunnid</TableHead>
+                    <TableHead className="w-auto">Asukoht</TableHead>
                     <TableHead className="w-4"></TableHead>
                   </TableRow>
                 </TableHeader>
@@ -438,20 +521,22 @@ export default function SingleTable() {
                         {format(data?.date, "PPP")}
                       </TableCell>
                       <TableCell className="w-48">{data?.time}</TableCell>
-                      <TableCell className="w-auto">{data?.location}</TableCell>
-                      <TableCell className="w-4">
+                      <TableCell className="w-auto">
+                        {data?.location || "-"}
+                      </TableCell>
+                      <TableCell className="w-fit flex gap-2 justify-end">
                         <AlertDialog>
                           <AlertDialogTrigger>
                             <Button
-                              className="w-fit"
-                              variant="secondary"
+                              className="w-fit hover:bg-gray-100"
+                              variant="outline"
                               onClick={() => {
                                 setDate(data.date);
                                 setTime(data.time);
                                 setLocation(data.location);
                               }}
                             >
-                              <Pencil className="size-4"/>
+                              <Pencil className="size-4" />
                             </Button>
                           </AlertDialogTrigger>
                           <form
@@ -461,15 +546,15 @@ export default function SingleTable() {
                             }}
                           >
                             <AlertDialogContent>
-                              <AlertDialogTitle>
-                                Change entry's data
+                              <AlertDialogTitle className="w-full h-fit p-4 bg-white rounded-lg text-black">
+                                Muuda sissekannet
                               </AlertDialogTitle>
-                              <Popover className="flex w-fit">
+                              <Popover className="flex w-fit bg-white">
                                 <PopoverTrigger asChild>
                                   <Button
                                     variant={"secondary"}
                                     className={cn(
-                                      "w-full px-1 justify-start text-left font-normal",
+                                      "w-full h-fit p-4 px-1 justify-start text-left font-normal bg-white hover:bg-gray-100",
                                       !date && "text-muted-foreground"
                                     )}
                                   >
@@ -485,72 +570,94 @@ export default function SingleTable() {
                                   <Calendar
                                     mode="single"
                                     selected={date}
-                                    onSelect={handleSelectedDateChange}
+                                    onSelect={setDate}
                                     initialFocus
                                   />
                                 </PopoverContent>
                               </Popover>
                               <Input
-                                className="flex w-full"
+                                className="flex w-full h-fit bg-white p-4"
                                 type="number"
-                                placeholder="Hours"
+                                placeholder="Tunnid"
+                                step="0.5"
                                 value={time}
                                 onChange={(e) => {
                                   setTime(e.target.value);
                                 }}
                               />
                               <Input
-                                className="flex w-full"
+                                className="flex w-full h-fit bg-white p-4"
                                 type="text"
-                                placeholder="Object"
+                                placeholder="Asukoht"
                                 value={location}
                                 onChange={(e) => {
                                   setLocation(e.target.value);
                                 }}
                               />
-                              <AlertDialogFooter>
-                                <AlertDialogCancel
-                                  onClick={() => {
-                                    setDate(null);
-                                    setTime("");
-                                    setLocation("");
-                                  }}
-                                >
-                                  Cancel
-                                </AlertDialogCancel>
+                              <AlertDialogFooter className="flex flex-col">
+                                {/* ... (other JSX) */}
                                 <AlertDialogAction
+                                  className="w-full bg-white hover:bg-gray-100"
                                   type="submit"
                                   onClick={() => {
                                     updateTableContent(data.id);
                                   }}
                                 >
-                                  Update
+                                  Uuenda
                                 </AlertDialogAction>
+                                <AlertDialogCancel
+                                  className="w-full bg-[#FF0000]/60 hover:bg-red-600"
+                                  onClick={() => {
+                                    setTime("");
+                                    setLocation("");
+                                    setDate(null);
+                                  }}
+                                >
+                                  Katkesta
+                                </AlertDialogCancel>
                               </AlertDialogFooter>
                             </AlertDialogContent>
                           </form>
                         </AlertDialog>
-                      </TableCell>
-                      <TableCell className="w-4">
-                        <Button
-                          className="w-fit"
-                          variant="destructive"
-                          onClick={() => {
-                            deleteTableContent(data.id);
-                          }}
-                        >
-                          <Trash className="size-4"/>
-                        </Button>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button
+                              variant="destructive"
+                              className="hover:bg-red-600"
+                            >
+                              <Trash2 className="size-4" />
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              Kas soovite kustutada sissekande? <br />{" "}
+                              {format(data?.date, "PPP")} | {data.time}h |{" "}
+                              {data?.location || "-"}
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel className="w-full bg-white hover:bg-gray-100 text-black">
+                                Katkesta
+                              </AlertDialogCancel>
+                              <AlertDialogAction
+                                className="w-full bg-[#FF0000]/60 text-white hover:bg-red-600"
+                                onClick={() => {
+                                  deleteTableContent(data.id);
+                                }}
+                              >
+                                Kustuta
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
-              <p>{showTableHours()}{hours}</p>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </AppLayout>
   );
 }

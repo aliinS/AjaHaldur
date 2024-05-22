@@ -14,9 +14,8 @@ if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token"));
   axios.get("/sanctum/csrf-cookie").then(() => {
     axios
-      .post(`api/me`)
+      .get(`api/me`)
       .then((response) => {
-        console.log(response.data);
       })
       .catch((error) => {
         console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -26,7 +25,6 @@ if (localStorage.getItem("token")) {
           })
           .then((response) => {
             setAuthToken(response.data.access_token);
-            console.log(response.data);
             localStorage.setItem("token", response.data.access_token);
             window.location.reload();
             // axios

@@ -1,12 +1,4 @@
-import {
-  BarChart3,
-  Boxes,
-  LogOut,
-  Package,
-  RefreshCw,
-  Settings,
-} from "lucide-react";
-import Sidebar, { SidebarItem } from "@/components/elements/Sidebar";
+import { PlusCircle, RefreshCw } from "lucide-react";
 import GroupBox from "@/components/elements/GroupBox";
 import TableBox from "@/components/elements/TableBox";
 import { Link, useNavigate } from "react-router-dom";
@@ -28,7 +20,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
-import { logout } from "@/api/auth";
+import AppLayout from "../components/elements/AppLayout";
 
 export default function Dashboard() {
   const [personalTables, setPersonalTables] = useState([]);
@@ -41,13 +33,12 @@ export default function Dashboard() {
   const [tableName, setTableName] = useState("");
   const [groupName, setGroupName] = useState("");
 
-  const navigate = useNavigate();
   let promise = null;
 
   function loadPersonalTables() {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/personal?page=1&amount=4`)
+        .get(`api/tables/personal?page=1&amount=4`)
         .then((response) => {
           setPersonalTables(response.data.data);
           promise = null;
@@ -75,7 +66,7 @@ export default function Dashboard() {
   function loadMorePersonalTables(amount = 4) {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/tables/personal?page=${page}&amount=${amount}`)
+        .get(`api/tables/personal?page=${page}&amount=${amount}`)
         .then((response) => {
           setPersonalTables(personalTables.concat(response.data.data));
           promise = null;
@@ -102,7 +93,7 @@ export default function Dashboard() {
   function loadGroups() {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/groups?page=1&amount=4`)
+        .get(`api/groups?page=1&amount=4`)
         .then((response) => {
           setGroups(response.data.data);
           promise = null;
@@ -130,7 +121,7 @@ export default function Dashboard() {
   function loadMoreGroups(amount = 4) {
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
-        .post(`api/groups?page=${page}&amount=${amount}`)
+        .get(`api/groups?page=${page}&amount=${amount}`)
         .then((response) => {
           setGroups(groups.concat(response.data.data));
           promise = null;
@@ -208,227 +199,177 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="flex">
+    <AppLayout>
       <div className="flex">
-        <Sidebar>
-          <div className="flex flex-col justify-between h-full ">
-            <div className="flex flex-col gap-4">
-              <button
-                className="w-8 h-8 flex justify-center items-center"
-                onClick={() => {
-                  navigate("/dashboard");
-                }}
-              >
-                <SidebarItem
-                  icon={<Package size={20} color="#c2c2c2" />}
-                  text="Dashboard"
-                  active
-                />
-              </button>
-              <button
-                className="w-8 h-8 flex justify-center items-center"
-                // onClick={() => {
-                //   navigate("/dashboard");
-                // }}
-              >
-                <SidebarItem
-                  icon={<Boxes size={20} color="#c2c2c2" />}
-                  text="Groups"
-                />
-              </button>
-              <button
-                className="w-8 h-8 flex justify-center items-center"
-                // onClick={() => {
-                //   navigate("/dashboard");
-                // }}
-              >
-                <SidebarItem
-                  icon={<BarChart3 size={20} color="#c2c2c2" />}
-                  text="Tables"
-                />
-              </button>
+        <div className="text-[#c2c2c2] font-thin  w-full">
+          <div
+            id="PersonalTables"
+            className="w-full h-fit p-4 flex flex-col gap-4"
+          >
+            <div className="flex fle-row w-full h-fit justify-between bg-white rounded-lg p-2 text-black">
+              <h1 className="text-2xl font-bold">Personaal tabelid:</h1>
+              <AlertDialog>
+                <AlertDialogTrigger className="flex h-fit py-1 w-fit  px-6">
+                  <PlusCircle size={24} />
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="text-black">
+                      Loo uus tabel
+                    </AlertDialogTitle>
+                  </AlertDialogHeader>
+                  <Input
+                    type="email"
+                    value={tableName}
+                    onChange={(e) => {
+                      setTableName(e.target.value);
+                    }}
+                    className="text-white bg-white border-none py-6 text-black"
+                    placeholder="Tabeli nimi"
+                  />
+                  <AlertDialogFooter className="flex-col lg:gap-0">
+                    <AlertDialogAction
+                      className="flex w-full bg-white hover:bg-gray-100"
+                      onClick={() => {
+                        storeUserTable();
+                      }}
+                    >
+                      Loo uus
+                    </AlertDialogAction>
+                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60 hover:bg-red-600">
+                      Katkesta
+                    </AlertDialogCancel>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
-
-            <div className="flex flex-col gap-4">
-              <button
-                className="w-8 h-8 flex justify-center items-center"
-                onClick={() => {
-                  navigate("/settingsTable");
-                }}
-              >
-                <SidebarItem
-                  icon={<Settings size={20} color="#c2c2c2" />}
-                  text="Settings"
+            <div
+              className={
+                personalTables.length === 0
+                  ? "hidden"
+                  : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 w-full"
+              }
+            >
+              {personalTables?.map((data) => (
+                <TableBox
+                  key={data.id}
+                  text={data.title}
+                  createdAt={data.created_at}
+                  updatedAt={data.updated_at}
+                  id={data.id}
                 />
-              </button>
-              <button
-                className="w-8 h-8 flex justify-center items-center"
-                onClick={() => {
-                  logout();
-                }}
-              >
-                <SidebarItem
-                  icon={<LogOut size={20} color="#c2c2c2" />}
-                  text="Loguout"
-                />
-              </button>
+              ))}
             </div>
-          </div>
-        </Sidebar>
-      </div>
-
-      <div className="text-[#c2c2c2] font-thin p-2 w-full">
-        <div
-          id="PersonalTables"
-          className="w-full h-fit p-4 flex flex-col gap-4"
-        >
-          <h1 className="text-2xl font-bold">Personal tables:</h1>
-          <AlertDialog>
-            <Button variant="secondary" className="w-fit px-6">
-              <AlertDialogTrigger>Lisa uus!</AlertDialogTrigger>
+            <div
+              className={
+                personalTables.length === 0
+                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 w-full"
+                  : "hidden"
+              }
+            >
+              <div className="flex flex-col w-full h-[200px] rounded-md border border-[#c2c2c2] p-4">
+                <h1 className="text-xl font-bold h-full">
+                  Sul ei ole hetkel ühtegi tabelit
+                </h1>
+              </div>
+            </div>
+            <Button
+              variant="secondary"
+              disabled={!canLoadMore}
+              className={
+                personalTables.length === 0 ? "hidden" : "flex gap-2 bg-white"
+              }
+              onClick={() => {
+                loadMorePersonalTables();
+                setPage(page + 1);
+              }}
+            >
+              Lae veel <RefreshCw />
             </Button>
-            <AlertDialogContent className="">
-              <AlertDialogHeader>
-                <AlertDialogTitle>Loo uus tabel</AlertDialogTitle>
-                <Input
-                  type="email"
-                  value={tableName}
-                  onChange={(e) => {
-                    setTableName(e.target.value);
-                  }}
-                  className=""
-                  placeholder="Tabeli nimi"
-                />
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction
-                  onClick={() => {
-                    storeUserTable();
-                  }}
-                >
-                  Continue
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-
-          <div
-            className={
-              personalTables.length === 0
-                ? "hidden"
-                : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"
-            }
-          >
-            {personalTables?.map((data) => (
-              <TableBox
-                key={data.id}
-                text={data.title}
-                createdAt={data.created_at}
-                updatedAt={data.updated_at}
-                id={data.id}
-              />
-            ))}
           </div>
-          <div
-            className={
-              personalTables.length === 0
-                ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"
-                : "hidden"
-            }
-          >
-            <div className="flex flex-col w-full h-[200px] rounded-md border border-[#c2c2c2] p-4">
-              <h1 className="text-xl font-bold h-full">
-                You don't have any tables right now
-              </h1>
+
+          <div id="Groups" className="w-full h-fit p-4 flex flex-col gap-4">
+            <div className="flex fle-row w-full h-fit justify-between bg-white rounded-lg p-2 text-black">
+              <h1 className="text-2xl font-bold">Minu grupid:</h1>
+              <AlertDialog>
+                <AlertDialogTrigger className="flex h-fit py-1 w-fit  px-6">
+                  <PlusCircle size={24} />
+                </AlertDialogTrigger>
+                <AlertDialogContent className="">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="text-black">
+                      Loo uus grupp
+                    </AlertDialogTitle>
+                  </AlertDialogHeader>
+                  <Input
+                    type="email"
+                    value={groupName}
+                    onChange={(e) => {
+                      setGroupName(e.target.value);
+                    }}
+                    className="text-white bg-white border-none py-6 text-black"
+                    placeholder="Grupi nimi"
+                  />
+                  <AlertDialogFooter className="flex-col lg:gap-0">
+                    <AlertDialogAction
+                      className="flex w-full bg-white hover:bg-gray-100"
+                      onClick={() => {
+                        storeGroup();
+                      }}
+                    >
+                      Loo uus
+                    </AlertDialogAction>
+                    <AlertDialogCancel className="flex w-full bg-[#FF0000]/60 hover:bg-red-600">
+                      Katkesta
+                    </AlertDialogCancel>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
-          </div>
-          <Button
-            variant="secondary"
-            disabled={!canLoadMore}
-            className={personalTables.length === 0 ? "hidden" : "flex gap-2"}
-            onClick={() => {
-              loadMorePersonalTables();
-              setPage(page + 1);
-            }}
-          >
-            Load more <RefreshCw />
-          </Button>
-        </div>
-
-        <div id="Groups" className="w-full h-fit p-4 flex flex-col gap-4">
-          <h1 className="text-2xl font-bold">Your groups:</h1>
-          <AlertDialog>
-            <Button variant="secondary" className="w-fit px-6">
-              <AlertDialogTrigger>Lisa uus!</AlertDialogTrigger>
+            <div
+              className={
+                groups.length === 0
+                  ? "hidden"
+                  : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 w-full"
+              }
+            >
+              {groups?.map((data) => (
+                <GroupBox
+                  id={data.id}
+                  key={data.id}
+                  text={data.name}
+                  isOwner={data.isOwner}
+                  createdAt={data.created_at}
+                  updatedAt={data.updated_at}
+                />
+              ))}
+            </div>
+            <div
+              className={
+                groups.length === 0
+                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 w-full"
+                  : "hidden"
+              }
+            >
+              <div className="flex flex-col w-full h-[200px] rounded-md border border-[#c2c2c2] p-4">
+                <h1 className="text-xl font-bold h-full">
+                  Sul ei ole hetkel ühtegi gruppi
+                </h1>
+              </div>
+            </div>
+            <Button
+              variant="secondary"
+              disabled={!canLoadMoreGroups}
+              className={groups.length === 0 ? "hidden" : "flex gap-2 bg-white"}
+              onClick={() => {
+                loadMoreGroups();
+              }}
+            >
+              Lae veel <RefreshCw />
             </Button>
-            <AlertDialogContent className="">
-              <AlertDialogHeader>
-                <AlertDialogTitle>Loo uus grupp</AlertDialogTitle>
-                <Input
-                  type="email"
-                  value={groupName}
-                  onChange={(e) => {
-                    setGroupName(e.target.value);
-                  }}
-                  className=""
-                  placeholder="Grupi nimi"
-                />
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction
-                  onClick={() => {
-                    storeGroup();
-                  }}
-                >
-                  Continue
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-          <div
-            className={
-              groups.length === 0
-                ? "hidden"
-                : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"
-            }
-          >
-            {groups?.map((data) => (
-              <GroupBox
-                id={data.id}
-                key={data.id}
-                text={data.name}
-                createdAt={data.created_at}
-                updatedAt={data.updated_at}
-              />
-            ))}
           </div>
-          <div
-            className={
-              groups.length === 0
-                ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"
-                : "hidden"
-            }
-          >
-            <div className="flex flex-col w-full h-[200px] rounded-md border border-[#c2c2c2] p-4">
-              <h1 className="text-xl font-bold h-full">
-                You don't have any groups right now
-              </h1>
-            </div>
-          </div>
-          <Button
-            variant="secondary"
-            disabled={!canLoadMoreGroups}
-            className={groups.length === 0 ? "hidden" : "flex gap-2"}
-            onClick={() => {
-              loadMoreGroups();
-            }}
-          >
-            Load more <RefreshCw />
-          </Button>
         </div>
       </div>
-    </div>
+    </AppLayout>
   );
 }
