@@ -1,3 +1,6 @@
+// NOT USED IN WELCOME PAGE!
+// on welcome page, the WelcomeNavbar.jsx is used
+
 import { useTheme } from "next-themes";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -49,46 +52,7 @@ const Navigation = () => {
   if (!userData) {
     return (
       <div>
-        <div className="hidden lg:flex text-white gap-4">
-          <AlertDialog>
-            <AlertDialogTrigger>Log in</AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Log in</AlertDialogTitle>
-              </AlertDialogHeader>
-              <form
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  login(email, password);
-                }}
-                className="flex flex-col gap-4 text-white"
-              >
-                <Input
-                  placeholder="Email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                />
-                <Input
-                  placeholder="Password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                />
-                <Button className="w-full">Log in</Button>
-                <Button disabled variant="link" className="text-white mt-2">
-                  Forgot Password?
-                </Button>
-              </form>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+        <div className="hidden lg:flex  gap-4">
           <AlertDialog>
             <AlertDialogTrigger>Sign up</AlertDialogTrigger>
             <AlertDialogContent>
@@ -104,7 +68,7 @@ const Navigation = () => {
                   event.preventDefault();
                   register(name, email, password);
                 }}
-                className="flex flex-col gap-4 text-white"
+                className="flex flex-col gap-4 "
               >
                 <Input
                   placeholder="Name"
@@ -137,11 +101,52 @@ const Navigation = () => {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
+          <Button>
+            <AlertDialog>
+              <AlertDialogTrigger>Log in</AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Log in</AlertDialogTitle>
+                </AlertDialogHeader>
+                <form
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    login(email, password);
+                  }}
+                  className="flex flex-col gap-4 "
+                >
+                  <Input
+                    placeholder="Email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                  />
+                  <Input
+                    placeholder="Password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
+                  <Button className="w-full">Log in</Button>
+                  <Button disabled variant="link" className=" mt-2">
+                    Forgot Password?
+                  </Button>
+                </form>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </Button>
         </div>
         <div className="flex lg:hidden">
           <Sheet>
             <SheetTrigger>
-              <Menu color="white" size="36px" />
+              <Menu color="black" size="36px" />
             </SheetTrigger>
             <SheetContent>
               <Tabs defaultValue="account" className="w-full my-6">
@@ -187,11 +192,7 @@ const Navigation = () => {
                         >
                           Log in
                         </Button>
-                        <Button
-                          disabled
-                          variant="link"
-                          className="text-white mt-2"
-                        >
+                        <Button disabled variant="link" className=" mt-2">
                           Forgot Password?
                         </Button>
                       </CardFooter>
