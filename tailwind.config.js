@@ -31,6 +31,16 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      colors: {
+        // Add your custom colors here
+        textInDark: '#F4F4F4', // Text-in-dark
+        textInLight: '#022100', // Text color on light bg
+        buttonLight: '#D4FBCD', // Button (light)
+        footer: '#010F00', // Dark (footer)
+        bgDark: '#caf0c4', // Background dark
+        bgMid: '#dcf6d8', // Background mid
+        bgLight: '#eefaec', // Background light
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
