@@ -360,8 +360,6 @@ export default function SingleGroup() {
     setPage(page + 1);
   }
 
-  console.log(page);
-
   return (
     <AppLayout>
       <div className="flex">
@@ -975,72 +973,22 @@ export default function SingleGroup() {
                         type="text"
                         placeholder="Vahetuse nimi"
                       />
-                      <div className="flex gap-2 w-full">
-                        <div className="w-full">
-                          <h1>Algus aeg</h1>
+
+                      <div className="flex gap-2 mt-2">
+                        <div className="flex flex-col w-full">
+                          <p>Algus</p>
                           <Input
-                            className="w-full h-fit p-4 bg-white rounded-md"
-                            type="time"
+                            className="bg-white p-4 rounded-md w-full"
+                            type="datetime-local"
                           />
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant={"outline"}
-                                className={cn(
-                                  "w-full justify-start text-left font-normal",
-                                  !date && "text-muted-foreground"
-                                )}
-                              >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {date ? (
-                                  format(date, "PPP")
-                                ) : (
-                                  <span>Pick a date</span>
-                                )}
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                              <Calendar
-                                mode="single"
-                                selected={date}
-                                onSelect={setDate}
-                                initialFocus
-                              />
-                            </PopoverContent>
-                          </Popover>
                         </div>
-                        <div className="w-full">
-                          <h1>Lõpp aeg</h1>
+
+                        <div className="flex flex-col w-full">
+                          <p>Lõpp</p>
                           <Input
-                            className="w-full h-fit p-4 bg-white rounded-md"
-                            type="time"
+                            className="bg-white p-4 rounded-md w-full"
+                            type="datetime-local"
                           />
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant={"outline"}
-                                className={cn(
-                                  "w-full justify-start text-left font-normal",
-                                  !date && "text-muted-foreground"
-                                )}
-                              >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {date ? (
-                                  format(date, "PPP")
-                                ) : (
-                                  <span>Pick a date</span>
-                                )}
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                              <Calendar
-                                mode="single"
-                                selected={date}
-                                onSelect={setDate}
-                                initialFocus
-                              />
-                            </PopoverContent>
-                          </Popover>
                         </div>
                       </div>
                     </div>
