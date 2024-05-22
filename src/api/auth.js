@@ -119,7 +119,6 @@ export function logout() {
                 localStorage.removeItem('user');
 
                 axios.defaults.headers.common['Authorization'] = null
-                window.location.replace('/');
             })
     });
 }
