@@ -269,7 +269,7 @@ export default function Dashboard() {
             >
               <div className="flex flex-col w-full h-[200px] rounded-md border border-[#c2c2c2] p-4">
                 <h1 className="text-xl font-bold h-full">
-                  You don't have any tables right now
+                  Sul ei ole hetkel ühtegi tabelit
                 </h1>
               </div>
             </div>
@@ -353,7 +353,7 @@ export default function Dashboard() {
             >
               <div className="flex flex-col w-full h-[200px] rounded-md border border-[#c2c2c2] p-4">
                 <h1 className="text-xl font-bold h-full">
-                  You don't have any groups right now.
+                  Sul ei ole hetkel ühtegi gruppi
                 </h1>
               </div>
             </div>
