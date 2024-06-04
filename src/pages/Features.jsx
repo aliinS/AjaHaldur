@@ -66,7 +66,6 @@ function Features() {
                 </div>
             </section>
 
-            
             <section id="third-info" className="flex flex-col md:flex-row-reverse gap-4 px-16 items-center pt-10 pb-10 bg-gradient-to-r from-bgLight">
                 <div className="flex flex-col gap-6 md:text-start text-center h-full md:w-1/2">
                     <div className="flex flex-col gap-5 pb-5 max-w-[500px]">
@@ -179,10 +178,7 @@ function Features() {
                 </div>
             </section>
 
-
             <Footer />
-
-
         </>
     )
 }

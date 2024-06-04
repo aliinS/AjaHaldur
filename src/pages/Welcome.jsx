@@ -11,10 +11,10 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Link as ScrollLink } from 'react-scroll';
 
 function Welcome() {
- 
+
   return (
     <>
-    {/* old <navigation!-></navigation!-> <Navigation /> */}
+      {/* old navigation!-> <Navigation /> */}
       <Navbar />
 
       <section id="hero-banner" className="h-screen relative mb-8">
@@ -35,8 +35,8 @@ function Welcome() {
               graafikute koostamise platvormi!
             </p>
             <div className="flex gap-2">
-            <ScrollLink to="second" smooth={true} duration={500}>
-              <Button className=" bg-footer">Alusta siit!</Button>
+              <ScrollLink to="second" smooth={true} duration={500}>
+                <Button className=" bg-footer">Alusta siit!</Button>
               </ScrollLink>
               <RouterLink to="/about">
                 <Button variant="outline" className="bg-transparent border-buttonLight text-textInDark" >Rohkem infot ...</Button>
@@ -66,11 +66,11 @@ function Welcome() {
             </div>
           </div>
           <div className="flex gap-2 md:justify-start justify-center pb-2 pt-5">
-          <RouterLink to="/about">
-            <Button variant="outline" className="bg-transparent border-black">
-              Loe lähemalt...
-            </Button>
-          </RouterLink> 
+            <RouterLink to="/about">
+              <Button variant="outline" className="bg-transparent border-black">
+                Loe lähemalt...
+              </Button>
+            </RouterLink>
             <Button variant="link" className="bg-transparent border-white gap-1 ">
               Registreeri <Boxes />
             </Button>
@@ -127,10 +127,6 @@ function Welcome() {
       <Faq />
 
       <Footer />
-
-
-
-
     </>
   );
 }

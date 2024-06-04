@@ -1,4 +1,3 @@
-// Navbar.jsx
 import { useState, useEffect } from 'react';
 import logo from "@/assets/ajahaldur_logo_white.png";
 import { X, Menu } from 'lucide-react';

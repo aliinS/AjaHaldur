@@ -1,5 +1,4 @@
 import logo from "@/assets/ajahaldur_logo_white.png";
-import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram } from 'lucide-react';
 import {
@@ -10,9 +9,6 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-
-
-
 
 const Footer = () => {
     return (
@@ -26,15 +22,16 @@ const Footer = () => {
                     <div className="flex flex-col items-center gap-2 md:flex-row">
                         <input type="email" placeholder="example@gmail.com" className="md:max-w-96 rounded px-2 py-1 w-full text-start border-2 border-white text-textInLight" />
                         <Dialog>
-            <DialogTrigger>
-                <Button className="bg-buttonLight w-full text-textInLight md:max-w-28 hover:bg-bgMid">Jälgi</Button>
-            </DialogTrigger>
-            <DialogContent>
-                    <DialogDescription>
-                        Hetkel ei saa meid veel jälgida!
-                    </DialogDescription>
-            </DialogContent>
-        </Dialog>                    </div>
+                            <DialogTrigger className="bg-buttonLight w-full text-textInLight md:max-w-28 rounded py-1 hover:bg-bgMid">
+                                Jälgi
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogDescription>
+                                    Hetkel kahjuks ei saa meid veel jälgida!
+                                </DialogDescription>
+                            </DialogContent>
+                        </Dialog>                    
+                    </div>
                     <p className='font-thin'>* Jälgides nõustute meie privaatsuspoliitikaga ning annate nõusoleku saada uuendusi meie ettevõttelt.</p>
                 </div>
                 <div className='md:flex md:flex-col-2 md:gap-10 w-full md:justify-evenly md:mt-6'>

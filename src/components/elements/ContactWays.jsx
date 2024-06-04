@@ -13,7 +13,7 @@ function ContactWays() {
                             Küsimuste või kasutajatoe saamiseks võtke julgelt meiega ühendust.
                         </p>
                         <p className="underline underline-offset-4 font-bold">
-                            AjaHaldur@MISIGANES.com
+                            info@ajahaldur.com *
                         </p>
                     </div>
                     <div className="flex flex-col items-center text-center gap-3 md:w-1/3">
@@ -23,7 +23,7 @@ function ContactWays() {
                             Helistage meile, et otse meie meeskonnaga ühendust saada.
                         </p>
                         <p className="underline underline-offset-4 font-bold">
-                            (+372) 51 234 456
+                            (+372) 51 234 567
                         </p>
                     </div>
                     <div className="flex flex-col items-center text-center gap-3 md:w-1/3">
@@ -34,7 +34,7 @@ function ContactWays() {
                             e-posti või telefoni teel.
                         </p>
                         <p className="underline underline-offset-4 font-bold">
-                            AjaHaldur@MISIGANES.com või (+372) 51 234 456
+                            info@ajahaldur.com või (+372) 51 234 567
                         </p>
                     </div>
                 </div>

@@ -57,7 +57,7 @@ function Pricelist() {
                     <div className="border rounded-md border-black p-10 flex flex-col gap-3 items-center w-fit">
                         <h2 className="font-bold text-2xl">BASIC</h2>
                         <h2 className="text-xl">Hind: <b>0€</b></h2>
-                        <Button className="bg-black text-textInDark w-[200px] m-4">Vali</Button>
+                        <Button className="bg-black text-textInDark w-[200px] m-4">Vali *</Button>
                         <p>Pakett sisaldab:</p>
                         <div className="flex flex-col-2">
                             <ul className="divide-y divide-black border-e border-black text-start">
@@ -82,7 +82,7 @@ function Pricelist() {
                     <div className="border rounded-md border-black p-10 flex flex-col gap-3 items-center w-fit">
                         <h2 className="font-bold text-2xl">ADVANCED</h2>
                         <h2 className="text-xl">Hind: <b>X€</b></h2>
-                        <Button className=" bg-black text-textInDark w-[200px] m-4">Vali</Button>
+                        <Button className=" bg-black text-textInDark w-[200px] m-4">Vali *</Button>
                         <p>Pakett sisaldab:</p>
                         <div className="flex flex-col-2">
                             <ul className="divide-y divide-black border-e border-black text-start">
@@ -104,7 +104,6 @@ function Pricelist() {
                         </div>
                     </div>
                 </div>
-
 
             </section>
 

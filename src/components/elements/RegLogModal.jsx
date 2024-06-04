@@ -47,13 +47,16 @@ function RegistrationModal({ onClose, activeTab }) {
         <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-footer bg-opacity-50 z-10">
             <div ref={modalRef} className="bg-bgMid p-8 md:min-w-[500px] w-[350px] rounded-lg relative">
                 <button onClick={onClose} className="absolute top-0 right-0 p-2">
-                    <X size={24} />
+                    <X size={24} color='black' />
                 </button>
+                
                 <Tabs defaultValue={activeTab}>
+
                     <TabsList className="grid w-full grid-cols-2">
                         <TabsTrigger value="register" id="register">Registreeri</TabsTrigger>
                         <TabsTrigger value="login" id="login">Logi sisse</TabsTrigger>
                     </TabsList>
+
                     <TabsContent value="register" id="register">
                         <Card>
                             <CardHeader>
@@ -82,6 +85,7 @@ function RegistrationModal({ onClose, activeTab }) {
                             </CardFooter>
                         </Card>
                     </TabsContent>
+
                     <TabsContent value="login" id="login">
                         <Card>
                             <CardHeader>
@@ -102,6 +106,7 @@ function RegistrationModal({ onClose, activeTab }) {
                             </CardFooter>
                         </Card>
                     </TabsContent>
+
                 </Tabs>
             </div>
         </div>
