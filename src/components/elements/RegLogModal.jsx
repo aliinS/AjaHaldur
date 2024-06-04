@@ -75,7 +75,7 @@ function RegistrationModal({ onClose, activeTab }) {
                             </CardContent>
                             <CardDescription className="flex flex-row md:gap-2 items-center flex-wrap">
                                 <Checkbox className="md:ml-7 ml-3" />
-                                <p className='md:pl-2 leading-snug pb-3 ml-3'>Konto registreerimisel nõustud meie <br /><a className='underline pr-1' href="#">privaatsuspoliitika</a>ja muude tingimustega.</p>
+                                <p className='md:pl-2 leading-snug pb-3 md:ml-0 ml-3'>Konto registreerimisel nõustud meie <br /><a className='underline pr-1' href="#">privaatsuspoliitika</a>ja muude tingimustega.</p>
                             </CardDescription>
                             <CardFooter>
                                 <Button className="bg-footer">Registreeri</Button>

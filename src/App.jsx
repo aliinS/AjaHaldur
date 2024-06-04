@@ -9,6 +9,7 @@ import Contact from "./pages/Contact";
 import Features from "./pages/Features";
 import Pricelist from "./pages/Pricelist";
 import ScrollToTop from "./components/ui/scroll-to-top";
+import Blog from "./pages/Blog";
 
 
 
@@ -41,6 +42,7 @@ export default function App() {
             <Route path="about" element={<Features />} />
             <Route path="pricelist" element={<Pricelist />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="blog" element={<Blog />} />  
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

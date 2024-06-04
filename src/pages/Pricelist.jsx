@@ -5,9 +5,11 @@ import Faq from "../components/elements/Faq";
 import Footer from "../components/elements/Footer";
 import { Check } from 'lucide-react';
 import ContactWays from "../components/elements/ContactWays";
+import { Link } from 'react-scroll';
 
 
 function Pricelist() {
+
     return (
         <>
             <Navbar />
@@ -22,17 +24,17 @@ function Pricelist() {
                 <div className="absolute inset-0 px-8 flex items-center">
                     <div className="flex flex-col gap-6 justify-center h-full w-1/2 lg:p-10">
                         <h1 className="text-4xl font-bold text-textInDark">
-                            mingi tekst
+                            AjaHalduri põhifunktsioonide kasutamine on tasuta!
                         </h1>
                         <p className="text-textInDark">
-                            mingi tekst vee lisaks. ja kui midagi jääb segaseks, siis kirjuta.
+                            Kui soovid rohkemat teada, siis..
                         </p>
                         <div className="flex gap-2">
-                            <a href="#pricelist">
+                            <Link to="pricelist" smooth={true} duration={500}>
                                 <Button className="bg-buttonLight text-textInLight hover:bg-footer hover:text-textInDark">
-                                    Vaata lähemalt...
+                                    Vaata hinnakirja...
                                 </Button>
-                            </a>
+                            </Link>
                             <a href="/contact">
                                 <Button
                                     variant="outline"

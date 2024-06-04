@@ -5,10 +5,9 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button";
-
+import { Link } from 'react-router-dom';
 
 function Faq() {
-
 
     return (
         <>
@@ -69,9 +68,9 @@ function Faq() {
                     <div>
                         <h2 className="text-xl font-bold pb-2">Tekkis veel küsimusi või ei leidnud vastust?</h2>
                         <p className="pb-3">Meie klienditugi on teie teenistuses. Võtke ühendust ja leiame teile vastuse.</p>
-                        <a href="/contact#contact-form">
+                        <Link to="/contact">
                             <Button variant="outline" className="bg-bgLight border-black">Kirjuta meile!</Button>
-                        </a>
+                        </Link>
 
                     </div>
                 </div>

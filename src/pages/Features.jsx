@@ -6,6 +6,8 @@ import { LucideBox } from 'lucide-react';
 import registration from "../assets/registration.png";
 import users from "../assets/usersimg.png"
 import placeholder from "../assets/placeholder.svg"
+import { Link } from 'react-scroll';
+
 
 function Features() {
     return (
@@ -28,12 +30,12 @@ function Features() {
                             Avastage meie tundide haldamise rakenduse täielik potentsiaal ja optimeerige oma töövoog ning igakuine aruandlus!
                         </p>
                         <div className="flex gap-2">
-                            <a href="">
+                        <Link to="second-info" smooth={true} duration={500}>
                                 <Button className=" bg-buttonLight text-textInLight hover:bg-footer hover:text-textInDark">Alusta!</Button>
-                            </a>
-                            <a href="#second-info">
+                            </Link>
+                            <Link to="second-info" smooth={true} duration={500}>
                                 <Button variant="outline" className="bg-transparent border-buttonLight text-textInDark" >Loe edasi...</Button>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

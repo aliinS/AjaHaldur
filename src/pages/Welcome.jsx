@@ -7,12 +7,14 @@ import secondimg from "@/assets/second_image.png";
 import Navbar from "../components/elements/WelcomeNavbar";
 import Footer from "../components/elements/Footer";
 import Faq from "../components/elements/Faq";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from 'react-router-dom';
+import { Link as ScrollLink } from 'react-scroll';
+
 function Welcome() {
  
   return (
     <>
-    <Navigation />
+    {/* old <navigation!-></navigation!-> <Navigation /> */}
       <Navbar />
 
       <section id="hero-banner" className="h-screen relative mb-8">
@@ -33,10 +35,12 @@ function Welcome() {
               graafikute koostamise platvormi!
             </p>
             <div className="flex gap-2">
+            <ScrollLink to="second" smooth={true} duration={500}>
               <Button className=" bg-footer">Alusta siit!</Button>
-              <Link to="/about">
+              </ScrollLink>
+              <RouterLink to="/about">
                 <Button variant="outline" className="bg-transparent border-buttonLight text-textInDark" >Rohkem infot ...</Button>
-              </Link>
+              </RouterLink>
             </div>
           </div>
         </div>
@@ -62,11 +66,11 @@ function Welcome() {
             </div>
           </div>
           <div className="flex gap-2 md:justify-start justify-center pb-2 pt-5">
-          <Link to="/about">
+          <RouterLink to="/about">
             <Button variant="outline" className="bg-transparent border-black">
               Loe lähemalt...
             </Button>
-          </Link> 
+          </RouterLink> 
             <Button variant="link" className="bg-transparent border-white gap-1 ">
               Registreeri <Boxes />
             </Button>

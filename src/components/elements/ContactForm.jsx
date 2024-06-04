@@ -40,7 +40,7 @@ function ContactForm() {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="border border-footer focus:border-none w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-bgDark"
+            className="border border-footer rounded focus:border-none w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-bgDark"
             placeholder="Nimi"
             required
           />
@@ -53,7 +53,7 @@ function ContactForm() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className=" border  border-footer focus:border-none w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-bgDark"
+            className=" border  border-footer rounded focus:border-none w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-bgDark"
             placeholder="Teie email"
             required
           />
@@ -65,7 +65,7 @@ function ContactForm() {
             name="message"
             value={formData.message}
             onChange={handleChange}
-            className=" border  border-footer focus:border-none w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-bgDark h-20"
+            className=" border  border-footer rounded focus:border-none w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-bgDark h-20"
             placeholder="Küsimus või teade"
             required
           />

@@ -6,6 +6,7 @@ import contactform from "../assets/contactform.png";
 import Faq from "../components/elements/Faq";
 import Footer from "../components/elements/Footer";
 import ContactWays from "../components/elements/ContactWays";
+import { Link } from 'react-scroll';
 
 function Contact() {
   return (
@@ -29,19 +30,19 @@ function Contact() {
               vestelda, oleme alati hea meelega abiks.
             </p>
             <div className="flex gap-2">
-              <a href="#contact-form">
+            <Link to="contact-form" smooth={true} duration={500}>
                 <Button className=" bg-buttonLight text-textInLight hover:bg-footer hover:text-textInDark">
                   Kirjuta meile!
                 </Button>
-              </a>
-              <a href="#contact-ways">
+              </Link>
+              <Link to="contact-ways" smooth={true} duration={500}>
                 <Button
                   variant="outline"
                   className="bg-transparent border-buttonLight text-textInDark"
                 >
                   Veel...
                 </Button>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
