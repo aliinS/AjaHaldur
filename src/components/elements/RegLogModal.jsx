@@ -101,16 +101,13 @@ function RegistrationModal({ onClose, activeTab }) {
                                             setPassword(e.target.value);
                                         }}
                                     />
-                                    <Button className="w-full">Sign up</Button>
+                                    <div>
+                                        <Checkbox required className="md:ml-7 ml-3" />
+                                        <p className='md:pl-2 leading-snug pb-3 md:ml-0 ml-3'>Konto registreerimisel nõustud meie <br /><a className='underline pr-1' href="#privacy-policy">privaatsuspoliitika</a>ja muude tingimustega.</p>
+                                    </div>
+                                    <Button className="w-full">Registreeri</Button>
                                 </form>
                             </CardContent>
-                            <CardDescription className="flex flex-row md:gap-2 items-center flex-wrap">
-                                <Checkbox required className="md:ml-7 ml-3" />
-                                <p className='md:pl-2 leading-snug pb-3 md:ml-0 ml-3'>Konto registreerimisel nõustud meie <br /><a className='underline pr-1' href="#">privaatsuspoliitika</a>ja muude tingimustega.</p>
-                            </CardDescription>
-                            <CardFooter>
-                                <Button className="bg-footer">Registreeri</Button>
-                            </CardFooter>
                         </Card>
                     </TabsContent>
 
@@ -143,15 +140,12 @@ function RegistrationModal({ onClose, activeTab }) {
                                             setPassword(e.target.value);
                                         }}
                                     />
-                                    <Button className="w-full">Log in</Button>
+                                    <Button className="w-full">Logi sisse</Button>
                                     <Button disabled variant="link" className="text-white mt-2">
-                                        Forgot Password?
+                                        Unustasid parooli?
                                     </Button>
                                 </form>
                             </CardContent>
-                            <CardFooter>
-                                <Button>Logi sisse</Button>
-                            </CardFooter>
                         </Card>
                     </TabsContent>
 
