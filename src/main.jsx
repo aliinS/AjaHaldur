@@ -19,30 +19,32 @@ if (localStorage.getItem("token")) {
       })
       .catch((error) => {
         console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-        axios
-          .post(`api/refresh`, {
-            email: JSON.parse(localStorage.getItem("user")).email,
-          })
-          .then((response) => {
-            setAuthToken(response.data.access_token);
-            localStorage.setItem("token", response.data.access_token);
-            window.location.reload();
-            // axios
-            //   .post(`api/me`)
-            //   .then((response) => {
-            //     console.log(response.data);
-            //   })
-            //   .catch((error) => {
-            //     console.log(
-            //       "%cERROR: ",
-            //       "color: tomato; font-weight: bold;",
-            //       error
-            //     );
-            //   });
-          })
-          .catch((error) => {
-            console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-          });
+        if (localStorage.getItem("user")) {
+          axios
+            .post(`api/refresh`, {
+              email: JSON.parse(localStorage.getItem("user"))?.email,
+            })
+            .then((response) => {
+              setAuthToken(response.data.access_token);
+              localStorage.setItem("token", response.data.access_token);
+              window.location.reload();
+              // axios
+              //   .post(`api/me`)
+              //   .then((response) => {
+              //     console.log(response.data);
+              //   })
+              //   .catch((error) => {
+              //     console.log(
+              //       "%cERROR: ",
+              //       "color: tomato; font-weight: bold;",
+              //       error
+              //     );
+              //   });
+            })
+            .catch((error) => {
+              console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+            });
+        }
       });
   });
 }

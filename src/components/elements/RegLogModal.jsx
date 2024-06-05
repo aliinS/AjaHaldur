@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import {
@@ -13,9 +13,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
+import { login, logout, register } from "@/api/auth";
 
 function RegistrationModal({ onClose, activeTab }) {
     const modalRef = useRef();
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const userData = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -49,7 +56,7 @@ function RegistrationModal({ onClose, activeTab }) {
                 <button onClick={onClose} className="absolute top-0 right-0 p-2">
                     <X size={24} color='black' />
                 </button>
-                
+
                 <Tabs defaultValue={activeTab}>
 
                     <TabsList className="grid w-full grid-cols-2">
@@ -63,21 +70,42 @@ function RegistrationModal({ onClose, activeTab }) {
                                 <CardTitle>Registreeri</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-2">
-                                <div className="space-y-1">
-                                    <Label htmlFor="name">Nimi</Label>
-                                    <Input id="name" placeholder="Nimi" autoComplete="name" />
-                                </div>
-                                <div className="space-y-1">
-                                    <Label htmlFor="email">E-mail</Label>
-                                    <Input id="email" placeholder="example@gmail.com" autoComplete="email" />
-                                </div>
-                                <div className="space-y-1">
-                                    <Label htmlFor="password">Parool</Label>
-                                    <Input id="password" placeholder="parool" />
-                                </div>
+                                <form
+                                    onSubmit={(event) => {
+                                        event.preventDefault();
+                                        register(name, email, password);
+                                    }}
+                                    className="flex flex-col gap-4 text-white"
+                                >
+                                    <Input
+                                        placeholder="Name"
+                                        type="text"
+                                        value={name}
+                                        onChange={(e) => {
+                                            setName(e.target.value);
+                                        }}
+                                    />
+                                    <Input
+                                        placeholder="Email"
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => {
+                                            setEmail(e.target.value);
+                                        }}
+                                    />
+                                    <Input
+                                        placeholder="Password"
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) => {
+                                            setPassword(e.target.value);
+                                        }}
+                                    />
+                                    <Button className="w-full">Sign up</Button>
+                                </form>
                             </CardContent>
                             <CardDescription className="flex flex-row md:gap-2 items-center flex-wrap">
-                                <Checkbox className="md:ml-7 ml-3" />
+                                <Checkbox required className="md:ml-7 ml-3" />
                                 <p className='md:pl-2 leading-snug pb-3 md:ml-0 ml-3'>Konto registreerimisel nõustud meie <br /><a className='underline pr-1' href="#">privaatsuspoliitika</a>ja muude tingimustega.</p>
                             </CardDescription>
                             <CardFooter>
@@ -92,14 +120,34 @@ function RegistrationModal({ onClose, activeTab }) {
                                 <CardTitle>Logi sisse</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-2">
-                                <div className="space-y-1">
-                                    <Label htmlFor="email">Email</Label>
-                                    <Input id="email" type="email" placeholder="example@gmail.com" autoComplete="email" />
-                                </div>
-                                <div className="space-y-1">
-                                    <Label htmlFor="password">Parool</Label>
-                                    <Input id="password" type="password" placeholder="parool" autoComplete="current-password" />
-                                </div>
+                                <form
+                                    onSubmit={(event) => {
+                                        event.preventDefault();
+                                        login(email, password);
+                                    }}
+                                    className="flex flex-col gap-4 text-white"
+                                >
+                                    <Input
+                                        placeholder="Email"
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => {
+                                            setEmail(e.target.value);
+                                        }}
+                                    />
+                                    <Input
+                                        placeholder="Password"
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) => {
+                                            setPassword(e.target.value);
+                                        }}
+                                    />
+                                    <Button className="w-full">Log in</Button>
+                                    <Button disabled variant="link" className="text-white mt-2">
+                                        Forgot Password?
+                                    </Button>
+                                </form>
                             </CardContent>
                             <CardFooter>
                                 <Button>Logi sisse</Button>
