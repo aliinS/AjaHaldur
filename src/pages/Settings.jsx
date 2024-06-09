@@ -2,6 +2,7 @@ import AppLayout from "../components/elements/AppLayout";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Save } from "lucide-react";
+import { toast } from "sonner";
 
 export default function SettingsTable() {
   const [name, setName] = useState("");
@@ -27,7 +28,6 @@ export default function SettingsTable() {
   }
 
   function updateName() {
-    console.log(userData);
 
     axios
       .post("api/user/update", {
@@ -35,7 +35,7 @@ export default function SettingsTable() {
       })
       .then((response) => {
         fetchUserData();
-        console.log(response.data);
+        toast.success("Nimi edukalt uuendatud");
       })
       .catch((error) => {
         console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -44,7 +44,6 @@ export default function SettingsTable() {
   }
 
   function updateEmail() {
-    console.log(userData);
 
     axios
       .post("api/user/update", {
@@ -52,7 +51,6 @@ export default function SettingsTable() {
       })
       .then((response) => {
         fetchUserData();
-        console.log(response.data);
       })
       .catch((error) => {
         console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -61,7 +59,6 @@ export default function SettingsTable() {
   }
 
   function updatePassword() {
-    console.log(userData);
 
     axios
       .post("api/user/update", {
@@ -70,7 +67,7 @@ export default function SettingsTable() {
       .then((response) => {
         setPassword("");
         fetchUserData();
-        console.log(response.data);
+        toast.success("Parool edukalt uuendatud");
       })
       .catch((error) => {
         console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);

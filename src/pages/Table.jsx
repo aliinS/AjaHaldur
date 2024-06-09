@@ -66,7 +66,6 @@ export default function SingleTable() {
   function handleSelectedDateChange(date) {
     const formattedDate = format(date, "yyyy-MM-dd");
     setDate(formattedDate);
-    console.log(formattedDate);
   }
 
   function storeTableContent() {
@@ -201,8 +200,6 @@ export default function SingleTable() {
           if (to && from) {
             filterData(from, to);
           }
-
-          console.log(response.data.table);
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);

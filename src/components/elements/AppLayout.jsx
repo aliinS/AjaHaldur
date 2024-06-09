@@ -20,27 +20,11 @@ export default function AppLayout({ children }) {
       <Sidebar>
         <div className="flex flex-col justify-between items-center h-full">
           <div className="flex flex-col gap-4">
-            <button onClick={() => navigate("/dashboard")} className="w-fit">
+            <button onClick={() => navigate("/")} className="w-fit">
               <SidebarItem
                 icon={<Package size={20} color="black" />}
                 text="Dashboard"
-                active={isActive("/dashboard")}
-              />
-            </button>
-
-            <button onClick={() => navigate("/dashboard")} className="w-fit">
-              <SidebarItem
-                icon={<Boxes size={20} color="black" />}
-                text="Groups"
-                active={isActive("/xxx")}
-              />
-            </button>
-
-            <button onClick={() => navigate("/dashboard")} className="w-fit">
-              <SidebarItem
-                icon={<BarChart3 size={20} color="black" />}
-                text="Tables"
-                active={isActive("/xxx")}
+                active={isActive("/")}
               />
             </button>
           </div>
@@ -85,7 +69,7 @@ export default function AppLayout({ children }) {
         <button onClick={() => logout()} className="flex items-center justify-center h-fit w-full">
           <SidenavMobileItem
             icon={<LogOut size={20} color="black" />}
-            // text="Logout"
+          // text="Logout"
           />
         </button>
       </SidenavMobile>
