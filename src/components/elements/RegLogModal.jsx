@@ -79,6 +79,7 @@ function RegistrationModal({ onClose, activeTab }) {
                                 >
                                     <Input
                                         placeholder="Name"
+                                        required
                                         type="text"
                                         value={name}
                                         onChange={(e) => {
@@ -87,6 +88,7 @@ function RegistrationModal({ onClose, activeTab }) {
                                     />
                                     <Input
                                         placeholder="Email"
+                                        required
                                         type="email"
                                         value={email}
                                         onChange={(e) => {
@@ -95,15 +97,16 @@ function RegistrationModal({ onClose, activeTab }) {
                                     />
                                     <Input
                                         placeholder="Password"
+                                        required
                                         type="password"
                                         value={password}
                                         onChange={(e) => {
                                             setPassword(e.target.value);
                                         }}
                                     />
-                                    <div>
-                                        <Checkbox required className="md:ml-7 ml-3" />
-                                        <p className='md:pl-2 leading-snug pb-3 md:ml-0 ml-3'>Konto registreerimisel nõustud meie <br /><a className='underline pr-1' href="#privacy-policy">privaatsuspoliitika</a>ja muude tingimustega.</p>
+                                    <div className='flex items-center gap-2'>
+                                        <Checkbox required className="checkbox" />
+                                        <p className=' leading-snug text-black'>Konto registreerimisel nõustud meie <br /><a className='underline pr-1' href="#privacy-policy">privaatsuspoliitika</a>ja muude tingimustega.</p>
                                     </div>
                                     <Button className="w-full">Registreeri</Button>
                                 </form>
@@ -141,7 +144,7 @@ function RegistrationModal({ onClose, activeTab }) {
                                         }}
                                     />
                                     <Button className="w-full">Logi sisse</Button>
-                                    <Button disabled variant="link" className="text-white mt-2">
+                                    <Button disabled variant="link" className="text-black mt-2 hidden">
                                         Unustasid parooli?
                                     </Button>
                                 </form>

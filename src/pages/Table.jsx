@@ -66,7 +66,6 @@ export default function SingleTable() {
   function handleSelectedDateChange(date) {
     const formattedDate = format(date, "yyyy-MM-dd");
     setDate(formattedDate);
-    console.log(formattedDate);
   }
 
   function storeTableContent() {
@@ -201,8 +200,6 @@ export default function SingleTable() {
           if (to && from) {
             filterData(from, to);
           }
-
-          console.log(response.data.table);
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -296,7 +293,7 @@ export default function SingleTable() {
         {/* CONTENT */}
         <div className="text-black w-full flex flex-col p-2 gap-4">
           <div className="w-full flex justify-between gap-4 p-4 bg-white rounded-lg">
-            <h1 className="text-2xl">{data?.title}</h1>
+            <h1 className="text-2xl text-wrap	break-words">{data?.title}</h1>
             <div className="flex items-center">
               <AlertDialog>
                 <AlertDialogTrigger

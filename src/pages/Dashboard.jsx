@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import AppLayout from "../components/elements/AppLayout";
+import { set } from "date-fns";
 
 export default function Dashboard() {
   const [personalTables, setPersonalTables] = useState([]);
@@ -30,10 +31,29 @@ export default function Dashboard() {
   const [groupsPage, setGroupsPage] = useState(1);
   const [canLoadMoreGroups, setCanLoadMoreGroups] = useState(true);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [tableName, setTableName] = useState("");
   const [groupName, setGroupName] = useState("");
 
   let promise = null;
+
+  function checkIfCanLoadMorePersonal(response, page) {
+    if (response.data.last_page == page) {
+      setCanLoadMore(false);
+    } else {
+      setCanLoadMore(true);
+    }
+
+  }
+
+  function checkIfCanLoadMoreGroups(response, page) {
+    if (response.data.last_page == page) {
+      setCanLoadMoreGroups(false);
+    } else {
+      setCanLoadMoreGroups(true);
+    }
+  }
 
   function loadPersonalTables() {
     axios.get("/sanctum/csrf-cookie").then(() => {
@@ -42,11 +62,7 @@ export default function Dashboard() {
         .then((response) => {
           setPersonalTables(response.data.data);
           promise = null;
-          if (response.data.last_page == page) {
-            setCanLoadMore(false);
-          } else {
-            setCanLoadMore(true);
-          }
+          checkIfCanLoadMorePersonal(response, page);
           setPage(2);
         })
         .catch((error) => {
@@ -70,11 +86,8 @@ export default function Dashboard() {
         .then((response) => {
           setPersonalTables(personalTables.concat(response.data.data));
           promise = null;
-          if (response.data.last_page == page) {
-            setCanLoadMore(false);
-          } else {
-            setCanLoadMore(true);
-          }
+          checkIfCanLoadMorePersonal(response, page);
+          setPage(page + 1);
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -97,11 +110,7 @@ export default function Dashboard() {
         .then((response) => {
           setGroups(response.data.data);
           promise = null;
-          if (response.data.last_page == groupsPage) {
-            setCanLoadMoreGroups(false);
-          } else {
-            setCanLoadMoreGroups(true);
-          }
+          checkIfCanLoadMoreGroups(response, groupsPage);
           setGroupsPage(2);
         })
         .catch((error) => {
@@ -125,12 +134,8 @@ export default function Dashboard() {
         .then((response) => {
           setGroups(groups.concat(response.data.data));
           promise = null;
+          checkIfCanLoadMoreGroups(response, groupsPage);
           setGroupsPage(groupsPage + 1);
-          if (response.data.last_page == groupsPage) {
-            setCanLoadMoreGroups(false);
-          } else {
-            setCanLoadMoreGroups(true);
-          }
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
@@ -147,6 +152,19 @@ export default function Dashboard() {
   }
 
   function storeUserTable() {
+
+    setIsLoading(true);
+
+    const words = tableName.split(" ");
+    const lengths = words.map((word) => word.length);
+    if (tableName.length > 45) {
+      toast.error("Tabeli nimes ei tohi sõnad olla pikemad kui 45 tähemärki");
+      setIsLoading(false);
+      return;
+    }
+
+
+
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/store`, {
@@ -155,9 +173,13 @@ export default function Dashboard() {
         })
         .then((response) => {
           loadPersonalTables();
+          setTableName("");
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
 
       toast.promise(promise, {
@@ -171,6 +193,16 @@ export default function Dashboard() {
   }
 
   function storeGroup() {
+    setIsLoading(true);
+
+    const words = groupName.split(" ");
+    const lengths = words.map((word) => word.length);
+    if (groupName.length > 45) {
+      toast.error("Grupi nimes ei tohi sõnad olla pikemad kui 45 tähemärki");
+      setIsLoading(false);
+      return;
+    }
+
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/groups/store`, {
@@ -181,6 +213,9 @@ export default function Dashboard() {
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
 
       toast.promise(promise, {
@@ -191,6 +226,15 @@ export default function Dashboard() {
         error: "Group cannot be created",
       });
     });
+  }
+
+
+  function truncateString(str, amount) {
+    if (str.length <= amount) {
+      return str;
+    } else {
+      return str.slice(0, amount) + (str.length > amount ? "..." : "");
+    }
   }
 
   useEffect(() => {
@@ -229,6 +273,7 @@ export default function Dashboard() {
                   />
                   <AlertDialogFooter className="flex-col lg:gap-0">
                     <AlertDialogAction
+                      disabled={tableName.length === 0 || tableName.length > 255 || isLoading}
                       className="flex w-full bg-white hover:bg-gray-100"
                       onClick={() => {
                         storeUserTable();
@@ -253,10 +298,11 @@ export default function Dashboard() {
               {personalTables?.map((data) => (
                 <TableBox
                   key={data.id}
-                  text={data.title}
+                  text={truncateString(data.title, 15)}
                   createdAt={data.created_at}
                   updatedAt={data.updated_at}
                   id={data.id}
+                  refreshPersonalTables={loadPersonalTables}
                 />
               ))}
             </div>
@@ -312,6 +358,7 @@ export default function Dashboard() {
                   />
                   <AlertDialogFooter className="flex-col lg:gap-0">
                     <AlertDialogAction
+                      disabled={groupName.length === 0 || groupName.length > 255 || isLoading}
                       className="flex w-full bg-white hover:bg-gray-100"
                       onClick={() => {
                         storeGroup();
@@ -337,10 +384,11 @@ export default function Dashboard() {
                 <GroupBox
                   id={data.id}
                   key={data.id}
-                  text={data.name}
+                  text={truncateString(data.name, 17)}
                   isOwner={data.isOwner}
                   createdAt={data.created_at}
                   updatedAt={data.updated_at}
+                  refreshGroups={loadGroups}
                 />
               ))}
             </div>

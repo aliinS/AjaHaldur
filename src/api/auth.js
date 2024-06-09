@@ -82,7 +82,6 @@ export function register(name, email, password) {
                 login(email, password)
             })
             .catch((error) => {
-                console.log(error);
                 toast.error(`Error logging in to user with email '${email}'`);
             });
 
