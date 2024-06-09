@@ -14,7 +14,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-const GroupBox = ({ text, createdAt, updatedAt, id, isOwner }) => {
+const GroupBox = ({ text, createdAt, updatedAt, id, isOwner, refreshGroups }) => {
   const squareStyle = {
     width: "100%",
     height: "200px",
@@ -45,7 +45,8 @@ const GroupBox = ({ text, createdAt, updatedAt, id, isOwner }) => {
       axios
         .post(`api/groups/delete/${id}`)
         .then((response) => {
-          window.location.reload();
+          // window.location.reload();
+          refreshGroups();
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);

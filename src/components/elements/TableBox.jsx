@@ -14,7 +14,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-const TableBox = ({ text, createdAt, updatedAt, id }) => {
+const TableBox = ({ text, createdAt, updatedAt, id, refreshPersonalTables }) => {
   const squareStyle = {
     width: "100%",
     height: "200px",
@@ -26,6 +26,8 @@ const TableBox = ({ text, createdAt, updatedAt, id }) => {
   };
 
   const navigate = useNavigate();
+
+  
 
   const created_at = new Date(createdAt);
   const updated_at = new Date(updatedAt);
@@ -47,7 +49,8 @@ const TableBox = ({ text, createdAt, updatedAt, id }) => {
       promise = axios
         .delete(`api/tables/delete/${id}`)
         .then((response) => {
-          window.location.reload();
+          // window.location.reload();
+          refreshPersonalTables();
         })
         .catch((error) => {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
