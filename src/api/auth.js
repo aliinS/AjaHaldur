@@ -1,5 +1,7 @@
 import axios from "axios";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+
 
 export function fetch() {
     axios.get('api/me')
@@ -95,6 +97,8 @@ export function register(name, email, password) {
 }
 
 export function logout() {
+    // const navigate = useNavigate();
+
     axios.get("/sanctum/csrf-cookie").then(() => {
         axios.post('api/logout', {
             headers: {
@@ -110,6 +114,9 @@ export function logout() {
                 setAuthToken()
 
                 // TODO: If router exists, the replace it with route to homepage
+                // window.location.replace('/');
+
+                // navigate("/");
                 window.location.replace('/');
             })
             .catch(error => {
@@ -119,6 +126,9 @@ export function logout() {
                 localStorage.removeItem('user');
 
                 axios.defaults.headers.common['Authorization'] = null
+
+                // navigate("/");
+                window.location.replace('/');
             })
     });
 }
