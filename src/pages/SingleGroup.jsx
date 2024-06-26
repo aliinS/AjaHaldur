@@ -63,6 +63,7 @@ import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { set } from "date-fns";
 import AppLayout from "../components/elements/AppLayout";
+import { supports } from "localforage";
 
 export default function SingleGroup() {
   const { id } = useParams();
@@ -131,12 +132,14 @@ export default function SingleGroup() {
 
   function storeTableContent(table_id, user_id) {
     let message = "";
+    console.log(selectedTableData.table)
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/content/store`, {
           date: format(date, "yyyy-MM-dd"),
           time: time,
           location: location,
+          supports_time_range: selectedTableData.table.supports_time_range,
           table_id: selectedTableData.table.id,
         })
         .then((response) => {
