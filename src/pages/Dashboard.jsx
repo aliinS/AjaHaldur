@@ -22,6 +22,8 @@ import {
 import { Input } from "@/components/ui/input";
 import AppLayout from "../components/elements/AppLayout";
 import { set } from "date-fns";
+import { Checkbox } from "@/components/ui/checkbox"
+
 
 export default function Dashboard() {
   const [personalTables, setPersonalTables] = useState([]);
@@ -35,6 +37,7 @@ export default function Dashboard() {
 
   const [tableName, setTableName] = useState("");
   const [groupName, setGroupName] = useState("");
+  const [isTimeSupportEnabled, setIsTimeSupportEnabled] = useState(false);
 
   let promise = null;
 
@@ -170,6 +173,7 @@ export default function Dashboard() {
         .post(`api/tables/store`, {
           title: tableName,
           type: "personal",
+          supports_time_range: isTimeSupportEnabled
         })
         .then((response) => {
           loadPersonalTables();
@@ -271,6 +275,30 @@ export default function Dashboard() {
                     className="text-white bg-white border-none py-6 text-black"
                     placeholder="Tabeli nimi"
                   />
+                  <div className="flex flex-col gap-2 p-3 bg-white border-none py-3 text-black rounded-md">
+                    <div className="flex gap-2">
+                      <Checkbox id="terms2" 
+                        checked={isTimeSupportEnabled}
+                        
+                        onCheckedChange={(e) => setIsTimeSupportEnabled(!isTimeSupportEnabled)}
+                      />
+                      <label
+                        htmlFor="terms2"
+                        className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Kellaaja toetamine*
+                        <p className="text-gray-400 mt-2">
+                          * Kui kellaaja toetamine on sisse lülitatud, siis saad lisada tunnivahemiku kindla tunni arvu asemel.
+                        </p>
+                        <p className="text-gray-400 mt-2">
+                          <span className="text-red-400">NB! Seda valikut hiljem muuta ei anna.</span>
+                        </p>
+                        {isTimeSupportEnabled ? <p className="text-gray-400 mt-2">Kellaaja toetamine on sisse lülitatud</p> : <p className="text-gray-400 mt-2">Kellaaja toetamine on välja lülitatud</p>}
+                      </label>
+                    </div>
+                  </div>
+
+
                   <AlertDialogFooter className="flex-col lg:gap-0">
                     <AlertDialogAction
                       disabled={tableName.length === 0 || tableName.length > 255 || isLoading}

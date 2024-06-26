@@ -52,6 +52,9 @@ export default function SingleTable() {
   const navigate = useNavigate();
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState();
+  const [timeDifference, setTimeDifference] = useState(null);
   const [location, setLocation] = useState("");
   const [title, setTitle] = useState("");
   const [hours, setHours] = useState("");
@@ -68,13 +71,41 @@ export default function SingleTable() {
     setDate(formattedDate);
   }
 
+  const calculateTimeDifference = () => {
+
+    if (data.supports_time_range == 1) {
+      let start = new Date(`1970-01-01T${startTime}:00`);
+      let end = new Date(`1970-01-01T${endTime}:00`);
+
+      let difference = end - start;
+
+      let hours = Math.floor(difference / (1000 * 60 * 60));
+      let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+
+      setTime(minutes !== 0 ? `${hours}.${minutes}` : `${hours}`);
+      console.log(start, end, difference);
+      console.log(`Time : ${time}`);
+
+      return minutes !== 0 ? `${hours}.${minutes}` : `${hours}`;
+    }
+    return time;
+  };
+
   function storeTableContent() {
+
+
+
+    calculateTimeDifference();
+
     let message = "";
     axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/content/store`, {
           date: format(date, "yyyy-MM-dd"),
-          time: time,
+          time: calculateTimeDifference(),
+          start_time: startTime || 'null',
+          end_time: endTime || 'null',
+          supports_time_range: data.supports_time_range,
           location: location,
           table_id: data.id,
         })
@@ -83,6 +114,8 @@ export default function SingleTable() {
           setTime("");
           setLocation("");
           setDate("");
+          setStartTime("");
+          setEndTime("");
           message = response.data.message;
         })
         .catch((error) => {
@@ -349,7 +382,7 @@ export default function SingleTable() {
 
           <div className="flex flex-col gap-4 ">
             <div className="p-4 bg-white grid xl:grid-cols-4 gap-4 rounded-lg">
-              <Popover className="flex w-full">
+              <Popover className={'flex w-full'}>
                 <PopoverTrigger asChild>
                   <Button
                     variant={"outline"}
@@ -371,8 +404,14 @@ export default function SingleTable() {
                   />
                 </PopoverContent>
               </Popover>
+              <input value={startTime} onChange={(e) => {
+                setStartTime(e.target.value);
+              }} className={data?.supports_time_range ? '"flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 bg-[#EFEFEF] placeholder:text-black/50 text-black"' : 'hidden'} type="time" id="start_time" name="start_time"></input>
+              <input value={endTime} onChange={(e) => {
+                setEndTime(e.target.value);
+              }} className={data?.supports_time_range ? '"flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 bg-[#EFEFEF] placeholder:text-black/50 text-black"' : 'hidden'} type="time" id="end_time" name="end_time"></input>
               <Input
-                className="flex w-full"
+                className={data?.supports_time_range ? "hidden" : "flex w-full"}
                 type="number"
                 placeholder="Tunnid"
                 min="0"
@@ -386,7 +425,7 @@ export default function SingleTable() {
               <Input
                 className="flex w-full "
                 type="text"
-                placeholder="Asukoht"
+                placeholder="Märge"
                 value={location}
                 onChange={(e) => {
                   setLocation(e.target.value);
@@ -407,7 +446,7 @@ export default function SingleTable() {
             <div className="overflow-x-auto flex flex-col gap-4 p-4 bg-white rounded-lg">
               <div className="flex gap-4">
                 <div className="bg-[#EFEFEF] px-4 py-2 text-black text-md rounded-md ">
-                  Tunnid: {data.hours}
+                  Tunnid: {data?.hours?.toFixed(2)}
                 </div>
 
                 <AlertDialog>
@@ -506,21 +545,32 @@ export default function SingleTable() {
                 <TableHeader>
                   <TableRow>
                     <TableHead className="w-48">Kuupäev</TableHead>
-                    <TableHead className="w-48">Tunnid</TableHead>
-                    <TableHead className="w-auto">Asukoht</TableHead>
+                    <TableHead className={data?.supports_time_range ? 'w-48' : 'hidden'}>Algus</TableHead>
+                    <TableHead className={data?.supports_time_range ? 'w-48' : 'hidden'}>Lõpp</TableHead>
+                    <TableHead className="w-48">{data?.supports_time_range ? 'Tundide kogus' : 'Tunnid'}</TableHead>
+                    <TableHead className="w-auto">Märge</TableHead>
                     <TableHead className="w-4"></TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {data.content?.map((data) => (
-                    <TableRow key={data.id}>
+                  {data.content?.map((el) => (
+                    <TableRow key={el.id}>
                       <TableCell className="font-medium w-48">
-                        {format(data?.date, "PPP")}
+                        {format(el?.date, "PPP")}
                       </TableCell>
-                      <TableCell className="w-48">{data?.time}</TableCell>
-                      <TableCell className="w-auto">
-                        {data?.location || "-"}
+
+                      <TableCell className={data.supports_time_range ? 'w-auto' : 'hidden'}>
+                        {data?.supports_time_range ? el?.start_time : el?.location || "-"}
                       </TableCell>
+
+                      <TableCell className={data.supports_time_range ? 'w-auto' : 'hidden'}>
+                        {el?.end_time}
+                      </TableCell>
+
+                      <TableCell className="w-48">{el?.time}</TableCell>
+
+                      <TableCell className="w-48">{el?.location || "-"}</TableCell>
+
                       <TableCell className="w-fit flex gap-2 justify-end">
                         <AlertDialog>
                           <AlertDialogTrigger>
@@ -528,9 +578,9 @@ export default function SingleTable() {
                               className="w-fit hover:bg-gray-100"
                               variant="outline"
                               onClick={() => {
-                                setDate(data.date);
-                                setTime(data.time);
-                                setLocation(data.location);
+                                setDate(el.date);
+                                setTime(el.time);
+                                setLocation(el.location);
                               }}
                             >
                               <Pencil className="size-4" />
@@ -539,7 +589,7 @@ export default function SingleTable() {
                           <form
                             onSubmit={(event) => {
                               event.preventDefault();
-                              updateTableContent(data.id);
+                              updateTableContent(el.id);
                             }}
                           >
                             <AlertDialogContent>
@@ -597,7 +647,7 @@ export default function SingleTable() {
                                   className="w-full bg-white hover:bg-gray-100"
                                   type="submit"
                                   onClick={() => {
-                                    updateTableContent(data.id);
+                                    updateTableContent(el.id);
                                   }}
                                 >
                                   Uuenda
@@ -628,8 +678,8 @@ export default function SingleTable() {
                           <AlertDialogContent>
                             <AlertDialogHeader>
                               Kas soovite kustutada sissekande? <br />{" "}
-                              {format(data?.date, "PPP")} | {data.time}h |{" "}
-                              {data?.location || "-"}
+                              {format(el?.date, "PPP")} | {el.time}h |{" "}
+                              {el?.location || "-"}
                             </AlertDialogHeader>
                             <AlertDialogFooter>
                               <AlertDialogCancel className="w-full bg-white hover:bg-gray-100 text-black">
@@ -638,7 +688,7 @@ export default function SingleTable() {
                               <AlertDialogAction
                                 className="w-full bg-[#FF0000]/60 text-white hover:bg-red-600"
                                 onClick={() => {
-                                  deleteTableContent(data.id);
+                                  deleteTableContent(el.id);
                                 }}
                               >
                                 Kustuta
