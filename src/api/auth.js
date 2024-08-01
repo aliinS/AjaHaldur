@@ -25,7 +25,7 @@ export function login(email, password) {
     formDataObject.append("email", email);
     formDataObject.append("password", password);
 
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
         promise = axios
             .post("api/login", formDataObject, {
                 headers: {
@@ -52,7 +52,7 @@ export function login(email, password) {
             },
             error: "Error",
         });
-    });
+    // });
 }
 
 export function register(name, email, password) {
@@ -65,7 +65,7 @@ export function register(name, email, password) {
     formDataObject.append("email", email);
     formDataObject.append("password", password);
 
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
         promise = axios
             .post("api/register", formDataObject, {
                 headers: {
@@ -92,13 +92,13 @@ export function register(name, email, password) {
             },
             error: "Error",
         });
-    });
+    // });
 }
 
 export function logout() {
     // const navigate = useNavigate();
 
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
         axios.post('api/logout', {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -129,7 +129,7 @@ export function logout() {
                 // navigate("/");
                 window.location.replace('/');
             })
-    });
+    // });
 }
 
 export function setAuthToken(token) {

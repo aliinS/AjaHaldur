@@ -41,7 +41,7 @@ const GroupBox = ({ text, createdAt, updatedAt, id, isOwner, refreshGroups }) =>
   )}, ${updated_at.getFullYear()}`;
 
   function deleteGroup(id) {
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       axios
         .post(`api/groups/delete/${id}`)
         .then((response) => {
@@ -59,7 +59,7 @@ const GroupBox = ({ text, createdAt, updatedAt, id, isOwner, refreshGroups }) =>
       //   },
       //   error: "can't retrieve data",
       // });
-    });
+    // });
   }
 
   return (

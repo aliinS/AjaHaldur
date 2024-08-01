@@ -59,7 +59,7 @@ export default function Dashboard() {
   }
 
   function loadPersonalTables() {
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .get(`api/tables/personal?page=1&amount=4`)
         .then((response) => {
@@ -79,11 +79,11 @@ export default function Dashboard() {
         },
         error: "Data cannot be retrieved",
       });
-    });
+    // });
   }
 
   function loadMorePersonalTables(amount = 4) {
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .get(`api/tables/personal?page=${page}&amount=${amount}`)
         .then((response) => {
@@ -103,11 +103,11 @@ export default function Dashboard() {
         },
         error: "Data cannot be retrieved",
       });
-    });
+    // });
   }
 
   function loadGroups() {
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .get(`api/groups?page=1&amount=4`)
         .then((response) => {
@@ -127,11 +127,11 @@ export default function Dashboard() {
         },
         error: "Data cannot be retrieved",
       });
-    });
+    // });
   }
 
   function loadMoreGroups(amount = 4) {
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .get(`api/groups?page=${page}&amount=${amount}`)
         .then((response) => {
@@ -151,7 +151,7 @@ export default function Dashboard() {
         },
         error: "Data cannot be retrieved",
       });
-    });
+    // });
   }
 
   function storeUserTable() {
@@ -168,7 +168,7 @@ export default function Dashboard() {
 
 
 
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/store`, {
           title: tableName,
@@ -193,7 +193,7 @@ export default function Dashboard() {
         },
         error: "Table cannot be created",
       });
-    });
+    // });
   }
 
   function storeGroup() {
@@ -207,7 +207,7 @@ export default function Dashboard() {
       return;
     }
 
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/groups/store`, {
           name: groupName,
@@ -229,7 +229,7 @@ export default function Dashboard() {
         },
         error: "Group cannot be created",
       });
-    });
+    // });
   }
 
 
@@ -341,7 +341,7 @@ export default function Dashboard() {
                   : "hidden"
               }
             >
-              <div className="flex flex-col w-full h-[200px] rounded-md border border-[#c2c2c2] p-4">
+              <div className="flex flex-col w-full h-[200px] rounded-md border-2 border-[#c2c2c2] border-dashed p-4">
                 <h1 className="text-xl font-bold h-full">
                   Sul ei ole hetkel ühtegi tabelit
                 </h1>
@@ -427,7 +427,7 @@ export default function Dashboard() {
                   : "hidden"
               }
             >
-              <div className="flex flex-col w-full h-[200px] rounded-md border border-[#c2c2c2] p-4">
+              <div className="flex flex-col w-full h-[200px] rounded-md border-2 border-[#c2c2c2] border-dashed p-4">
                 <h1 className="text-xl font-bold h-full">
                   Sul ei ole hetkel ühtegi gruppi
                 </h1>
