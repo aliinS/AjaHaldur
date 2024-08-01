@@ -85,7 +85,7 @@ export default function SingleGroup() {
   let promise = null;
 
   function fetchGroupInfo() {
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .get(`api/groups/show/${id}`)
         .then((response) => {
@@ -102,11 +102,11 @@ export default function SingleGroup() {
         },
         error: "can't retrieve group data",
       });
-    });
+    // });
   }
 
   function fetchTableInfo(id) {
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .get(`api/groups/get-table/${id}`, {
           params: {
@@ -127,13 +127,13 @@ export default function SingleGroup() {
         },
         error: "can't retrieve group data",
       });
-    });
+    // });
   }
 
   function storeTableContent(table_id, user_id) {
     let message = "";
     console.log(selectedTableData.table)
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/content/store`, {
           date: format(date, "yyyy-MM-dd"),
@@ -161,12 +161,12 @@ export default function SingleGroup() {
         },
         error: message,
       });
-    });
+    // });
   }
 
   function updateTableContent(id) {
     let message = "";
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/content/update/${id}`, {
           date: format(date, "yyyy-MM-dd"),
@@ -195,12 +195,12 @@ export default function SingleGroup() {
         },
         error: message,
       });
-    });
+    // });
   }
 
   function deleteTableContent(id) {
     let message = "";
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .delete(`api/tables/content/delete/${id}`)
         .then((response) => {
@@ -221,12 +221,12 @@ export default function SingleGroup() {
         },
         error: message,
       });
-    });
+    // });
   }
 
   function filterData() {
     let message = "";
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       axios
         .get(
           `api/tables/content/filter/${
@@ -264,7 +264,7 @@ export default function SingleGroup() {
           console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
           message = error.data.message;
         });
-    });
+    // });
   }
 
   function resetFilter(id) {
@@ -281,7 +281,7 @@ export default function SingleGroup() {
 
   function inviteMember() {
     let message = null;
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/groups/invite/${id}`, {
           group_id: data.id,
@@ -304,11 +304,11 @@ export default function SingleGroup() {
         },
         error: message,
       });
-    });
+    // });
   }
 
   function updateGroup() {
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/groups/update/${data.id}`, {
           name: name,
@@ -327,12 +327,12 @@ export default function SingleGroup() {
         },
         error: "can't retrieve data",
       });
-    });
+    // });
   }
 
   function removeMember(userID) {
     let message = null;
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/groups/members/delete/${data.id}`, {
           user_id: userID,
@@ -353,7 +353,7 @@ export default function SingleGroup() {
         },
         error: message,
       });
-    });
+    // });
   }
 
   return (

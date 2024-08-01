@@ -45,7 +45,7 @@ const TableBox = ({ text, createdAt, updatedAt, id, refreshPersonalTables }) => 
   let promise = null;
 
   function deleteTable(id) {
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .delete(`api/tables/delete/${id}`)
         .then((response) => {
@@ -63,7 +63,7 @@ const TableBox = ({ text, createdAt, updatedAt, id, refreshPersonalTables }) => 
         },
         error: "can't retrieve data",
       });
-    });
+    // });
   }
 
   return (

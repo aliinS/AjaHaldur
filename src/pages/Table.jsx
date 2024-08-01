@@ -98,7 +98,7 @@ export default function SingleTable() {
     calculateTimeDifference();
 
     let message = "";
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/content/store`, {
           date: format(date, "yyyy-MM-dd"),
@@ -130,12 +130,12 @@ export default function SingleTable() {
         },
         error: message,
       });
-    });
+    // });
   }
 
   function updateTableContent(id) {
     let message = "";
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/content/update/${id}`, {
           date: date,
@@ -162,12 +162,12 @@ export default function SingleTable() {
         },
         error: message,
       });
-    });
+    // });
   }
 
   function deleteTableContent(id) {
     let message = "";
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .delete(`api/tables/content/delete/${id}`)
         .then((response) => {
@@ -186,12 +186,12 @@ export default function SingleTable() {
         },
         error: message,
       });
-    });
+    // });
   }
 
   function updateTable(id) {
     let message = "";
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .post(`api/tables/update/${id}`, {
           title: title,
@@ -212,12 +212,12 @@ export default function SingleTable() {
         },
         error: message,
       });
-    });
+    // });
   }
 
   function fetchData() {
     let message = "";
-    axios.get("/sanctum/csrf-cookie").then(() => {
+    // axios.get("/sanctum/csrf-cookie").then(() => {
       promise = axios
         .get(`api/tables/show/${id}`)
         .then((response) => {
@@ -246,7 +246,7 @@ export default function SingleTable() {
         },
         error: message,
       });
-    });
+    // });
   }
 
   function filterData(from, to) {
@@ -267,7 +267,7 @@ export default function SingleTable() {
         navigate(`?from=${date1}&to=${date2}`);
       }
 
-      axios.get("/sanctum/csrf-cookie").then(() => {
+      // axios.get("/sanctum/csrf-cookie").then(() => {
         promise = axios
           .get(`api/tables/content/filter/${id}?from=${date1}&to=${date2}`)
           .then((response) => {
@@ -305,7 +305,7 @@ export default function SingleTable() {
           },
           error: message,
         });
-      });
+      // });
     }
   }
 

@@ -12,7 +12,7 @@ axios.defaults.withXSRFToken = true;
 
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token"));
-  axios.get("/sanctum/csrf-cookie").then(() => {
+  // axios.get("/sanctum/csrf-cookie").then(() => {
     axios
       .get(`api/me`)
       .then((response) => {
@@ -46,7 +46,7 @@ if (localStorage.getItem("token")) {
             });
         }
       });
-  });
+  // });
 }
 
 
