@@ -145,13 +145,13 @@ export default function SettingsTable() {
               <img
                 src={avatarPreview}
                 alt="Avatar Preview"
-                className="w-20 h-20 rounded-full object-cover"
+                className="w-20 h-20 rounded-full object-cover border border-gray-300"
               />
             ) : (
               <img
                 src={`http://127.0.0.1:8000/api/avatar/${JSON.parse(localStorage.getItem("user")).uuid}/small`}
                 alt="Avatar"
-                className="w-20 h-20 rounded-full object-cover"
+                className="w-20 h-20 rounded-full object-cover border border-gray-300"
               />
             )}
             <input

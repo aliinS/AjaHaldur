@@ -106,7 +106,7 @@ function RegistrationModal({ onClose, activeTab }) {
                                     />
                                     <div className='flex items-center gap-2'>
                                         <Checkbox required className="checkbox" />
-                                        <p className=' leading-snug text-black'>Konto registreerimisel nõustud meie <br /><a className='underline pr-1' href="#privacy-policy">privaatsuspoliitika</a>ja muude tingimustega.</p>
+                                        <p className=' leading-snug text-black'>Konto registreerimisel nõustud meie <br /><a className='underline pr-1' target="_blank" href="/privacy">privaatsuspoliitika</a>ja muude tingimustega.</p>
                                     </div>
                                     <Button className="w-full">Registreeri</Button>
                                 </form>
