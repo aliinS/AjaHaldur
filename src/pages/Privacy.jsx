@@ -60,13 +60,10 @@ function Privacy() {
             <ul className="list-disc pl-6 text-gray-700">
               <li>Pääseda ligi oma isikuandmetele</li>
               <li>Uuendada oma profiili informatsiooni (nimi, e-post ja profiilipilt) igal ajal</li>
+              <li>Kustutada oma konto ja andmed seadete alt veebis või profiili alt mobiilirakenduses</li>
             </ul>
             <p className="text-gray-700 mt-4">
-              Kui soovite oma konto kustutada, palun võtke meiega ühendust aadressil{" "}
-              <a href="mailto:privacy-ajahaldur@matlikofficial.com" className="text-blue-600 hover:underline">
-                privacy-ajahaldur@matlikofficial.com
-              </a>
-              . Konto kustutamisel eemaldame:
+              Konto kustutamisel eemaldame:
             </p>
             <ul className="list-disc pl-6 text-gray-700 mt-2">
               <li>Teie isikuandmed (nimi, e-post, profiilipilt)</li>
@@ -82,8 +79,8 @@ function Privacy() {
             <h2 className="text-2xl font-semibold mb-4">5. Võtke Meiega Ühendust</h2>
             <p className="text-gray-700">
               Kui teil on küsimusi meie privaatsuspoliitika või andmete käsitlemise kohta, palun võtke meiega ühendust aadressil{" "}
-              <a href="mailto:privacy-ajahaldur@matlikofficial.com" className="text-blue-600 hover:underline">
-                privacy-ajahaldur@matlikofficial.com
+              <a href="mailto:ajahaldur@matlikofficial.com" className="text-blue-600 hover:underline">
+                ajahaldur@matlikofficial.com
               </a>
             </p>
           </section>

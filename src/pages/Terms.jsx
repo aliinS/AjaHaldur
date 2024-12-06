@@ -73,8 +73,8 @@ function Terms() {
             <h2 className="text-2xl font-semibold mb-4">6. Kontakt</h2>
             <p className="text-gray-700">
               Küsimuste korral kasutustingimuste kohta võtke meiega ühendust aadressil{" "}
-              <a href="mailto:privacy-ajahaldur@matlikofficial.com" className="text-blue-600 hover:underline">
-                privacy-ajahaldur@matlikofficial.com
+              <a href="mailto:ajahaldur@matlikofficial.com" className="text-blue-600 hover:underline">
+                ajahaldur@matlikofficial.com
               </a>
             </p>
           </section>
