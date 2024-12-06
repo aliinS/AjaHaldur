@@ -9,6 +9,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
 
 const Footer = () => {
     return (
@@ -30,7 +31,7 @@ const Footer = () => {
                                     Hetkel kahjuks ei saa meid veel jälgida!
                                 </DialogDescription>
                             </DialogContent>
-                        </Dialog>                    
+                        </Dialog>
                     </div>
                     <p className='font-thin'>* Jälgides nõustute meie privaatsuspoliitikaga ning annate nõusoleku saada uuendusi meie ettevõttelt.</p>
                 </div>
@@ -59,41 +60,11 @@ const Footer = () => {
             <div className="mt-10 mb-10 flex flex-col border-t md:items-center justify-between w-full md:px-3">
                 <div className="flex flex-col md:flex-row-reverse md:justify-between gap-4 md:gap-0 md:items-center mt-3 md:w-full">
                     <div className="flex flex-col md:flex-row gap-4 underline underline-offset-4 md:w-full md:justify-end">
-                        <Dialog id='priv-policy'>
-                            <DialogTrigger>Privaatsusteave</DialogTrigger>
-                            <DialogContent>
-                                <DialogHeader>
-                                    <DialogTitle>Privaatsusteave</DialogTitle>
-                                    <DialogDescription>
-                                        Tulevikus näete siin teavet privaatsuse kohta.
-                                    </DialogDescription>
-                                </DialogHeader>
-                            </DialogContent>
-                        </Dialog>
+                        <Link to="/privacy">Privaatsusteave</Link>
 
-                        <Dialog>
-                            <DialogTrigger>Kasutustingimused</DialogTrigger>
-                            <DialogContent>
-                                <DialogHeader>
-                                    <DialogTitle>Kasutustingimused</DialogTitle>
-                                    <DialogDescription>
-                                        Tulevikus on siin teave kasutustingimuste kohta.
-                                    </DialogDescription>
-                                </DialogHeader>
-                            </DialogContent>
-                        </Dialog>
+                        <Link to="/terms">Kasutustingimused</Link>
 
-                        <Dialog>
-                            <DialogTrigger>Küpsiste sätted</DialogTrigger>
-                            <DialogContent>
-                                <DialogHeader>
-                                    <DialogTitle>Küpsiste sätted</DialogTitle>
-                                    <DialogDescription>
-                                        Tulevikus saate siin oma küpsiste sätteid muuta.
-                                    </DialogDescription>
-                                </DialogHeader>
-                            </DialogContent>
-                        </Dialog>
+                        <Link to="/cookies">Küpsiste sätted</Link>
                     </div>
                     <p className="text-sm flex items-center md:items-start pt-3 md:w-full">
                         <span className="mr-1">&copy;</span>

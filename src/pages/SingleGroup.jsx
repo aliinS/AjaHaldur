@@ -76,57 +76,65 @@ export default function SingleGroup() {
   const [selectedFilterDate1, setSelectedFilterDate1] = useState(null);
   const [selectedFilterDate2, setSelectedFilterDate2] = useState(null);
   const [diplayFilteredDate, setDisplayFilteredDate] = useState("");
+  const [myUser, setMyUser] = useState({});
 
   const [date, setDate] = useState();
   const [time, setTime] = useState();
   const [location, setLocation] = useState();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    setMyUser(user);
+  }, []);
+
   let promise = null;
+
+  console.log(data)
 
   function fetchGroupInfo() {
     // axios.get("/sanctum/csrf-cookie").then(() => {
-      promise = axios
-        .get(`api/groups/show/${id}`)
-        .then((response) => {
-          setData(response.data.group);
-        })
-        .catch((error) => {
-          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-        });
-
-      toast.promise(promise, {
-        loading: "Loading...",
-        success: (data) => {
-          return `Group info retrieved successfully`;
-        },
-        error: "can't retrieve group data",
+    promise = axios
+      .get(`api/groups/show/${id}`)
+      .then((response) => {
+        setData(response.data.group);
+      })
+      .catch((error) => {
+        console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
       });
+
+    toast.promise(promise, {
+      loading: "Loading...",
+      success: (data) => {
+        return `Group info retrieved successfully`;
+      },
+      error: "can't retrieve group data",
+    });
     // });
   }
 
   function fetchTableInfo(id) {
     // axios.get("/sanctum/csrf-cookie").then(() => {
-      promise = axios
-        .get(`api/groups/get-table/${id}`, {
-          params: {
-            group_id: data.id,
-          },
-        })
-        .then((response) => {
-          setSelectedTableData(response.data);
-        })
-        .catch((error) => {
-          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-        });
-
-      toast.promise(promise, {
-        loading: "Loading....",
-        success: (data) => {
-          return `Group info retrieved successfully`;
+    promise = axios
+      .get(`api/groups/get-table/${id}`, {
+        params: {
+          group_id: data.id,
         },
-        error: "can't retrieve group data",
+      })
+      .then((response) => {
+        setSelectedTableData(response.data);
+      })
+      .catch((error) => {
+        console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
       });
+
+    toast.promise(promise, {
+      loading: "Loading....",
+      success: (data) => {
+        return `Group info retrieved successfully`;
+      },
+      error: "can't retrieve group data",
+    });
     // });
   }
 
@@ -134,136 +142,135 @@ export default function SingleGroup() {
     let message = "";
     console.log(selectedTableData.table)
     // axios.get("/sanctum/csrf-cookie").then(() => {
-      promise = axios
-        .post(`api/tables/content/store`, {
-          date: format(date, "yyyy-MM-dd"),
-          time: time,
-          location: location,
-          supports_time_range: selectedTableData.table.supports_time_range,
-          table_id: selectedTableData.table.id,
-        })
-        .then((response) => {
-          fetchTableInfo(user_id);
-          setTime("");
-          setLocation("");
-          setDate("");
-          message = response.data.message;
-        })
-        .catch((error) => {
-          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-          message = error.data.message;
-        });
-
-      toast.promise(promise, {
-        loading: "Loading...",
-        success: (data) => {
-          return message;
-        },
-        error: message,
+    promise = axios
+      .post(`api/tables/content/store`, {
+        date: format(date, "yyyy-MM-dd"),
+        time: time,
+        location: location,
+        supports_time_range: selectedTableData.table.supports_time_range,
+        table_id: selectedTableData.table.id,
+      })
+      .then((response) => {
+        fetchTableInfo(user_id);
+        setTime("");
+        setLocation("");
+        setDate("");
+        message = response.data.message;
+      })
+      .catch((error) => {
+        console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+        message = error.data.message;
       });
+
+    toast.promise(promise, {
+      loading: "Loading...",
+      success: (data) => {
+        return message;
+      },
+      error: message,
+    });
     // });
   }
 
   function updateTableContent(id) {
     let message = "";
     // axios.get("/sanctum/csrf-cookie").then(() => {
-      promise = axios
-        .post(`api/tables/content/update/${id}`, {
-          date: format(date, "yyyy-MM-dd"),
-          time: time,
-          location: location,
-          table_id: selectedTableData.table.id,
-        })
-        .then((response) => {
-          fetchGroupInfo();
-          setTime(null);
-          setLocation(null);
-          setDate(null);
-          message = response.data.message;
+    promise = axios
+      .post(`api/tables/content/update/${id}`, {
+        date: format(date, "yyyy-MM-dd"),
+        time: time,
+        location: location,
+        table_id: selectedTableData.table.id,
+      })
+      .then((response) => {
+        fetchGroupInfo();
+        setTime(null);
+        setLocation(null);
+        setDate(null);
+        message = response.data.message;
 
-          fetchTableInfo(selectedTableData.table.group_member_id);
-        })
-        .catch((error) => {
-          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-          message = error.data.message;
-        });
-
-      toast.promise(promise, {
-        loading: "Loading...",
-        success: (data) => {
-          return message;
-        },
-        error: message,
+        fetchTableInfo(selectedTableData.table.group_member_id);
+      })
+      .catch((error) => {
+        console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+        message = error.data.message;
       });
+
+    toast.promise(promise, {
+      loading: "Loading...",
+      success: (data) => {
+        return message;
+      },
+      error: message,
+    });
     // });
   }
 
   function deleteTableContent(id) {
     let message = "";
     // axios.get("/sanctum/csrf-cookie").then(() => {
-      promise = axios
-        .delete(`api/tables/content/delete/${id}`)
-        .then((response) => {
-          fetchGroupInfo();
-          message = response.data.message;
+    promise = axios
+      .delete(`api/tables/content/delete/${id}`)
+      .then((response) => {
+        fetchGroupInfo();
+        message = response.data.message;
 
-          fetchTableInfo(selectedTableData.table.group_member_id);
-        })
-        .catch((error) => {
-          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-          message = error.data.message;
-        });
-
-      toast.promise(promise, {
-        loading: "Loading...",
-        success: (data) => {
-          return message;
-        },
-        error: message,
+        fetchTableInfo(selectedTableData.table.group_member_id);
+      })
+      .catch((error) => {
+        console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+        message = error.data.message;
       });
+
+    toast.promise(promise, {
+      loading: "Loading...",
+      success: (data) => {
+        return message;
+      },
+      error: message,
+    });
     // });
   }
 
   function filterData() {
     let message = "";
     // axios.get("/sanctum/csrf-cookie").then(() => {
-      axios
-        .get(
-          `api/tables/content/filter/${
-            selectedTableData?.table?.id
-          }?from=${format(selectedFilterDate1, "yyyy-MM-dd")}&to=${format(
+    axios
+      .get(
+        `api/tables/content/filter/${selectedTableData?.table?.id
+        }?from=${format(selectedFilterDate1, "yyyy-MM-dd")}&to=${format(
+          selectedFilterDate2,
+          "yyyy-MM-dd"
+        )}`,
+        {
+          group_id: data.id,
+          date1: format(selectedFilterDate1, "yyyy-MM-dd"),
+          date2: format(selectedFilterDate2, "yyyy-MM-dd"),
+        }
+      )
+      .then((response) => {
+        setFiltered(true);
+        setDisplayFilteredDate(
+          `${format(selectedFilterDate1, "PPP")} - ${format(
             selectedFilterDate2,
-            "yyyy-MM-dd"
-          )}`,
-          {
-            group_id: data.id,
-            date1: format(selectedFilterDate1, "yyyy-MM-dd"),
-            date2: format(selectedFilterDate2, "yyyy-MM-dd"),
-          }
-        )
-        .then((response) => {
-          setFiltered(true);
-          setDisplayFilteredDate(
-            `${format(selectedFilterDate1, "PPP")} - ${format(
-              selectedFilterDate2,
-              "PPP"
-            )}`
-          );
+            "PPP"
+          )}`
+        );
 
-          const newData = {
-            ...selectedTableData,
-            tableContent: response.data.content,
-            hours: response.data.hours,
-          };
+        const newData = {
+          ...selectedTableData,
+          tableContent: response.data.content,
+          hours: response.data.hours,
+        };
 
-          setSelectedTableData(newData);
+        setSelectedTableData(newData);
 
-          message = response.data.message;
-        })
-        .catch((error) => {
-          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-          message = error.data.message;
-        });
+        message = response.data.message;
+      })
+      .catch((error) => {
+        console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+        message = error.data.message;
+      });
     // });
   }
 
@@ -282,77 +289,77 @@ export default function SingleGroup() {
   function inviteMember() {
     let message = null;
     // axios.get("/sanctum/csrf-cookie").then(() => {
-      promise = axios
-        .post(`api/groups/invite/${id}`, {
-          group_id: data.id,
-          email: inviteEmail,
-        })
-        .then((response) => {
-          // fetchData();
-          fetchGroupInfo();
-          message = response.data.message;
-        })
-        .catch((error) => {
-          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-          message = error.response.data.message;
-        });
-
-      toast.promise(promise, {
-        loading: "Loading...",
-        success: (data) => {
-          return message;
-        },
-        error: message,
+    promise = axios
+      .post(`api/groups/invite/${id}`, {
+        group_id: data.id,
+        email: inviteEmail,
+      })
+      .then((response) => {
+        // fetchData();
+        fetchGroupInfo();
+        message = response.data.message;
+      })
+      .catch((error) => {
+        console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+        message = error.response.data.message;
       });
+
+    toast.promise(promise, {
+      loading: "Loading...",
+      success: (data) => {
+        return message;
+      },
+      error: message,
+    });
     // });
   }
 
   function updateGroup() {
     // axios.get("/sanctum/csrf-cookie").then(() => {
-      promise = axios
-        .post(`api/groups/update/${data.id}`, {
-          name: name,
-        })
-        .then((response) => {
-          fetchGroupInfo();
-        })
-        .catch((error) => {
-          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-        });
-
-      toast.promise(promise, {
-        loading: "Loading...",
-        success: (data) => {
-          return `Table updated successfully`;
-        },
-        error: "can't retrieve data",
+    promise = axios
+      .post(`api/groups/update/${data.id}`, {
+        name: name,
+      })
+      .then((response) => {
+        fetchGroupInfo();
+      })
+      .catch((error) => {
+        console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
       });
+
+    toast.promise(promise, {
+      loading: "Loading...",
+      success: (data) => {
+        return `Table updated successfully`;
+      },
+      error: "can't retrieve data",
+    });
     // });
   }
 
   function removeMember(userID) {
     let message = null;
     // axios.get("/sanctum/csrf-cookie").then(() => {
-      promise = axios
-        .post(`api/groups/members/delete/${data.id}`, {
-          user_id: userID,
-        })
-        .then((response) => {
-          fetchGroupInfo();
-          message = response.data.message;
-        })
-        .catch((error) => {
-          console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
-          message = error.response.data.message;
-        });
-
-      toast.promise(promise, {
-        loading: "Loading...",
-        success: (data) => {
-          return message;
-        },
-        error: message,
+    promise = axios
+      .post(`api/groups/members/delete/${data.id}`, {
+        user_id: userID,
+      })
+      .then((response) => {
+        fetchGroupInfo();
+        message = response.data.message;
+      })
+      .catch((error) => {
+        console.log("%cERROR: ", "color: tomato; font-weight: bold;", error);
+        message = error.response.data.message;
       });
+
+    toast.promise(promise, {
+      loading: "Loading...",
+      success: (data) => {
+        return message;
+      },
+      error: message,
+    });
     // });
   }
 
@@ -484,8 +491,20 @@ export default function SingleGroup() {
                         {data?.membersList.map((user) => {
                           return (
                             <TableRow key={user.id}>
-                              <TableCell>{user.name}</TableCell>
-                              <TableCell>{user.email}</TableCell>
+                              <TableCell className="flex flex-col gap-2">
+                                <div className="flex items-center gap-2">
+                                  <img src={`http://127.0.0.1:8000/api/avatar/${user.uuid}/small`} alt="Avatar" className="w-10 h-10 rounded-full object-cover border border-gray-300" />
+                                  {user.deleted ? '(Kustutatud kasutaja)' : user.name}
+                                </div>
+                                {user.deleted ? (
+                                  <p className="text-xs text-gray-500">
+                                    Andmed säilitatud vastavalt privaatsuspoliitikale
+                                  </p>
+                                ) : null}
+                              </TableCell>
+                              <TableCell>
+                                {user.deleted ? '(Kustutatud)' : user.email}
+                              </TableCell>
                             </TableRow>
                           );
                         })}
@@ -519,7 +538,17 @@ export default function SingleGroup() {
                       className="flex flex-col lg:flex-row items-center bg-[#EFEFEF] m-4 rounded-lg"
                     >
                       <TableCell className="font-bold text-xl text-black w-full text-center lg:w-full lg:text-left">
-                        {user.name}
+                        <div className="flex flex-col gap-2">
+                          <div className="flex items-center gap-2">
+                            <img src={`http://127.0.0.1:8000/api/avatar/${user.uuid}/small`} alt="Avatar" className="w-10 h-10 rounded-full object-cover border border-gray-300" />
+                            {user.deleted ? '(Kustutatud kasutaja)' : user.name}
+                          </div>
+                          {user.deleted ? (
+                            <p className="text-xs text-gray-500">
+                              Andmed säilitatud vastavalt privaatsuspoliitikale
+                            </p>
+                          ) : null}
+                        </div>
                       </TableCell>
                       <TableCell className="w-full lg:w-fit">
                         <AlertDialogDesc>
@@ -537,17 +566,17 @@ export default function SingleGroup() {
                           <AlertDialogContentDesc className="items-center flex flex-col w-full max-h-screen overflow-auto">
                             <AlertDialogHeaderDesc className="flex w-full">
                               <AlertDialogTitleDesc className="text-black bg-white flex w-full justify-between h-fit p-4 rounded-lg items-center">
-                                <h1>Töötunnid - {user.name}</h1>
+                                <h1>Töötunnid - {user.deleted ? '(Kustutatud kasutaja)' : user.name}</h1>
                                 <AlertDialog>
                                   <AlertDialogTrigger asChild>
-                                    <Button variant="ghost">
+                                    <Button variant="ghost" disabled={user.id != myUser.id}>
                                       <PlusCircle className="size-6" />
                                     </Button>
                                   </AlertDialogTrigger>
                                   <AlertDialogContent>
                                     <AlertDialogHeader className="text-black bg-white flex w-full justify-between h-fit p-4 rounded-lg font-bold">
                                       Sisesta uus töötund
-                                      </AlertDialogHeader>
+                                    </AlertDialogHeader>
                                     <Popover className="flex w-full">
                                       <PopoverTrigger asChild>
                                         <Button
@@ -649,7 +678,7 @@ export default function SingleGroup() {
                                           className={cn(
                                             "w-full justify-start text-left font-normal",
                                             !selectedFilterDate1 &&
-                                              "text-muted-foreground"
+                                            "text-muted-foreground"
                                           )}
                                         >
                                           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -677,7 +706,7 @@ export default function SingleGroup() {
                                           className={cn(
                                             "w-full justify-start text-left font-normal",
                                             !selectedFilterDate2 &&
-                                              "text-muted-foreground"
+                                            "text-muted-foreground"
                                           )}
                                         >
                                           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -785,7 +814,7 @@ export default function SingleGroup() {
                                                       className={cn(
                                                         "w-full h-fit p-4 px-1 justify-start text-left font-normal bg-white hover:bg-gray-100",
                                                         !date &&
-                                                          "text-muted-foreground"
+                                                        "text-muted-foreground"
                                                       )}
                                                     >
                                                       <CalendarIcon className="mr-2 h-4 w-4" />
@@ -897,18 +926,7 @@ export default function SingleGroup() {
                         </AlertDialogDesc>
                       </TableCell>
 
-                      {data?.isOwner && (
-                        <TableCell className="w-full lg:w-fit">
-                          <Button
-                            variant="secondary"
-                            className="w-full bg-white text-black hover:bg-gray-100 lg:w-fit"
-                          >
-                            Õigused
-                          </Button>
-                        </TableCell>
-                      )}
-
-                      {data?.isOwner && (
+                      {user.id != myUser.id && data?.isOwner && (
                         <TableCell className="w-full lg:w-fit">
                           <AlertDialog>
                             <AlertDialogTrigger className="w-full lg:w-fit">
