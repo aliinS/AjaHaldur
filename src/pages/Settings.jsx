@@ -137,49 +137,49 @@ export default function SettingsTable() {
           <p className="text-black/75">Muuda oma seaded siin.</p>
         </div>
 
-        {/* Avatar settings */}
-        <div className="w-full h-fit bg-white rounded p-2 text-black flex flex-col gap-2">
-          <h1 className="text-xl">Profiilipilt</h1>
-          <div className="flex gap-2 items-center">
-            {avatarPreview ? (
-              <img
-                src={avatarPreview}
-                alt="Avatar Preview"
-                className="w-20 h-20 rounded-full object-cover border border-gray-300"
+        /* Avatar settings */}
+          <div className="w-full h-fit bg-white rounded p-2 text-black flex flex-col gap-2">
+            <h1 className="text-xl">Profiilipilt</h1>
+            <div className="flex gap-2 items-center">
+              {avatarPreview ? (
+                <img
+            src={avatarPreview}
+            alt="Avatar Preview"
+            className="w-20 h-20 rounded-full object-cover border border-gray-300"
+                />
+              ) : (
+                <img
+            src={`${import.meta.env.VITE_API_URL}api/avatar/${JSON.parse(localStorage.getItem("user")).uuid}/small`}
+            alt="Avatar"
+            className="w-20 h-20 rounded-full object-cover border border-gray-300"
+                />
+              )}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+                className="hidden"
+                id="avatar-upload"
               />
-            ) : (
-              <img
-                src={`http://127.0.0.1:8000/api/avatar/${JSON.parse(localStorage.getItem("user")).uuid}/small`}
-                alt="Avatar"
-                className="w-20 h-20 rounded-full object-cover border border-gray-300"
-              />
-            )}
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleAvatarChange}
-              className="hidden"
-              id="avatar-upload"
-            />
-            <label htmlFor="avatar-upload" className="cursor-pointer">
-              <Upload size={24} />
-            </label>
-            <button
-              onClick={uploadAvatar}
-              className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
-            >
-              Laadi üles
-            </button>
-            <button
-              onClick={deleteAvatar}
-              className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-            >
-              <Trash2 size={24} />
-            </button>
+              <label htmlFor="avatar-upload" className="cursor-pointer">
+                <Upload size={24} />
+              </label>
+              <button
+                onClick={uploadAvatar}
+                className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+              >
+                Laadi üles
+              </button>
+              <button
+                onClick={deleteAvatar}
+                className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+              >
+                <Trash2 size={24} />
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* Name settings */}
+          {/* Name settings */}
         <form
           onSubmit={(event) => {
             event.preventDefault();

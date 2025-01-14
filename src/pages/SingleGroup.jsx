@@ -493,7 +493,7 @@ export default function SingleGroup() {
                             <TableRow key={user.id}>
                               <TableCell className="flex flex-col gap-2">
                                 <div className="flex items-center gap-2">
-                                  <img src={`http://127.0.0.1:8000/api/avatar/${user.uuid}/small`} alt="Avatar" className="w-10 h-10 rounded-full object-cover border border-gray-300" />
+                                  <img src={`${import.meta.env.VITE_API_URL}api/avatar/${user.uuid}/small`} alt="Avatar" className="w-10 h-10 rounded-full object-cover border border-gray-300" />
                                   {user.deleted ? '(Kustutatud kasutaja)' : user.name}
                                 </div>
                                 {user.deleted ? (
@@ -540,7 +540,7 @@ export default function SingleGroup() {
                       <TableCell className="font-bold text-xl text-black w-full text-center lg:w-full lg:text-left">
                         <div className="flex flex-col gap-2">
                           <div className="flex items-center gap-2">
-                            <img src={`http://127.0.0.1:8000/api/avatar/${user.uuid}/small`} alt="Avatar" className="w-10 h-10 rounded-full object-cover border border-gray-300" />
+                            <img src={`${import.meta.env.VITE_API_URL}api/avatar/${user.uuid}/small`} alt="Avatar" className="w-10 h-10 rounded-full object-cover border border-gray-300" />
                             {user.deleted ? '(Kustutatud kasutaja)' : user.name}
                           </div>
                           {user.deleted ? (
