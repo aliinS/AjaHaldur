@@ -136,8 +136,6 @@ export default function SettingsTable() {
           <h1 className="font-bold text-2xl">SEADED</h1>
           <p className="text-black/75">Muuda oma seaded siin.</p>
         </div>
-
-        /* Avatar settings */}
           <div className="w-full h-fit bg-white rounded p-2 text-black flex flex-col gap-2">
             <h1 className="text-xl">Profiilipilt</h1>
             <div className="flex gap-2 items-center">
